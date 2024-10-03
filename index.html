@@ -554,7 +554,7 @@
   };
 
   // Store cell data
-  globalThis.qwebrCellDetails = [{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-1","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":1,"code":"m1 <- lm(Sepal.Length ~ Sepal.Width, data = iris)\nsummary(m1)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"false","context":"interactive","read-only":"false","label":"unnamed-chunk-2","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":2,"code":"p1 <- ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) +\n  geom_point() +  # Scatter plot of the data points\n  geom_smooth(method = \"lm\", col = \"#1F67A4\") +  # Regression line\n  labs(title = \"Simple Linear Regression\",\n       x = \"Sepal Width\",\n       y = \"Sepal Length\")\np1"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"false","context":"interactive","read-only":"false","label":"unnamed-chunk-3","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":3,"code":"m2 <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)\np2 <- ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) +\n  geom_point() +  \n  geom_smooth(method = \"lm\", aes(x = Sepal.Width, y = predict(m2, iris)), color = \"#0097A7\") +\n  labs(title = \"Sepal Length vs Sepal Width\",x = \"Sepal Width\",y = \"Sepal Length\")\np3 <- ggplot(iris, aes(x = Petal.Length, y = Sepal.Length)) +\n  geom_point() + \n  geom_smooth(method = \"lm\", aes(x = Petal.Length, y = predict(m2, iris)), color = \"#795796\") +\n  labs(title = \"Sepal Length vs Petal Length\",x = \"Petal Length\", y = \"Sepal Length\")\np2 + p3 # Combine both plots"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-4","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":4,"code":"titanic <- read.csv(\"https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv\")\nm3 <- glm(Survived~Pclass + Sex + Age, family=\"binomial\",data=titanic)\nexp(coef(m3))\nexp(confint(m3))"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-5","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":5,"code":"R_Int_mod <- lmer(sqrt_abund ~ Scale_Yr + (1|FStation),\ndata=Kukupa)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-6","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":6,"code":"# First let's make some data to play with.\nvec_dat <- data.frame(x = 1:5, y = NA_real_)\nvec_dat\nloop_dat <- data.frame(t = 1:5, N = NA_real_)\nloop_dat\n\n# What is the difference between vectorization and iteration?\nvec_dat$y <- 4*vec_dat$x + 3\nvec_dat\n\nloop_dat$N[1] <- 2\nfor(i in 1:4) {\n  loop_dat$N[i + 1] <- loop_dat$N[i]*exp(0.5*(1 - loop_dat$N[i]/30))\n}\nloop_dat"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-7","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":7,"code":"# This is a stupid example, but it creates some data for us.\nfor(i in 1:20) {\n  write.csv(data.frame(ID = paste0(\"DataLogger-\", i),\n                    Temperature = runif(30, 10, 20),\n                    Wind = runif(30, 0, 15),\n                    Battery = \"Normal\"),\n            paste0(getwd(), \"/WeatherStation_\", i, \".csv\"))\n}\n\n# Now lets check our work.\nlist.files(getwd(), pattern = \"WeatherStation_\")"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-8","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":8,"code":"# This is the code we just wrote.\nfor(i in 1:20) {write.csv(data.frame(ID = paste0(\"DataLogger-\", i),\n                Temperature = runif(30, 10, 20), Wind = runif(30, 0, 15),\n                Battery = \"Normal\"),paste0(getwd(), \"/WeatherStation_\", i, \".csv\"))}\n\n# What if we want to read in a bunch of data files?\ndf <- lapply(paste0(getwd(), \"/\", list.files(getwd(), pattern = \".csv\")), read.csv)\n\nlapply(df, function(x) head(x,3))[1:2]\n\ndf2 <- do.call(rbind, lapply(paste0(getwd(), \"/\",\n                             list.files(getwd(), pattern = \".csv\")), read.csv))\nhead(df2)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-9","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":9,"code":"# Create some genetic data.\ngenetic_data <- data.frame(matrix(data = sample(c(\"A\", \"T\", \"G\", \"C\"), 3000, replace = TRUE),\n                                  nrow = 300, ncol = 10))\nhead(genetic_data)\n\n# I want to know how many A's there are in each column.\napply(genetic_data, 2, table)[1,]"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-10","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":10,"code":"if(TRUE) {print(\"I have to work today.\")}\n\nif(FALSE) {print(\"I have to work today.\")\n} else {print(\"It is the weekend!\")}\n\nif(FALSE) {print(\"I have to work today.\")\n} else if(TRUE) {print(\"It is the weekend!\")}\n\nx <- 10\nx == 10\nx != 10"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-11","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":11,"code":"column1 <- c(1:10, NA)\ncolumn1\nany(is.na(column1))\nis.numeric(column1)\n!is.numeric(column1)\n\nifelse(TRUE, \"cold\", \"hot\")\n\n# Make some data.\ndf2 <- data.frame(ID = \"DataLogger-20\", Temperature = runif(30, 10, 20),\n                  Wind = runif(30, 0, 15), Battery = \"Normal\")\n                    \nhead(df2)\ndf2$WindClass <- ifelse(df2$Wind >= 10, \"Windy\", \"Still\")"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-12","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":12,"code":"# This is the code from before to make the data.\nfor(i in 1:20) {\nwrite.csv(data.frame(ID = paste0(\"DataLogger-\", i), Temperature = runif(30, 10, 20),\nWind = runif(30, 0, 15), Battery = \"Normal\"), paste0(getwd(), \"/WeatherStation_\", i, \".csv\"))}"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-13","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":13,"code":"# This is the code from before to make the data.\nfor(i in 1:20) {\nwrite.csv(data.frame(ID = paste0(\"DataLogger-\", i), Temperature = runif(30, 10, 20),\nWind = runif(30, 0, 15), Battery = \"Normal\"), paste0(getwd(), \"/WeatherStation_\", i, \".csv\"))}\n\nfor(i in seq_along(list.files(getwd(), pattern = \"WeatherStation_\"))) {\n  tmp <- read.csv(paste0(getwd(), \"/\", list.files(getwd(), pattern = \".csv\"))[i])\n  if(i == 1) {weather_dat <- tmp\n  } else {weather_dat <- rbind(weather_dat, tmp)}}"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-14","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":14,"code":"# This is the code from before to make the data.\nfor(i in 1:20) {\nwrite.csv(data.frame(ID = paste0(\"DataLogger-\", i), Temperature = runif(30, 10, 20),\nWind = runif(30, 0, 15), Battery = \"Normal\"), paste0(getwd(), \"/WeatherStation_\", i, \".csv\"))}\n\n# Use this code to put some NA's into the \"Weather Station\" files.\nwrite.csv(data.frame(ID = \"DataLogger-7\", Temperature = c(runif(28, 10, 20), NA, NA),\n          Wind = c(runif(28, 0, 15), NA, NA), Battery = c(rep(\"Normal\", 28), \"Low\", \"Low\")),\n          paste0(getwd(), \"/WeatherStation_7.csv\"))\n\n"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-15","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":15,"code":"# This is the code from before to make the data.\nfor(i in 1:20) {\nwrite.csv(data.frame(ID = paste0(\"DataLogger-\", i), Temperature = runif(30, 10, 20),\nWind = runif(30, 0, 15), Battery = \"Normal\"), paste0(getwd(), \"/WeatherStation_\", i, \".csv\"))}\n\n# Use this code to put some NA's into the \"Weather Station\" files.\nwrite.csv(data.frame(ID = \"DataLogger-7\", Temperature = c(runif(28, 10, 20), NA, NA),\n          Wind = c(runif(28, 0, 15), NA, NA), Battery = c(rep(\"Normal\", 28), \"Low\", \"Low\")),\n          paste0(getwd(), \"/WeatherStation_7.csv\"))\n\nfor(i in seq_along(list.files(getwd(), pattern = \"WeatherStation_\"))) {\n  tmp <- read.csv(paste0(getwd(), \"/\", list.files(getwd(), pattern = \".csv\"))[i])\n  if(!any(is.na(tmp))) {\n  if(i == 1) {weather_dat <- tmp\n  } else {weather_dat <- rbind(weather_dat, tmp)}}}"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-16","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":16,"code":"dat <- data.frame(A = rnorm(100, 10, 5), B = rpois(100, 10), C = rnorm(100, 50, 10),\n                  X = runif(100, 0, 100), Y = rbeta(100, 1, 2), Z = rnorm(100, 0, 1))\n"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-17","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":17,"code":"dat <- data.frame(A = rnorm(100, 10, 5), B = rpois(100, 10), C = rnorm(100, 50, 10),\n                  X = runif(100, 0, 100), Y = rbeta(100, 1, 2), Z = rnorm(100, 0, 1))\n\napply(dat, 2, shapiro.test)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-18","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":18,"code":"# Make some data.\ndf2 <- data.frame(X = 1:30, ID = \"DataLogger-20\", Temperature = runif(30, 10, 20),\n                  Wind = runif(30, 0, 15), Battery = \"Normal\")\n"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-19","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":19,"code":"# Make some data.\ndf2 <- data.frame(X = 1:30, ID = \"DataLogger-20\", Temperature = runif(30, 10, 20),\n                  Wind = runif(30, 0, 15), Battery = \"Normal\")\n\ndf2$Week <- ifelse(df2$X <= 7, 1,\n              ifelse(df2$X >= 8 & df2$X <= 14, 2,\n                ifelse(df2$X >= 15 & df2$X <= 21, 3,\n                  ifelse(df2$X >= 22 & df2$X <= 28, 4, NA))))"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-20","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":20,"code":"i <- function(x) x^2 # same as `i <- function(x) print(x^2)`\ni(3)\nj <- function(x) return(x^2)\nj(3)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-21","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":21,"code":"k <- function(x) {X = x^2; Y = x^3}\nk(3) # nothing is printed to the screen, last assignment is returned as an invisible()\npaste(\"k(3):\", k(3))\nk_val = k(3); k_val"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-22","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":22,"code":"l <- function(x) {X = x^2; Y = x^3; Z = x^4; invisible(x+1)}\nl(3)\npaste(\"l(3):\", l(3))"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-23","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":23,"code":"m <- function(x){X = x^2; invisible(x+1); Y = x^3}\npaste(m(3))"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-24","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":24,"code":"f <- function(x) x^2\nf\nformals(f) #> $x\nbody(f) #> x^2\nenvironment(f) # <environment: R_GlobalEnv>"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-25","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":25,"code":"k <- function() list(ls(),environment())\nk() # k() has its own environment\nlist(ls()[1:5],environment()) \n# all other environments sit on top of the global environments "},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-26","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":26,"code":"f1 <- function(){L = 1; L}\nf1()\nL # Error: object 'L' not found\n\nK = 3\nf2 <- function() {K} \nf2() # Functions can access the global environment\n\nf3 <- function() {L <<- 10} \nf3() # returns L to the parent environment\nL    # now we also prints L from global environment\n\nremove(L)\nf4 <- function(){L = 100; f3(); L}\nf4()\nL\n# Avoid using `<<-` when possible!!"},{"options":{"warning":"true","output":"true","context":"interactive","dpi":72,"results":"markup","fig-width":7,"comment":"","read-only":"false","message":"true","fig-height":5,"label":"unnamed-chunk-27","echo":"true","classes":"","fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":27,"code":"f <- function(a = 1) a\nf()"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-28","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":28,"code":"f <- function(a, b = NULL) c(a,b)\nf(1)\nf(1,2)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-29","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":29,"code":"message(\"notify the user, although we are not indicating any problems\")\n\nwarning(\"notify the user of something potentially problematic\")\n\nstop(\"A condition has been met that is problematic enough to warrant forcing an error.\")\n"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-30","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":30,"code":"k <- function(a,b) a^(b)\nf <- function(a, b = NULL) {\n  if(is.null(b)){\n    warning(\"{warning()} b is missing, just returning `a`\")\n    return(a)\n  } \n  if(a < 0 && b == 1/2){\n    stop(\"{stop()} can't take the sqrt of a negative number\")\n  } else {\n    message(\"{message()} function completion without conditional execution\")\n    a^(b)\n  }\n}\nk(1) # error without user defined error handling \nf(1) # here we see the `NULL` Conditional Execution\nf(-2,1/2)\nf(3,2)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-31","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":31,"code":"f <- function(a, b, c) {\n  if(missing(c)) {\n  return(sum(a,b))\n    }\n  if(!missing(c)) {\n  return(sum(a,b,c))\n    }\n}\nf(1,2)\nf(1,2,3)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-32","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":32,"code":"f1 <- function(x, ...){...length()}\nf1(1)      # 0 argument passed to `...`\nf1(1,2)    # 1 arguments passed to `...`\nf1(1,2,3)  # 2 arguments passed to `...`\n\nf2 <- function(x, ...){list(...)}\nf2(1,2,3) # `1` passed to `x`, `2` and `3` passed to `...`"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-33","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":33,"code":"rnorm\nrandom_num_gen <- function(x, ...) {\n  rnorm(x, ...)\n}\n\nset.seed(1); random_num_gen(5)\nset.seed(1); random_num_gen(5, mean = 3, sd = 1.5)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-34","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":34,"code":"# mean and median defined with `...`\nf3 <- function(x, ...){\n  out <- list(mean(x, ...), median(x, ...))\n  out\n}\n\n(k = c(1:8,NA))\nf3(x=k, na.rm = TRUE)                                        # Works \nf3(x=k, na.rm = TRUE, random_message = \"Save the bees\")      # Works \n\n# matrix not defined with \"...\"\nf4 <- function(x, ...){\n  out <- list(mean(x, ...), median(x, ...), matrix(x,...))\n  return(out)\n}\n\nf4(x=k, na.rm = TRUE)                                        # Fails\nlist(mean(k,na.rm = TRUE),median(k,na.rm = TRUE),matrix(k))"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"setup","read-only":"false","label":"unnamed-chunk-35","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"true"},"id":35,"code":"defined_arguments <- function(...){\n  f <- list(...);out = lapply(f,function(x) names(formals(x)))\n  names(out) = as.character(substitute(list(...)))[-1];out\n}"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-36","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":36,"code":"defined_arguments(matrix, data.frame, as.data.frame) # which are defined with `...` ?\n(k = c(1:3,NA))\n\nmatrix(k, na.rm = TRUE)\ndata.frame(k, na.rm = TRUE)\nas.data.frame(k,na.rm = TRUE)\n\nf5 <- function(x, ...){\n  out <- list(mean(x, ...), median(x, ...), as.data.frame(x,...))\n  return(out)\n}\nf5(x=k, na.rm = TRUE)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-37","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":37,"code":"function(x) x * 2\nsapply(1:5,function(x) x * 2)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-38","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":38,"code":"library(purrr)\n# ~ .x * 2  or \\(x) x*2\nmap_dbl(1:5,~ .x * 2)\nmap_dbl(1:5,\\(x) x*2)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-39","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":39,"code":"(X <- cbind(x1 = 3, x2 = c(4:1, 2:5)))\n\napply(X, 1, mean) # row-wise \napply(X, 2, mean) # col-wise"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-40","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":40,"code":"(J = array(rep(1,12), c(2, 2, 3)))\napply(J, c(1), sum)\napply(J, c(2), sum)\napply(J, c(3), sum)\napply(J, c(1,2), sum)\napply(J, c(1,3), sum)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-41","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":41,"code":"(Y <- list(a = 1:10, beta = exp(-3:3)))\n\nsapply(Y, quantile)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-42","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":42,"code":"(Y <- list(a = 1:10, beta = exp(-3:3)))\n\nlapply(Y, quantile)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-43","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":43,"code":"try2 <- function(x,m){tryCatch({x}, error =function(e) {finally = print(m)})}\n(Y <- list(a = 1:10, beta = exp(-3:3)))\n\ntry2(vapply(Y,quantile),\"Error:`FUN.VALUE` is missing\")\nvapply(Y,quantile,seq(0, 1, 0.25))"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-44","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":44,"code":"W <- warpbreaks; head(W,3) \n\n# contingency table \ntapply(W$breaks, subset(W, select = -breaks), sum) "},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-45","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":45,"code":"(Z <- lapply(rep(2,2), function(x) data.frame(x=rnorm(x))))\n\ndo.call(cbind, Z)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-46","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":46,"code":"abs_dif <- function(x,y) abs(x-y)\nmapply(abs_dif, c(2,10), c(2,30))\n\nmapply(sum, c(1,2,3,5), c(1,2,3,10),c(1,2,3,15))"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-47","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":47,"code":"abs_dif <- function(x,y) abs(x-y)\nMap(abs_dif, c(2,10), c(2,30))\n\nMap(sum, c(1,2,3,5), c(1,2,3,10),c(1,2,3,15))"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-48","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":48,"code":"set.seed(1)\n(L <- purrr::map(1:3, ~ sample(1:3, 5, replace = T)))\n\nintersect(c(1,2,3), c(1,2,4)) # demo of intersect()\nReduce(intersect,L)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-49","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":49,"code":"set.seed(0); 1:5 |> map(rnorm, n = 4)\n\n# You can also use an anonymous function\nset.seed(0); 1:5 |> map(\\(x) rnorm(n=4, mean = x, sd = 1))\nset.seed(0); 1:5 |> map(~ rnorm(n=4, mean = .x, sd = 1))"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-50","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":50,"code":"x <- list(1, 1, 1)\ny <- list(10, 20, 30)\n\nmap2(x, y, \\(x, y) x + y)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-51","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":51,"code":"x <- list(1, 1, 1)\ny <- list(10, 20, 30)\nz <- list(100, 200, 300)\n\npmap(list(x, y, z), sum)\n\nset.seed(0); list(1:2,1:2,1:2) |> pmap(\\(x,y,z) rhyper(3, m = x, n = y, k = z))\n# These numbers represent the number of white balls drawn in each of the 3 draws from the urn"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-52","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":52,"code":"set.seed(1)\n(L <- purrr::map(1:3, ~ sample(1:3, 5, replace = T)))\n\npurrr::reduce(L,intersect)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-53","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":53,"code":"is_positive <- function(x) {\n\n}"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-54","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":54,"code":"is_positive <- function(x) {\n  if (x > 0) {\n    TRUE\n  } else {\n    FALSE\n  }\n}\n\nis_positive(5)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-55","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":55,"code":"sqrt_safe <- function(x) {\n\n}"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-56","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":56,"code":"sqrt_safe <- function(x) {\n  if (x < 0) {\n    stop(\"Cannot take square root of a negative number.\")\n  }\n  sqrt(x)\n}\nsqrt_safe(-2)\nsqrt_safe(5)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-57","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":57,"code":"find_first_negative <- function(vec) {\n\n}"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-58","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":58,"code":"find_first_negative <- function(vec) {\n  for (i in 1:length(vec)) {\n    if (vec[i] < 0) {\n      return(i)\n    }\n  }\n  NA\n}\n\nfind_first_negative(c(5, 2, -4, 6, -1))"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-59","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":59,"code":"halve_until_less_than_one <- function(x) {\n\n}"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-60","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":60,"code":"halve_until_less_than_one <- function(x) {\n  count = 0\n  while (x >= 1) {\n    x <- x / 2\n    count <- count+1\n  }\n  list(result = x, nsteps = count)\n}\nhalve_until_less_than_one(14)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-61","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":61,"code":"set.seed(1)\nM <- as.data.frame(\n  lapply(c(400,400), function(x) data.frame(x=rgamma(x, shape =2, scale = 2)))\n  )\n\nscale_columns <- function(mat) {\n  \n}"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-62","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":62,"code":"set.seed(1)\nM <- as.data.frame(\n  lapply(c(400,400), function(x) data.frame(x=rgamma(x, shape =2, scale = 2)))\n  )\n\nscale_columns <- function(mat) {\n  apply(mat, 2, function(x) (x - mean(x)) / sd(x))\n}\n\nM_new <- scale_columns(M)\npar(mfrow = c(1,2))\nhist(M$x);hist(M_new)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-63","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":63,"code":"set.seed(1)\n(K <- lapply(rep(4,3), rnorm))\n\nlibrary(purrr)\ncalc_means <- function(list_of_vectors) {\n  \n}"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-64","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":64,"code":"set.seed(1)\n(K <- lapply(rep(4,3), rnorm))\n\nlibrary(purrr)\ncalc_means <- function(list_of_vectors) {\n  map_dbl(list_of_vectors, mean)\n}\n\ncalc_means(K)"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-65","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":65,"code":"multiply_and_add <- function(...) {\n  \n}"},{"options":{"warning":"true","fig-height":5,"output":"true","message":"true","context":"interactive","read-only":"false","label":"unnamed-chunk-66","dpi":72,"results":"markup","comment":"","classes":"","fig-width":7,"fig-cap":"","out-width":"700px","out-height":"","autorun":"false"},"id":66,"code":"multiply_and_add <- function(...) {\n  vectors <- list(...)\n  result <- 0\n  for (i in seq_along(vectors)) {\n    result <- result + sum(vectors[[i]] * i)\n  }\n  result\n}\nmultiply_and_add(c(1,2),c(3,4))\n# ie \nsum(c(1, 2) * 1) + sum(c(3, 4) * 2)  "}];
+  globalThis.qwebrCellDetails = [{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-1","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"m1 <- lm(Sepal.Length ~ Sepal.Width, data = iris)\nsummary(m1)","id":1},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-2","classes":"","message":"false","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"p1 <- ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) +\n  geom_point() +  # Scatter plot of the data points\n  geom_smooth(method = \"lm\", col = \"#1F67A4\") +  # Regression line\n  labs(title = \"Simple Linear Regression\",\n       x = \"Sepal Width\",\n       y = \"Sepal Length\")\np1","id":2},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-3","classes":"","message":"false","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"m2 <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)\np2 <- ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) +\n  geom_point() +  \n  geom_smooth(method = \"lm\", aes(x = Sepal.Width, y = predict(m2, iris)), color = \"#0097A7\") +\n  labs(title = \"Sepal Length vs Sepal Width\",x = \"Sepal Width\",y = \"Sepal Length\")\np3 <- ggplot(iris, aes(x = Petal.Length, y = Sepal.Length)) +\n  geom_point() + \n  geom_smooth(method = \"lm\", aes(x = Petal.Length, y = predict(m2, iris)), color = \"#795796\") +\n  labs(title = \"Sepal Length vs Petal Length\",x = \"Petal Length\", y = \"Sepal Length\")\np2 + p3 # Combine both plots","id":3},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-4","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"titanic <- read.csv(\"https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv\")\nm3 <- glm(Survived~Pclass + Sex + Age, family=\"binomial\",data=titanic)\nexp(coef(m3))\nexp(confint(m3))","id":4},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-5","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"R_Int_mod <- lmer(sqrt_abund ~ Scale_Yr + (1|FStation),\ndata=Kukupa)","id":5},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"setup","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-6","classes":"","message":"true","dpi":72,"autorun":"true","out-height":"","results":"markup","output":"true"},"code":"Kukupa <- read.csv(\"Kukupa.csv\")","id":6},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-7","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"R_Slope_only_mod <- lmer(sqrt_abund ~ Scale_Yr + (0 + Scale_Yr|FStation), data=Kukupa)\nranef(R_Slope_only_mod)","id":7},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-8","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"# First let's make some data to play with.\nvec_dat <- data.frame(x = 1:5, y = NA_real_)\nvec_dat\nloop_dat <- data.frame(t = 1:5, N = NA_real_)\nloop_dat\n\n# What is the difference between vectorization and iteration?\nvec_dat$y <- 4*vec_dat$x + 3\nvec_dat\n\nloop_dat$N[1] <- 2\nfor(i in 1:4) {\n  loop_dat$N[i + 1] <- loop_dat$N[i]*exp(0.5*(1 - loop_dat$N[i]/30))\n}\nloop_dat","id":8},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-9","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"# This is a stupid example, but it creates some data for us.\nfor(i in 1:20) {\n  write.csv(data.frame(ID = paste0(\"DataLogger-\", i),\n                    Temperature = runif(30, 10, 20),\n                    Wind = runif(30, 0, 15),\n                    Battery = \"Normal\"),\n            paste0(getwd(), \"/WeatherStation_\", i, \".csv\"))\n}\n\n# Now lets check our work.\nlist.files(getwd(), pattern = \"WeatherStation_\")","id":9},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-10","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"# This is the code we just wrote.\nfor(i in 1:20) {write.csv(data.frame(ID = paste0(\"DataLogger-\", i),\n                Temperature = runif(30, 10, 20), Wind = runif(30, 0, 15),\n                Battery = \"Normal\"),paste0(getwd(), \"/WeatherStation_\", i, \".csv\"))}\n\n# What if we want to read in a bunch of data files?\ndf <- lapply(paste0(getwd(), \"/\", list.files(getwd(), pattern = \".csv\")), read.csv)\n\nlapply(df, function(x) head(x,3))[1:2]\n\ndf2 <- do.call(rbind, lapply(paste0(getwd(), \"/\",\n                             list.files(getwd(), pattern = \".csv\")), read.csv))\nhead(df2)","id":10},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-11","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"# Create some genetic data.\ngenetic_data <- data.frame(matrix(data = sample(c(\"A\", \"T\", \"G\", \"C\"), 3000, replace = TRUE),\n                                  nrow = 300, ncol = 10))\nhead(genetic_data)\n\n# I want to know how many A's there are in each column.\napply(genetic_data, 2, table)[1,]","id":11},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-12","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"if(TRUE) {print(\"I have to work today.\")}\n\nif(FALSE) {print(\"I have to work today.\")\n} else {print(\"It is the weekend!\")}\n\nif(FALSE) {print(\"I have to work today.\")\n} else if(TRUE) {print(\"It is the weekend!\")}\n\nx <- 10\nx == 10\nx != 10","id":12},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-13","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"column1 <- c(1:10, NA)\ncolumn1\nany(is.na(column1))\nis.numeric(column1)\n!is.numeric(column1)\n\nifelse(TRUE, \"cold\", \"hot\")\n\n# Make some data.\ndf2 <- data.frame(ID = \"DataLogger-20\", Temperature = runif(30, 10, 20),\n                  Wind = runif(30, 0, 15), Battery = \"Normal\")\n                    \nhead(df2)\ndf2$WindClass <- ifelse(df2$Wind >= 10, \"Windy\", \"Still\")","id":13},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-14","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"# This is the code from before to make the data.\nfor(i in 1:20) {\nwrite.csv(data.frame(ID = paste0(\"DataLogger-\", i), Temperature = runif(30, 10, 20),\nWind = runif(30, 0, 15), Battery = \"Normal\"), paste0(getwd(), \"/WeatherStation_\", i, \".csv\"))}","id":14},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-15","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"# This is the code from before to make the data.\nfor(i in 1:20) {\nwrite.csv(data.frame(ID = paste0(\"DataLogger-\", i), Temperature = runif(30, 10, 20),\nWind = runif(30, 0, 15), Battery = \"Normal\"), paste0(getwd(), \"/WeatherStation_\", i, \".csv\"))}\n\nfor(i in seq_along(list.files(getwd(), pattern = \"WeatherStation_\"))) {\n  tmp <- read.csv(paste0(getwd(), \"/\", list.files(getwd(), pattern = \".csv\"))[i])\n  if(i == 1) {weather_dat <- tmp\n  } else {weather_dat <- rbind(weather_dat, tmp)}}","id":15},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-16","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"# This is the code from before to make the data.\nfor(i in 1:20) {\nwrite.csv(data.frame(ID = paste0(\"DataLogger-\", i), Temperature = runif(30, 10, 20),\nWind = runif(30, 0, 15), Battery = \"Normal\"), paste0(getwd(), \"/WeatherStation_\", i, \".csv\"))}\n\n# Use this code to put some NA's into the \"Weather Station\" files.\nwrite.csv(data.frame(ID = \"DataLogger-7\", Temperature = c(runif(28, 10, 20), NA, NA),\n          Wind = c(runif(28, 0, 15), NA, NA), Battery = c(rep(\"Normal\", 28), \"Low\", \"Low\")),\n          paste0(getwd(), \"/WeatherStation_7.csv\"))\n\n","id":16},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-17","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"# This is the code from before to make the data.\nfor(i in 1:20) {\nwrite.csv(data.frame(ID = paste0(\"DataLogger-\", i), Temperature = runif(30, 10, 20),\nWind = runif(30, 0, 15), Battery = \"Normal\"), paste0(getwd(), \"/WeatherStation_\", i, \".csv\"))}\n\n# Use this code to put some NA's into the \"Weather Station\" files.\nwrite.csv(data.frame(ID = \"DataLogger-7\", Temperature = c(runif(28, 10, 20), NA, NA),\n          Wind = c(runif(28, 0, 15), NA, NA), Battery = c(rep(\"Normal\", 28), \"Low\", \"Low\")),\n          paste0(getwd(), \"/WeatherStation_7.csv\"))\n\nfor(i in seq_along(list.files(getwd(), pattern = \"WeatherStation_\"))) {\n  tmp <- read.csv(paste0(getwd(), \"/\", list.files(getwd(), pattern = \".csv\"))[i])\n  if(!any(is.na(tmp))) {\n  if(i == 1) {weather_dat <- tmp\n  } else {weather_dat <- rbind(weather_dat, tmp)}}}","id":17},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-18","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"dat <- data.frame(A = rnorm(100, 10, 5), B = rpois(100, 10), C = rnorm(100, 50, 10),\n                  X = runif(100, 0, 100), Y = rbeta(100, 1, 2), Z = rnorm(100, 0, 1))\n","id":18},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-19","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"dat <- data.frame(A = rnorm(100, 10, 5), B = rpois(100, 10), C = rnorm(100, 50, 10),\n                  X = runif(100, 0, 100), Y = rbeta(100, 1, 2), Z = rnorm(100, 0, 1))\n\napply(dat, 2, shapiro.test)","id":19},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-20","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"# Make some data.\ndf2 <- data.frame(X = 1:30, ID = \"DataLogger-20\", Temperature = runif(30, 10, 20),\n                  Wind = runif(30, 0, 15), Battery = \"Normal\")\n","id":20},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-21","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"# Make some data.\ndf2 <- data.frame(X = 1:30, ID = \"DataLogger-20\", Temperature = runif(30, 10, 20),\n                  Wind = runif(30, 0, 15), Battery = \"Normal\")\n\ndf2$Week <- ifelse(df2$X <= 7, 1,\n              ifelse(df2$X >= 8 & df2$X <= 14, 2,\n                ifelse(df2$X >= 15 & df2$X <= 21, 3,\n                  ifelse(df2$X >= 22 & df2$X <= 28, 4, NA))))","id":21},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-22","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"i <- function(x) x^2 # same as `i <- function(x) print(x^2)`\ni(3)\nj <- function(x) return(x^2)\nj(3)","id":22},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-23","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"k <- function(x) {X = x^2; Y = x^3}\nk(3) # nothing is printed to the screen, last assignment is returned as an invisible()\npaste(\"k(3):\", k(3))\nk_val = k(3); k_val","id":23},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-24","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"l <- function(x) {X = x^2; Y = x^3; Z = x^4; invisible(x+1)}\nl(3)\npaste(\"l(3):\", l(3))","id":24},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-25","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"m <- function(x){X = x^2; invisible(x+1); Y = x^3}\npaste(m(3))","id":25},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-26","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"f <- function(x) x^2\nf\nformals(f) #> $x\nbody(f) #> x^2\nenvironment(f) # <environment: R_GlobalEnv>","id":26},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-27","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"k <- function() list(ls(),environment())\nk() # k() has its own environment\nlist(ls()[1:5],environment()) \n# all other environments sit on top of the global environments ","id":27},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-28","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"f1 <- function(){L = 1; L}\nf1()\nL # Error: object 'L' not found\n\nK = 3\nf2 <- function() {K} \nf2() # Functions can access the global environment\n\nf3 <- function() {L <<- 10} \nf3() # returns L to the parent environment\nL    # now we also prints L from global environment\n\nremove(L)\nf4 <- function(){L = 100; f3(); L}\nf4()\nL\n# Avoid using `<<-` when possible!!","id":28},{"options":{"read-only":"false","fig-height":5,"out-width":"700px","warning":"true","comment":"","echo":"true","fig-cap":"","output":"true","fig-width":7,"dpi":72,"classes":"","out-height":"","message":"true","autorun":"false","context":"interactive","results":"markup","label":"unnamed-chunk-29"},"code":"f <- function(a = 1) a\nf()","id":29},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-30","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"f <- function(a, b = NULL) c(a,b)\nf(1)\nf(1,2)","id":30},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-31","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"message(\"notify the user, although we are not indicating any problems\")\n\nwarning(\"notify the user of something potentially problematic\")\n\nstop(\"A condition has been met that is problematic enough to warrant forcing an error.\")\n","id":31},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-32","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"k <- function(a,b) a^(b)\nf <- function(a, b = NULL) {\n  if(is.null(b)){\n    warning(\"{warning()} b is missing, just returning `a`\")\n    return(a)\n  } \n  if(a < 0 && b == 1/2){\n    stop(\"{stop()} can't take the sqrt of a negative number\")\n  } else {\n    message(\"{message()} function completion without conditional execution\")\n    a^(b)\n  }\n}\nk(1) # error without user defined error handling \nf(1) # here we see the `NULL` Conditional Execution\nf(-2,1/2)\nf(3,2)","id":32},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-33","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"f <- function(a, b, c) {\n  if(missing(c)) {\n  return(sum(a,b))\n    }\n  if(!missing(c)) {\n  return(sum(a,b,c))\n    }\n}\nf(1,2)\nf(1,2,3)","id":33},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-34","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"f1 <- function(x, ...){...length()}\nf1(1)      # 0 argument passed to `...`\nf1(1,2)    # 1 arguments passed to `...`\nf1(1,2,3)  # 2 arguments passed to `...`\n\nf2 <- function(x, ...){list(...)}\nf2(1,2,3) # `1` passed to `x`, `2` and `3` passed to `...`","id":34},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-35","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"rnorm\nrandom_num_gen <- function(x, ...) {\n  rnorm(x, ...)\n}\n\nset.seed(1); random_num_gen(5)\nset.seed(1); random_num_gen(5, mean = 3, sd = 1.5)","id":35},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-36","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"# mean and median defined with `...`\nf3 <- function(x, ...){\n  out <- list(mean(x, ...), median(x, ...))\n  out\n}\n\n(k = c(1:8,NA))\nf3(x=k, na.rm = TRUE)                                        # Works \nf3(x=k, na.rm = TRUE, random_message = \"Save the bees\")      # Works \n\n# matrix not defined with \"...\"\nf4 <- function(x, ...){\n  out <- list(mean(x, ...), median(x, ...), matrix(x,...))\n  return(out)\n}\n\nf4(x=k, na.rm = TRUE)                                        # Fails\nlist(mean(k,na.rm = TRUE),median(k,na.rm = TRUE),matrix(k))","id":36},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"setup","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-37","classes":"","message":"true","dpi":72,"autorun":"true","out-height":"","results":"markup","output":"true"},"code":"defined_arguments <- function(...){\n  f <- list(...);out = lapply(f,function(x) names(formals(x)))\n  names(out) = as.character(substitute(list(...)))[-1];out\n}","id":37},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-38","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"defined_arguments(matrix, data.frame, as.data.frame) # which are defined with `...` ?\n(k = c(1:3,NA))\n\nmatrix(k, na.rm = TRUE)\ndata.frame(k, na.rm = TRUE)\nas.data.frame(k,na.rm = TRUE)\n\nf5 <- function(x, ...){\n  out <- list(mean(x, ...), median(x, ...), as.data.frame(x,...))\n  return(out)\n}\nf5(x=k, na.rm = TRUE)","id":38},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-39","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"function(x) x * 2\nsapply(1:5,function(x) x * 2)","id":39},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-40","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"library(purrr)\n# ~ .x * 2  or \\(x) x*2\nmap_dbl(1:5,~ .x * 2)\nmap_dbl(1:5,\\(x) x*2)","id":40},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-41","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"(X <- cbind(x1 = 3, x2 = c(4:1, 2:5)))\n\napply(X, 1, mean) # row-wise \napply(X, 2, mean) # col-wise","id":41},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-42","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"(J = array(rep(1,12), c(2, 2, 3)))\napply(J, c(1), sum)\napply(J, c(2), sum)\napply(J, c(3), sum)\napply(J, c(1,2), sum)\napply(J, c(1,3), sum)","id":42},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-43","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"(Y <- list(a = 1:10, beta = exp(-3:3)))\n\nsapply(Y, quantile)","id":43},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-44","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"(Y <- list(a = 1:10, beta = exp(-3:3)))\n\nlapply(Y, quantile)","id":44},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-45","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"try2 <- function(x,m){tryCatch({x}, error =function(e) {finally = print(m)})}\n(Y <- list(a = 1:10, beta = exp(-3:3)))\n\ntry2(vapply(Y,quantile),\"Error:`FUN.VALUE` is missing\")\nvapply(Y,quantile,seq(0, 1, 0.25))","id":45},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-46","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"W <- warpbreaks; head(W,3) \n\n# contingency table \ntapply(W$breaks, subset(W, select = -breaks), sum) ","id":46},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-47","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"(Z <- lapply(rep(2,2), function(x) data.frame(x=rnorm(x))))\n\ndo.call(cbind, Z)","id":47},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-48","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"abs_dif <- function(x,y) abs(x-y)\nmapply(abs_dif, c(2,10), c(2,30))\n\nmapply(sum, c(1,2,3,5), c(1,2,3,10),c(1,2,3,15))","id":48},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-49","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"abs_dif <- function(x,y) abs(x-y)\nMap(abs_dif, c(2,10), c(2,30))\n\nMap(sum, c(1,2,3,5), c(1,2,3,10),c(1,2,3,15))","id":49},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-50","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"set.seed(1)\n(L <- purrr::map(1:3, ~ sample(1:3, 5, replace = T)))\n\nintersect(c(1,2,3), c(1,2,4)) # demo of intersect()\nReduce(intersect,L)","id":50},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-51","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"set.seed(0); 1:5 |> map(rnorm, n = 4)\n\n# You can also use an anonymous function\nset.seed(0); 1:5 |> map(\\(x) rnorm(n=4, mean = x, sd = 1))\nset.seed(0); 1:5 |> map(~ rnorm(n=4, mean = .x, sd = 1))","id":51},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-52","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"x <- list(1, 1, 1)\ny <- list(10, 20, 30)\n\nmap2(x, y, \\(x, y) x + y)","id":52},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-53","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"x <- list(1, 1, 1)\ny <- list(10, 20, 30)\nz <- list(100, 200, 300)\n\npmap(list(x, y, z), sum)\n\nset.seed(0); list(1:2,1:2,1:2) |> pmap(\\(x,y,z) rhyper(3, m = x, n = y, k = z))\n# These numbers represent the number of white balls drawn in each of the 3 draws from the urn","id":53},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-54","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"set.seed(1)\n(L <- purrr::map(1:3, ~ sample(1:3, 5, replace = T)))\n\npurrr::reduce(L,intersect)","id":54},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-55","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"is_positive <- function(x) {\n\n}","id":55},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-56","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"is_positive <- function(x) {\n  if (x > 0) {\n    TRUE\n  } else {\n    FALSE\n  }\n}\n\nis_positive(5)","id":56},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-57","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"sqrt_safe <- function(x) {\n\n}","id":57},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-58","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"sqrt_safe <- function(x) {\n  if (x < 0) {\n    stop(\"Cannot take square root of a negative number.\")\n  }\n  sqrt(x)\n}\nsqrt_safe(-2)\nsqrt_safe(5)","id":58},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-59","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"find_first_negative <- function(vec) {\n\n}","id":59},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-60","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"find_first_negative <- function(vec) {\n  for (i in 1:length(vec)) {\n    if (vec[i] < 0) {\n      return(i)\n    }\n  }\n  NA\n}\n\nfind_first_negative(c(5, 2, -4, 6, -1))","id":60},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-61","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"halve_until_less_than_one <- function(x) {\n\n}","id":61},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-62","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"halve_until_less_than_one <- function(x) {\n  count = 0\n  while (x >= 1) {\n    x <- x / 2\n    count <- count+1\n  }\n  list(result = x, nsteps = count)\n}\nhalve_until_less_than_one(14)","id":62},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-63","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"set.seed(1)\nM <- as.data.frame(\n  lapply(c(400,400), function(x) data.frame(x=rgamma(x, shape =2, scale = 2)))\n  )\n\nscale_columns <- function(mat) {\n  \n}","id":63},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-64","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"set.seed(1)\nM <- as.data.frame(\n  lapply(c(400,400), function(x) data.frame(x=rgamma(x, shape =2, scale = 2)))\n  )\n\nscale_columns <- function(mat) {\n  apply(mat, 2, function(x) (x - mean(x)) / sd(x))\n}\n\nM_new <- scale_columns(M)\npar(mfrow = c(1,2))\nhist(M$x);hist(M_new)","id":64},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-65","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"set.seed(1)\n(K <- lapply(rep(4,3), rnorm))\n\nlibrary(purrr)\ncalc_means <- function(list_of_vectors) {\n  \n}","id":65},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-66","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"set.seed(1)\n(K <- lapply(rep(4,3), rnorm))\n\nlibrary(purrr)\ncalc_means <- function(list_of_vectors) {\n  map_dbl(list_of_vectors, mean)\n}\n\ncalc_means(K)","id":66},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-67","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"multiply_and_add <- function(...) {\n  \n}","id":67},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-68","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"multiply_and_add <- function(...) {\n  vectors <- list(...)\n  result <- 0\n  for (i in seq_along(vectors)) {\n    result <- result + sum(vectors[[i]] * i)\n  }\n  result\n}\nmultiply_and_add(c(1,2),c(3,4))\n# ie \nsum(c(1, 2) * 1) + sum(c(3, 4) * 2)  ","id":68}];
 
   </script>
   <script type="module">
@@ -1913,7 +1913,7 @@ g\left(\mathbb{E}\left(y_i\right)\right) = \text{logit}(\pi(\underline{x}_i))
 </div>
 </section>
 <section id="lmm-wood-pidoen-example" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
-<h2><span style="color:#001F3F; font-size: 55px;">LMM Wood Pidoen Example</span></h2>
+<h2><span style="color:#001F3F; font-size: 55px;">LMM; Wood Pidoen Example</span></h2>
 <div>
 <ul>
 <li class="fragment"><p>Westbrooke and Robinson (2009) reported on monitoring efforts of the <strong>Kukupa (or Wood Pigeon)</strong>, New Zealand’s only native pigeon, in a study area exposed to intensive pest control.</p></li>
@@ -2016,6 +2016,20 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 \end{aligned}
 \]</span></p>
 </section>
+<section id="random-slopes-lmm-code" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
+<h2><span style="color:#001F3F; font-size: 55px;">Random Slopes LMM Code</span></h2>
+<div id="qwebr-insertion-location-6"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>Kukupa <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Kukupa.csv"</span>)</span>
+<span id="cb1-2"><a href=""></a></span>
+<span id="cb1-3"><a href=""></a></span>
+<span id="cb1-4"><a href=""></a>Kukupa<span class="sc">$</span>sqrt_abund <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(Kukupa<span class="sc">$</span>abundance)</span>
+<span id="cb1-5"><a href=""></a>Kukupa<span class="sc">$</span>FStation <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Kukupa<span class="sc">$</span>Station)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="qwebr-insertion-location-7"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
 <section id="webr-code-execution" class="slide level2">
 <h2>Webr Code Execution</h2>
 
@@ -2042,12 +2056,12 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 </section>
 <section id="now-for-the-math-in-r" class="slide level2">
 <h2>Now for the Math in R</h2>
-<div id="qwebr-insertion-location-6"></div>
+<div id="qwebr-insertion-location-8"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="now-onto-a-more-complex-for-loop" class="slide level2 scrollable">
 <h2>Now Onto a More Complex <code>for</code> Loop</h2>
-<div id="qwebr-insertion-location-7"></div>
+<div id="qwebr-insertion-location-9"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <!--
 -   There are also while and repeat loops, but you shouldn't be writing code in R if you are using them.
@@ -2058,12 +2072,12 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 <aside><ol class="aside-footnotes"><li id="fn1"><p>Their usage, however, can be more niche as they are used when the number of iterations is not known a priori and reach completion via convergence criterion such as the max number of iterations or some metric like Euclidean Distance</p></li></ol></aside></section>
 <section id="now-for-apply-functions" class="slide level2">
 <h2>Now for <code>apply</code> Functions</h2>
-<div id="qwebr-insertion-location-8"></div>
+<div id="qwebr-insertion-location-10"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="apply-functions-contd" class="slide level2">
 <h2><code>apply</code> Functions (cont’d)</h2>
-<div id="qwebr-insertion-location-9"></div>
+<div id="qwebr-insertion-location-11"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="fragment">
 <ul>
@@ -2073,12 +2087,12 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 </section>
 <section id="logical-statements-1" class="slide level2">
 <h2>Logical Statements (1)</h2>
-<div id="qwebr-insertion-location-10"></div>
+<div id="qwebr-insertion-location-12"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="logical-statements-2" class="slide level2">
 <h2>Logical Statements (2)</h2>
-<div id="qwebr-insertion-location-11"></div>
+<div id="qwebr-insertion-location-13"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section></section>
 <section>
@@ -2093,11 +2107,11 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 <div class="tab-content">
 <div id="tabset-2-1">
 <p>Read in the 20 “Weather Station” data files with a <code>for</code> loop and combine into one dataframe.</p>
-<div id="qwebr-insertion-location-12"></div>
+<div id="qwebr-insertion-location-14"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 <div id="tabset-2-2">
-<div id="qwebr-insertion-location-13"></div>
+<div id="qwebr-insertion-location-15"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 </div>
@@ -2110,11 +2124,11 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 <div class="tab-content">
 <div id="tabset-3-1">
 <p>Now modify your <code>for</code> loop to omit any files that contain an <code>NA</code>.</p>
-<div id="qwebr-insertion-location-14"></div>
+<div id="qwebr-insertion-location-16"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 <div id="tabset-3-2">
-<div id="qwebr-insertion-location-15"></div>
+<div id="qwebr-insertion-location-17"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 </div>
@@ -2127,11 +2141,11 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 <div class="tab-content">
 <div id="tabset-4-1">
 <p>Use an <code>apply</code> function to perform a Shapiro-Wilk test on each column of the data set created below (dat) to determine if the data in each column is normally distributed.</p>
-<div id="qwebr-insertion-location-16"></div>
+<div id="qwebr-insertion-location-18"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 <div id="tabset-4-2">
-<div id="qwebr-insertion-location-17"></div>
+<div id="qwebr-insertion-location-19"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 </div>
@@ -2144,11 +2158,11 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 <div class="tab-content">
 <div id="tabset-5-1">
 <p>Make a column in the data created below (a subset of the weather station data) for week. When <code>X</code> (this is the row ID or day of the month) is 1-7, <code>Week</code> should be 1; when <code>X</code> (day) is 8-14, <code>Week</code> should be 2; when <code>X</code> (day) is 15-21, <code>Week</code> should be 3; when <code>X</code> (day) is 22-28, <code>Week</code> should be 4; and for <code>X</code> (day) from 28-30, <code>Week</code> should be assigned a value of <code>NA</code>.</p>
-<div id="qwebr-insertion-location-18"></div>
+<div id="qwebr-insertion-location-20"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 <div id="tabset-5-2">
-<div id="qwebr-insertion-location-19"></div>
+<div id="qwebr-insertion-location-21"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 </div>
@@ -2170,27 +2184,27 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 <aside><ol class="aside-footnotes"><li id="fn2"><p>See Hadley’s section on <a href="https://adv-r.hadley.nz/functions.html#function-fundamentals">function-fundamentals</a> for more details</p></li></ol></aside></section>
 <section id="lets-write-some-functions" class="slide level2">
 <h2>Lets Write Some Functions</h2>
-<div id="qwebr-insertion-location-20"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div class="fragment">
-<div style="margin-top: 10px;">
-
-</div>
-<div id="qwebr-insertion-location-21"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div class="fragment">
-<div style="margin-top: 10px;">
-
-</div>
 <div id="qwebr-insertion-location-22"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
 <div class="fragment">
 <div style="margin-top: 10px;">
 
 </div>
 <div id="qwebr-insertion-location-23"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+<div class="fragment">
+<div style="margin-top: 10px;">
+
+</div>
+<div id="qwebr-insertion-location-24"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+<div class="fragment">
+<div style="margin-top: 10px;">
+
+</div>
+<div id="qwebr-insertion-location-25"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 </section>
@@ -2204,7 +2218,7 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 </section>
 <section id="function-formals-body-and-environment" class="slide level2">
 <h2>Function <code>formals()</code>, <code>body()</code> and <code>environment()</code></h2>
-<div id="qwebr-insertion-location-24"></div>
+<div id="qwebr-insertion-location-26"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 
 <aside><div>
@@ -2212,7 +2226,7 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 </div></aside></section>
 <section id="more-on-environments" class="slide level2">
 <h2>More on Environments</h2>
-<div id="qwebr-insertion-location-25"></div>
+<div id="qwebr-insertion-location-27"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="fragment">
 <ul>
@@ -2226,7 +2240,7 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 <div class="column" style="padding-right: 0px;">
 <p><img data-src="images/castle.jpeg" height="425"></p>
 </div><div class="column" style="padding-right: 0px;">
-<div id="qwebr-insertion-location-26"></div>
+<div id="qwebr-insertion-location-28"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 </div>
@@ -2253,38 +2267,38 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 </div></aside></section>
 <section id="default-argument-assignment" class="slide level2">
 <h2>Default Argument Assignment</h2>
-<div id="qwebr-insertion-location-27"></div>
+<div id="qwebr-insertion-location-29"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="null-conditional-execution-1" class="slide level2">
 <h2><code>NULL</code> Conditional Execution (1)</h2>
-<div id="qwebr-insertion-location-28"></div>
+<div id="qwebr-insertion-location-30"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="message-warning-and-stop" class="slide level2">
 <h2><code>message()</code>, <code>warning()</code>, and <code>stop()</code></h2>
-<div id="qwebr-insertion-location-29"></div>
+<div id="qwebr-insertion-location-31"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="null-conditional-execution-2" class="slide level2">
 <h2><code>NULL</code> Conditional Execution (2)</h2>
-<div id="qwebr-insertion-location-30"></div>
+<div id="qwebr-insertion-location-32"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="conditional-execution-with-missing" class="slide level2">
 <h2>Conditional Execution with <code>missing()</code></h2>
-<div id="qwebr-insertion-location-31"></div>
+<div id="qwebr-insertion-location-33"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="dot-dot-dot-1" class="slide level2">
 <h2><code>...</code> dot-dot-dot (1)</h2>
-<div id="qwebr-insertion-location-32"></div>
+<div id="qwebr-insertion-location-34"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="fragment">
 <div style="margin-top: 10px;">
 
 </div>
-<div id="qwebr-insertion-location-33"></div>
+<div id="qwebr-insertion-location-35"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 <div class="fragment">
@@ -2295,7 +2309,7 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 </section>
 <section id="dot-dot-dot-2" class="slide level2">
 <h2><code>...</code> dot-dot-dot (2)</h2>
-<div id="qwebr-insertion-location-34"></div>
+<div id="qwebr-insertion-location-36"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>`<code>...</code>` has pros and cons, for more info see <a href="https://adv-r.hadley.nz/functions.html#fun-dot-dot-dot">here</a></p>
 <aside class="notes">
@@ -2318,9 +2332,9 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 <section id="dot-dot-dot-3" class="slide level2">
 <h2><code>...</code> dot-dot-dot (3)</h2>
 <p>So why does <code>f5</code> work?</p>
-<div id="qwebr-insertion-location-35"></div>
+<div id="qwebr-insertion-location-37"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div id="qwebr-insertion-location-36"></div>
+<div id="qwebr-insertion-location-38"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="anonymous-functions" class="slide level2">
@@ -2337,7 +2351,7 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 <div style="font-size: 0.65em;">
 <p><code>base</code> R anonymous function syntax:</p>
 </div>
-<div id="qwebr-insertion-location-37"></div>
+<div id="qwebr-insertion-location-39"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 <div class="fragment">
@@ -2347,7 +2361,7 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 <div style="font-size: 0.65em;">
 <p><code>purrr</code>’s anonymous function syntax:</p>
 </div>
-<div id="qwebr-insertion-location-38"></div>
+<div id="qwebr-insertion-location-40"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 </section></section>
@@ -2417,28 +2431,28 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 <ul id="tabset-6" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-6-1"><code>apply</code></a></li><li><a href="#tabset-6-2"><code>sapply</code></a></li><li><a href="#tabset-6-3"><code>lapply</code></a></li><li><a href="#tabset-6-4"><code>vapply</code></a></li><li><a href="#tabset-6-5"><code>tapply</code></a></li></ul>
 <div class="tab-content">
 <div id="tabset-6-1">
-<div id="qwebr-insertion-location-39"></div>
+<div id="qwebr-insertion-location-41"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div style="margin-top: 10px;">
 
 </div>
-<div id="qwebr-insertion-location-40"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-6-2">
-<div id="qwebr-insertion-location-41"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-6-3">
 <div id="qwebr-insertion-location-42"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
-<div id="tabset-6-4">
+<div id="tabset-6-2">
 <div id="qwebr-insertion-location-43"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
-<div id="tabset-6-5">
+<div id="tabset-6-3">
 <div id="qwebr-insertion-location-44"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+<div id="tabset-6-4">
+<div id="qwebr-insertion-location-45"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+<div id="tabset-6-5">
+<div id="qwebr-insertion-location-46"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 </div>
@@ -2450,19 +2464,19 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 <ul id="tabset-7" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-7-1"><code>do.call</code></a></li><li><a href="#tabset-7-2"><code>mapply</code></a></li><li><a href="#tabset-7-3"><code>Map</code></a></li><li><a href="#tabset-7-4"><code>Reduce</code></a></li></ul>
 <div class="tab-content">
 <div id="tabset-7-1">
-<div id="qwebr-insertion-location-45"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-7-2">
-<div id="qwebr-insertion-location-46"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-7-3">
 <div id="qwebr-insertion-location-47"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
-<div id="tabset-7-4">
+<div id="tabset-7-2">
 <div id="qwebr-insertion-location-48"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+<div id="tabset-7-3">
+<div id="qwebr-insertion-location-49"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+<div id="tabset-7-4">
+<div id="qwebr-insertion-location-50"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div style="font-size: 0.65em;">
 <ul>
@@ -2523,15 +2537,15 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 <ul id="tabset-8" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-8-1"><code>map</code></a></li><li><a href="#tabset-8-2"><code>map2</code></a></li><li><a href="#tabset-8-3"><code>pmap</code></a></li><li><a href="#tabset-8-4"><code>reduce</code></a></li></ul>
 <div class="tab-content">
 <div id="tabset-8-1">
-<div id="qwebr-insertion-location-49"></div>
+<div id="qwebr-insertion-location-51"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 <div id="tabset-8-2">
-<div id="qwebr-insertion-location-50"></div>
+<div id="qwebr-insertion-location-52"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 <div id="tabset-8-3">
-<div id="qwebr-insertion-location-51"></div>
+<div id="qwebr-insertion-location-53"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <aside class="notes">
 <ul>
@@ -2551,7 +2565,7 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
       }</style></aside>
 </div>
 <div id="tabset-8-4">
-<div id="qwebr-insertion-location-52"></div>
+<div id="qwebr-insertion-location-54"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 </div>
@@ -2565,25 +2579,25 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 <section id="parallel-computing-with-furrr" class="slide level2">
 <h2>Parallel Computing with <code>furrr</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>fib_n <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb1-2"><a href=""></a>    <span class="cf">if</span> ((n <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|</span> (n <span class="sc">==</span> <span class="dv">1</span>)) </span>
-<span id="cb1-3"><a href=""></a>        <span class="fu">return</span>(<span class="dv">1</span>)</span>
-<span id="cb1-4"><a href=""></a>    <span class="cf">else</span></span>
-<span id="cb1-5"><a href=""></a>        <span class="fu">return</span>(<span class="fu">fib_n</span>(n<span class="dv">-1</span>) <span class="sc">+</span> <span class="fu">fib_n</span>(n<span class="dv">-2</span>))</span>
-<span id="cb1-6"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>fib_n <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb2-2"><a href=""></a>    <span class="cf">if</span> ((n <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|</span> (n <span class="sc">==</span> <span class="dv">1</span>)) </span>
+<span id="cb2-3"><a href=""></a>        <span class="fu">return</span>(<span class="dv">1</span>)</span>
+<span id="cb2-4"><a href=""></a>    <span class="cf">else</span></span>
+<span id="cb2-5"><a href=""></a>        <span class="fu">return</span>(<span class="fu">fib_n</span>(n<span class="dv">-1</span>) <span class="sc">+</span> <span class="fu">fib_n</span>(n<span class="dv">-2</span>))</span>
+<span id="cb2-6"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <div style="margin-top: 20px;">
 
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2" data-code-line-numbers="1-2|4|5-7|1-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">library</span>(furrr) <span class="co"># library(furrr) loads future by default</span></span>
-<span id="cb2-2"><a href=""></a><span class="fu">library</span>(tictoc)</span>
-<span id="cb2-3"><a href=""></a></span>
-<span id="cb2-4"><a href=""></a>future<span class="sc">::</span><span class="fu">plan</span>(multisession, <span class="at">workers =</span> <span class="dv">1</span>) <span class="co"># setting num of cores/workers</span></span>
-<span id="cb2-5"><a href=""></a><span class="fu">tic</span>()</span>
-<span id="cb2-6"><a href=""></a>num <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span> <span class="sc">|&gt;</span> <span class="fu">future_map</span>(fib_n)</span>
-<span id="cb2-7"><a href=""></a><span class="fu">toc</span>() <span class="co"># 4.151 sec elapsed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3" data-code-line-numbers="1-2|4|5-7|1-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">library</span>(furrr) <span class="co"># library(furrr) loads future by default</span></span>
+<span id="cb3-2"><a href=""></a><span class="fu">library</span>(tictoc)</span>
+<span id="cb3-3"><a href=""></a></span>
+<span id="cb3-4"><a href=""></a>future<span class="sc">::</span><span class="fu">plan</span>(multisession, <span class="at">workers =</span> <span class="dv">1</span>) <span class="co"># setting num of cores/workers</span></span>
+<span id="cb3-5"><a href=""></a><span class="fu">tic</span>()</span>
+<span id="cb3-6"><a href=""></a>num <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span> <span class="sc">|&gt;</span> <span class="fu">future_map</span>(fib_n)</span>
+<span id="cb3-7"><a href=""></a><span class="fu">toc</span>() <span class="co"># 4.151 sec elapsed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
@@ -2591,10 +2605,10 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3" data-code-line-numbers="1|2-4|1-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>future<span class="sc">::</span><span class="fu">plan</span>(multisession, <span class="at">workers =</span> <span class="dv">2</span>) <span class="co"># Using 1 additional core</span></span>
-<span id="cb3-2"><a href=""></a><span class="fu">tic</span>()</span>
-<span id="cb3-3"><a href=""></a>num <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span> <span class="sc">|&gt;</span> <span class="fu">future_map</span>(fib_n)</span>
-<span id="cb3-4"><a href=""></a><span class="fu">toc</span>() <span class="co"># 2.174 sec elapsed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4" data-code-line-numbers="1|2-4|1-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>future<span class="sc">::</span><span class="fu">plan</span>(multisession, <span class="at">workers =</span> <span class="dv">2</span>) <span class="co"># Using 1 additional core</span></span>
+<span id="cb4-2"><a href=""></a><span class="fu">tic</span>()</span>
+<span id="cb4-3"><a href=""></a>num <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span> <span class="sc">|&gt;</span> <span class="fu">future_map</span>(fib_n)</span>
+<span id="cb4-4"><a href=""></a><span class="fu">toc</span>() <span class="co"># 2.174 sec elapsed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -2617,43 +2631,43 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 <div class="cell">
 <details class="code-fold">
 <summary>expand for <code>random_walk()</code> source code</summary>
-<div class="sourceCode cell-code" id="cb4" data-code-line-numbers="4|5-16|6|7|8-14|8|9-10|11-13|5-16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="fu">library</span>(furrr)</span>
-<span id="cb4-2"><a href=""></a><span class="fu">library</span>(tictoc)</span>
-<span id="cb4-3"><a href=""></a></span>
-<span id="cb4-4"><a href=""></a>nworkers <span class="ot">=</span> parallel<span class="sc">::</span><span class="fu">detectCores</span>() <span class="sc">-</span> <span class="dv">1</span> <span class="co"># select nworkers to amount of cores - 1 </span></span>
-<span id="cb4-5"><a href=""></a>random_walk <span class="ot">&lt;-</span> <span class="cf">function</span>(steps) {</span>
-<span id="cb4-6"><a href=""></a>  position <span class="ot">&lt;-</span> <span class="fu">numeric</span>(steps) <span class="co"># Initialize the position vector</span></span>
-<span id="cb4-7"><a href=""></a>  position[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># Start at the origin</span></span>
-<span id="cb4-8"><a href=""></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>steps) {                   <span class="co"># Simulate each step of the walk</span></span>
-<span id="cb4-9"><a href=""></a>    <span class="cf">if</span> (<span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">&lt;</span> <span class="fl">0.5</span>) {</span>
-<span id="cb4-10"><a href=""></a>      position[i] <span class="ot">&lt;-</span> position[i <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">+</span> <span class="dv">1</span> <span class="co"># Move forward</span></span>
-<span id="cb4-11"><a href=""></a>    } <span class="cf">else</span> {</span>
-<span id="cb4-12"><a href=""></a>      position[i] <span class="ot">&lt;-</span> position[i <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">-</span> <span class="dv">1</span> <span class="co"># Move backward</span></span>
-<span id="cb4-13"><a href=""></a>    }</span>
-<span id="cb4-14"><a href=""></a>  }</span>
-<span id="cb4-15"><a href=""></a>  <span class="fu">return</span>(position)</span>
-<span id="cb4-16"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="4|5-16|6|7|8-14|8|9-10|11-13|5-16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">library</span>(furrr)</span>
+<span id="cb5-2"><a href=""></a><span class="fu">library</span>(tictoc)</span>
+<span id="cb5-3"><a href=""></a></span>
+<span id="cb5-4"><a href=""></a>nworkers <span class="ot">=</span> parallel<span class="sc">::</span><span class="fu">detectCores</span>() <span class="sc">-</span> <span class="dv">1</span> <span class="co"># select nworkers to amount of cores - 1 </span></span>
+<span id="cb5-5"><a href=""></a>random_walk <span class="ot">&lt;-</span> <span class="cf">function</span>(steps) {</span>
+<span id="cb5-6"><a href=""></a>  position <span class="ot">&lt;-</span> <span class="fu">numeric</span>(steps) <span class="co"># Initialize the position vector</span></span>
+<span id="cb5-7"><a href=""></a>  position[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># Start at the origin</span></span>
+<span id="cb5-8"><a href=""></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>steps) {                   <span class="co"># Simulate each step of the walk</span></span>
+<span id="cb5-9"><a href=""></a>    <span class="cf">if</span> (<span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">&lt;</span> <span class="fl">0.5</span>) {</span>
+<span id="cb5-10"><a href=""></a>      position[i] <span class="ot">&lt;-</span> position[i <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">+</span> <span class="dv">1</span> <span class="co"># Move forward</span></span>
+<span id="cb5-11"><a href=""></a>    } <span class="cf">else</span> {</span>
+<span id="cb5-12"><a href=""></a>      position[i] <span class="ot">&lt;-</span> position[i <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">-</span> <span class="dv">1</span> <span class="co"># Move backward</span></span>
+<span id="cb5-13"><a href=""></a>    }</span>
+<span id="cb5-14"><a href=""></a>  }</span>
+<span id="cb5-15"><a href=""></a>  <span class="fu">return</span>(position)</span>
+<span id="cb5-16"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="1|3-6|7-11|13-18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>steps <span class="ot">=</span> <span class="dv">10000</span>; n_random_walks <span class="ot">=</span> <span class="dv">300</span> <span class="co"># Define the number of steps and walks</span></span>
-<span id="cb5-2"><a href=""></a></span>
-<span id="cb5-3"><a href=""></a>future<span class="sc">::</span><span class="fu">plan</span>(multisession, <span class="at">workers =</span> <span class="dv">1</span>) <span class="co"># setting num of cores/workers</span></span>
-<span id="cb5-4"><a href=""></a><span class="fu">tic</span>() <span class="co"># Measure time taken to execute the random walk</span></span>
-<span id="cb5-5"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">1</span>); walks <span class="ot">=</span> <span class="fu">future_map</span>(<span class="dv">1</span><span class="sc">:</span>n_random_walks , <span class="sc">~</span><span class="fu">random_walk</span>(steps),<span class="at">.options =</span> <span class="fu">furrr_options</span>(<span class="at">seed =</span> <span class="cn">TRUE</span>)) </span>
-<span id="cb5-6"><a href=""></a><span class="fu">toc</span>() <span class="co"># 3.088 sec elapsed</span></span>
-<span id="cb5-7"><a href=""></a></span>
-<span id="cb5-8"><a href=""></a><span class="fu">tic</span>()</span>
-<span id="cb5-9"><a href=""></a>future<span class="sc">::</span><span class="fu">plan</span>(multisession, <span class="at">workers =</span> nworkers) <span class="co"># setting num of cores/workers</span></span>
-<span id="cb5-10"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">1</span>);walks <span class="ot">=</span> <span class="fu">future_map</span>(<span class="dv">1</span><span class="sc">:</span>n_random_walks , <span class="sc">~</span><span class="fu">random_walk</span>(steps),<span class="at">.options =</span> <span class="fu">furrr_options</span>(<span class="at">seed =</span> <span class="cn">TRUE</span>)) </span>
-<span id="cb5-11"><a href=""></a><span class="fu">toc</span>() <span class="co"># 1.713 sec elapsed</span></span>
-<span id="cb5-12"><a href=""></a></span>
-<span id="cb5-13"><a href=""></a><span class="fu">pdf</span>(<span class="st">"random_walks.pdf"</span>)</span>
-<span id="cb5-14"><a href=""></a><span class="fu">invisible</span>(</span>
-<span id="cb5-15"><a href=""></a>  <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="cf">function</span>(i) </span>
-<span id="cb5-16"><a href=""></a>    <span class="fu">plot</span>(walks[[i]],<span class="at">type =</span> <span class="st">"l"</span>, <span class="at">ylab =</span> <span class="st">"Position"</span>, <span class="at">xlab =</span> <span class="st">"Step"</span>,</span>
-<span id="cb5-17"><a href=""></a>         <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Random Walk"</span>,i)))</span>
-<span id="cb5-18"><a href=""></a>  );<span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6" data-code-line-numbers="1|3-6|7-11|13-18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>steps <span class="ot">=</span> <span class="dv">10000</span>; n_random_walks <span class="ot">=</span> <span class="dv">300</span> <span class="co"># Define the number of steps and walks</span></span>
+<span id="cb6-2"><a href=""></a></span>
+<span id="cb6-3"><a href=""></a>future<span class="sc">::</span><span class="fu">plan</span>(multisession, <span class="at">workers =</span> <span class="dv">1</span>) <span class="co"># setting num of cores/workers</span></span>
+<span id="cb6-4"><a href=""></a><span class="fu">tic</span>() <span class="co"># Measure time taken to execute the random walk</span></span>
+<span id="cb6-5"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">1</span>); walks <span class="ot">=</span> <span class="fu">future_map</span>(<span class="dv">1</span><span class="sc">:</span>n_random_walks , <span class="sc">~</span><span class="fu">random_walk</span>(steps),<span class="at">.options =</span> <span class="fu">furrr_options</span>(<span class="at">seed =</span> <span class="cn">TRUE</span>)) </span>
+<span id="cb6-6"><a href=""></a><span class="fu">toc</span>() <span class="co"># 3.088 sec elapsed</span></span>
+<span id="cb6-7"><a href=""></a></span>
+<span id="cb6-8"><a href=""></a><span class="fu">tic</span>()</span>
+<span id="cb6-9"><a href=""></a>future<span class="sc">::</span><span class="fu">plan</span>(multisession, <span class="at">workers =</span> nworkers) <span class="co"># setting num of cores/workers</span></span>
+<span id="cb6-10"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">1</span>);walks <span class="ot">=</span> <span class="fu">future_map</span>(<span class="dv">1</span><span class="sc">:</span>n_random_walks , <span class="sc">~</span><span class="fu">random_walk</span>(steps),<span class="at">.options =</span> <span class="fu">furrr_options</span>(<span class="at">seed =</span> <span class="cn">TRUE</span>)) </span>
+<span id="cb6-11"><a href=""></a><span class="fu">toc</span>() <span class="co"># 1.713 sec elapsed</span></span>
+<span id="cb6-12"><a href=""></a></span>
+<span id="cb6-13"><a href=""></a><span class="fu">pdf</span>(<span class="st">"random_walks.pdf"</span>)</span>
+<span id="cb6-14"><a href=""></a><span class="fu">invisible</span>(</span>
+<span id="cb6-15"><a href=""></a>  <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="cf">function</span>(i) </span>
+<span id="cb6-16"><a href=""></a>    <span class="fu">plot</span>(walks[[i]],<span class="at">type =</span> <span class="st">"l"</span>, <span class="at">ylab =</span> <span class="st">"Position"</span>, <span class="at">xlab =</span> <span class="st">"Step"</span>,</span>
+<span id="cb6-17"><a href=""></a>         <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Random Walk"</span>,i)))</span>
+<span id="cb6-18"><a href=""></a>  );<span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="our-first-10-random-walks-plots" class="slide level2">
@@ -2665,51 +2679,40 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 <div class="cell">
 <details class="code-fold">
 <summary>expand for source code for <code>boot()</code> and <code>samp.o()</code></summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>boot <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">B =</span> <span class="dv">5000</span>, m, theta.f, <span class="at">w =</span> <span class="dv">1</span>, rdist, ...) {</span>
-<span id="cb6-2"><a href=""></a>  <span class="fu">plan</span>(multisession, <span class="at">workers =</span> w) <span class="co"># Set up for parallel execution</span></span>
-<span id="cb6-3"><a href=""></a>  b_indices <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>B <span class="co"># vector of indices for bootstrapping iterations</span></span>
-<span id="cb6-4"><a href=""></a>  iterate_func <span class="ot">&lt;-</span> <span class="cf">function</span>(b) { <span class="co"># apply for each bootstrap iteration</span></span>
-<span id="cb6-5"><a href=""></a>    <span class="cf">if</span> (m <span class="sc">==</span> <span class="st">"p"</span>) {</span>
-<span id="cb6-6"><a href=""></a>      d.b <span class="ot">&lt;-</span> <span class="fu">rdist</span>(...) <span class="co"># parametric bootstrap</span></span>
-<span id="cb6-7"><a href=""></a>    } <span class="cf">else</span> <span class="cf">if</span> (m <span class="sc">==</span> <span class="st">"np"</span>) {</span>
-<span id="cb6-8"><a href=""></a>      d.b <span class="ot">&lt;-</span> x[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x), <span class="at">replace =</span> <span class="cn">TRUE</span>)] <span class="co"># nonparametric bootstrap</span></span>
-<span id="cb6-9"><a href=""></a>    } <span class="cf">else</span> {</span>
-<span id="cb6-10"><a href=""></a>      <span class="fu">stop</span>(<span class="st">"possible arguments for m is 'p' (parametric) or 'np' (nonparametric)"</span>)</span>
-<span id="cb6-11"><a href=""></a>    }</span>
-<span id="cb6-12"><a href=""></a>    <span class="fu">theta.f</span>(d.b)</span>
-<span id="cb6-13"><a href=""></a>  }</span>
-<span id="cb6-14"><a href=""></a>  <span class="co"># future_map_dbl to apply iterate_func over each index in parallel with proper seeding</span></span>
-<span id="cb6-15"><a href=""></a>  t.s <span class="ot">&lt;-</span> <span class="fu">future_map_dbl</span>(b_indices, iterate_func, <span class="at">.options =</span> <span class="fu">furrr_options</span>(<span class="at">seed =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb6-16"><a href=""></a>  <span class="fu">samp.o</span>(t.s) <span class="co"># Summarize the bootstrap results</span></span>
-<span id="cb6-17"><a href=""></a>}</span>
-<span id="cb6-18"><a href=""></a>samp.o <span class="ot">=</span> <span class="cf">function</span>(t.s) {</span>
-<span id="cb6-19"><a href=""></a>  <span class="fu">round</span>(<span class="fu">c</span>(<span class="at">mean=</span><span class="fu">mean</span>(t.s),<span class="at">sd=</span><span class="fu">sd</span>(t.s),<span class="at">lower=</span><span class="fu">quantile</span>(t.s, <span class="fl">0.025</span>, <span class="at">names =</span> F),</span>
-<span id="cb6-20"><a href=""></a>  <span class="at">upper=</span> <span class="fu">quantile</span>(t.s, <span class="fl">0.975</span>, <span class="at">names =</span> F)),<span class="at">digits=</span><span class="dv">6</span>)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>boot <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">B =</span> <span class="dv">5000</span>, m, theta.f, <span class="at">w =</span> <span class="dv">1</span>, rdist, ...) {</span>
+<span id="cb7-2"><a href=""></a>  <span class="fu">plan</span>(multisession, <span class="at">workers =</span> w) <span class="co"># Set up for parallel execution</span></span>
+<span id="cb7-3"><a href=""></a>  b_indices <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>B <span class="co"># vector of indices for bootstrapping iterations</span></span>
+<span id="cb7-4"><a href=""></a>  iterate_func <span class="ot">&lt;-</span> <span class="cf">function</span>(b) { <span class="co"># apply for each bootstrap iteration</span></span>
+<span id="cb7-5"><a href=""></a>    <span class="cf">if</span> (m <span class="sc">==</span> <span class="st">"p"</span>) {</span>
+<span id="cb7-6"><a href=""></a>      d.b <span class="ot">&lt;-</span> <span class="fu">rdist</span>(...) <span class="co"># parametric bootstrap</span></span>
+<span id="cb7-7"><a href=""></a>    } <span class="cf">else</span> <span class="cf">if</span> (m <span class="sc">==</span> <span class="st">"np"</span>) {</span>
+<span id="cb7-8"><a href=""></a>      d.b <span class="ot">&lt;-</span> x[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x), <span class="at">replace =</span> <span class="cn">TRUE</span>)] <span class="co"># nonparametric bootstrap</span></span>
+<span id="cb7-9"><a href=""></a>    } <span class="cf">else</span> {</span>
+<span id="cb7-10"><a href=""></a>      <span class="fu">stop</span>(<span class="st">"possible arguments for m is 'p' (parametric) or 'np' (nonparametric)"</span>)</span>
+<span id="cb7-11"><a href=""></a>    }</span>
+<span id="cb7-12"><a href=""></a>    <span class="fu">theta.f</span>(d.b)</span>
+<span id="cb7-13"><a href=""></a>  }</span>
+<span id="cb7-14"><a href=""></a>  <span class="co"># future_map_dbl to apply iterate_func over each index in parallel with proper seeding</span></span>
+<span id="cb7-15"><a href=""></a>  t.s <span class="ot">&lt;-</span> <span class="fu">future_map_dbl</span>(b_indices, iterate_func, <span class="at">.options =</span> <span class="fu">furrr_options</span>(<span class="at">seed =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb7-16"><a href=""></a>  <span class="fu">samp.o</span>(t.s) <span class="co"># Summarize the bootstrap results</span></span>
+<span id="cb7-17"><a href=""></a>}</span>
+<span id="cb7-18"><a href=""></a>samp.o <span class="ot">=</span> <span class="cf">function</span>(t.s) {</span>
+<span id="cb7-19"><a href=""></a>  <span class="fu">round</span>(<span class="fu">c</span>(<span class="at">mean=</span><span class="fu">mean</span>(t.s),<span class="at">sd=</span><span class="fu">sd</span>(t.s),<span class="at">lower=</span><span class="fu">quantile</span>(t.s, <span class="fl">0.025</span>, <span class="at">names =</span> F),</span>
+<span id="cb7-20"><a href=""></a>  <span class="at">upper=</span> <span class="fu">quantile</span>(t.s, <span class="fl">0.975</span>, <span class="at">names =</span> F)),<span class="at">digits=</span><span class="dv">6</span>)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="fu">library</span>(purrr)</span>
-<span id="cb7-2"><a href=""></a><span class="fu">library</span>(future)</span>
-<span id="cb7-3"><a href=""></a><span class="fu">library</span>(tictoc)</span>
-<span id="cb7-4"><a href=""></a></span>
-<span id="cb7-5"><a href=""></a><span class="co"># boot &lt;- function(x, B = 5000, m, theta.f, w = 1, rdist, ...) {} # see above</span></span>
-<span id="cb7-6"><a href=""></a><span class="co"># samp.o = function(t.s) {} # see above</span></span>
-<span id="cb7-7"><a href=""></a>theta.f <span class="ot">=</span> <span class="cf">function</span>(d.b) {p <span class="ot">=</span> <span class="fu">sum</span>(d.b)<span class="sc">/</span>n; p<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>p)} </span>
-<span id="cb7-8"><a href=""></a></span>
-<span id="cb7-9"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">1</span>); n <span class="ot">=</span> <span class="dv">800000</span>; y <span class="ot">=</span> <span class="dv">480</span>; B <span class="ot">=</span> <span class="dv">5000</span></span>
-<span id="cb7-10"><a href=""></a>data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, y), <span class="fu">rep</span>(<span class="dv">0</span>, n<span class="sc">-</span>y)); phat <span class="ot">&lt;-</span> <span class="fu">sum</span>(data)<span class="sc">/</span>n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<div style="margin-top: 20px;">
-
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">tic</span>()</span>
-<span id="cb8-2"><a href=""></a>(b_p_future <span class="ot">&lt;-</span> <span class="fu">boot</span>(data, <span class="at">B =</span> B, <span class="at">m =</span> <span class="st">"p"</span>, <span class="at">theta.f =</span> theta.f, <span class="at">w =</span> <span class="dv">1</span>,</span>
-<span id="cb8-3"><a href=""></a>                    <span class="at">rdist =</span> rbinom, <span class="at">n =</span> n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> phat))</span>
-<span id="cb8-4"><a href=""></a><span class="fu">toc</span>() <span class="co"># 49.859 sec elapsed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">library</span>(purrr)</span>
+<span id="cb8-2"><a href=""></a><span class="fu">library</span>(future)</span>
+<span id="cb8-3"><a href=""></a><span class="fu">library</span>(tictoc)</span>
+<span id="cb8-4"><a href=""></a></span>
+<span id="cb8-5"><a href=""></a><span class="co"># boot &lt;- function(x, B = 5000, m, theta.f, w = 1, rdist, ...) {} # see above</span></span>
+<span id="cb8-6"><a href=""></a><span class="co"># samp.o = function(t.s) {} # see above</span></span>
+<span id="cb8-7"><a href=""></a>theta.f <span class="ot">=</span> <span class="cf">function</span>(d.b) {p <span class="ot">=</span> <span class="fu">sum</span>(d.b)<span class="sc">/</span>n; p<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>p)} </span>
+<span id="cb8-8"><a href=""></a></span>
+<span id="cb8-9"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">1</span>); n <span class="ot">=</span> <span class="dv">800000</span>; y <span class="ot">=</span> <span class="dv">480</span>; B <span class="ot">=</span> <span class="dv">5000</span></span>
+<span id="cb8-10"><a href=""></a>data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, y), <span class="fu">rep</span>(<span class="dv">0</span>, n<span class="sc">-</span>y)); phat <span class="ot">&lt;-</span> <span class="fu">sum</span>(data)<span class="sc">/</span>n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
@@ -2718,9 +2721,20 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="fu">tic</span>()</span>
-<span id="cb9-2"><a href=""></a>(<span class="at">b_p_future =</span> <span class="fu">boot</span>(data, <span class="at">B =</span> B, <span class="at">m =</span> <span class="st">"p"</span>, <span class="at">theta.f =</span> theta.f, <span class="at">w =</span> <span class="dv">9</span>,</span>
+<span id="cb9-2"><a href=""></a>(b_p_future <span class="ot">&lt;-</span> <span class="fu">boot</span>(data, <span class="at">B =</span> B, <span class="at">m =</span> <span class="st">"p"</span>, <span class="at">theta.f =</span> theta.f, <span class="at">w =</span> <span class="dv">1</span>,</span>
 <span id="cb9-3"><a href=""></a>                    <span class="at">rdist =</span> rbinom, <span class="at">n =</span> n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> phat))</span>
-<span id="cb9-4"><a href=""></a><span class="fu">toc</span>() <span class="co"># 8.014 sec elapsed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-4"><a href=""></a><span class="fu">toc</span>() <span class="co"># 49.859 sec elapsed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<div style="margin-top: 20px;">
+
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="fu">tic</span>()</span>
+<span id="cb10-2"><a href=""></a>(<span class="at">b_p_future =</span> <span class="fu">boot</span>(data, <span class="at">B =</span> B, <span class="at">m =</span> <span class="st">"p"</span>, <span class="at">theta.f =</span> theta.f, <span class="at">w =</span> <span class="dv">9</span>,</span>
+<span id="cb10-3"><a href=""></a>                    <span class="at">rdist =</span> rbinom, <span class="at">n =</span> n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> phat))</span>
+<span id="cb10-4"><a href=""></a><span class="fu">toc</span>() <span class="co"># 8.014 sec elapsed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section></section>
@@ -2737,11 +2751,11 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 <div id="tabset-9-1">
 <!--Basic If-Else-->
 <p>Write an R function named <code>is_positive</code> that takes a single numeric input and returns <code>TRUE</code> if the number is positive, and <code>FALSE</code> otherwise.</p>
-<div id="qwebr-insertion-location-53"></div>
+<div id="qwebr-insertion-location-55"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 <div id="tabset-9-2">
-<div id="qwebr-insertion-location-54"></div>
+<div id="qwebr-insertion-location-56"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 </div>
@@ -2755,11 +2769,11 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 <div class="tab-content">
 <div id="tabset-10-1">
 <p>Create a function named <code>sqrt_safe</code> that computes the square root of a number. If the input is negative, the function should stop execution and return an error message <code>"Cannot take square root of a negative number."</code></p>
-<div id="qwebr-insertion-location-55"></div>
+<div id="qwebr-insertion-location-57"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 <div id="tabset-10-2">
-<div id="qwebr-insertion-location-56"></div>
+<div id="qwebr-insertion-location-58"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 </div>
@@ -2773,11 +2787,11 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 <div class="tab-content">
 <div id="tabset-11-1">
 <p>Write a function named <code>find_first_negative</code> that takes a numeric vector and returns the position of the first negative number. If there are no negative numbers, return <code>NA</code>.</p>
-<div id="qwebr-insertion-location-57"></div>
+<div id="qwebr-insertion-location-59"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 <div id="tabset-11-2">
-<div id="qwebr-insertion-location-58"></div>
+<div id="qwebr-insertion-location-60"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 </div>
@@ -2791,11 +2805,11 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 <div class="tab-content">
 <div id="tabset-12-1">
 <p>Create a function named <code>halve_until_less_than_one</code> that takes a single numeric argument and keeps halving it until it is less than 1, then returns the result. Keep track of the number of times the input is halved; print the function output as <code>list(result = x, nsteps = count)</code></p>
-<div id="qwebr-insertion-location-59"></div>
+<div id="qwebr-insertion-location-61"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 <div id="tabset-12-2">
-<div id="qwebr-insertion-location-60"></div>
+<div id="qwebr-insertion-location-62"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 </div>
@@ -2809,11 +2823,11 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 <div class="tab-content">
 <div id="tabset-13-1">
 <p>Write a function named <code>scale_columns</code> that takes a matrix and scales (normalizes) each column to have a mean of 0 and a standard deviation of 1. Use the given dataframe <code>M</code></p>
-<div id="qwebr-insertion-location-61"></div>
+<div id="qwebr-insertion-location-63"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 <div id="tabset-13-2">
-<div id="qwebr-insertion-location-62"></div>
+<div id="qwebr-insertion-location-64"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 </div>
@@ -2827,11 +2841,11 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 <div class="tab-content">
 <div id="tabset-14-1">
 <p>Using the <code>purrr</code> package, write a function that takes a list of numeric vectors and returns a list of their means. Use <code>purrr::map</code>.</p>
-<div id="qwebr-insertion-location-63"></div>
+<div id="qwebr-insertion-location-65"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 <div id="tabset-14-2">
-<div id="qwebr-insertion-location-64"></div>
+<div id="qwebr-insertion-location-66"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 </div>
@@ -2845,11 +2859,11 @@ y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \
 <div class="tab-content">
 <div id="tabset-15-1">
 <p>Create a function named <code>multiply_and_add</code> that takes an arbitrary number of numeric vectors. It should multiply each vector by its index in the argument list and then sum all the results into a single number.</p>
-<div id="qwebr-insertion-location-65"></div>
+<div id="qwebr-insertion-location-67"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 <div id="tabset-15-2">
-<div id="qwebr-insertion-location-66"></div>
+<div id="qwebr-insertion-location-68"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 </div>
