@@ -1,0 +1,85 @@
+/*-- scss:defaults --*/
+// see https://quarto.org/docs/presentations/revealjs/themes.html for more info 
+
+// Base document colors
+$link-color: #001F3F;
+$body-bg: #FFFFFF !default;
+$body-color: #000 !default;
+$link-color: #51483d !default;
+$selection-bg: #26351c !default;
+
+/* bespoke definitions */
+$bold-text-col: #1F67A4; 
+
+$presentation-heading-font: 'Schibsted Grotesk', sans-serif; /* For headings (bold) */
+$mainFont: 'Schibsted Grotesk', sans-serif;  /* For main text (light) */
+
+@import url('https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&display=swap');
+
+/*-- scss:rules --*/
+
+/* setting different color for bold text */
+strong, b {
+  font-weight: bold;
+  color: $bold-text-col; 
+}
+
+/* Apply the bold font to headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: $presentation-heading-font;
+  font-weight: 700; /* Bold weight for headings */
+}
+
+/* Apply the light font to the main content */
+body {
+  font-family: $mainFont;
+  font-weight: 300; /* Light weight for main text */
+}
+
+/* Set regular font size */
+.reveal section {
+  font-size: 24px; /* Set your desired default font size */
+}
+[style*="font-size"] .reveal section {
+  font-size: inherit !important; /* Override default font size with inline style */
+}
+
+
+/* sizing for regular R code */
+.reveal pre {
+  font-size: 1.8rem !important; /* spacing of the chunck white space */
+}
+.reveal code {
+  font-size: 20px !important; /* r code font size */
+}
+
+/* Decrease font size for webr-r code chunks */
+.qwebr-editor .view-line {
+  font-size: 15px !important; /* Specific font size for Monaco's line elements */
+}
+.qwebr-editor .line-numbers {
+  font-size: 14px !important; /* Optionally adjust line number font size */
+}
+
+
+.reveal section.top {
+  top: 0px !important;
+}
+
+/* 
+#toc-title {
+  font-size: 50px;
+  color: #FFFFFF;
+}
+
+#TOC {
+  font-size: 25px;
+  color: #0097A7;
+}
+
+#TOC ul {
+  color: #0097A7;
+  list-style-type: disc; // Ensures it's a disc bullet
+  font-size: 35px; // Increases the bullet size along with the text
+}
+*/
