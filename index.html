@@ -532,7 +532,7 @@
   // Document level settings ----
 
   // Determine if we need to install R packages
-  globalThis.qwebrInstallRPackagesList = ['purrr', 'ggplot2', 'patchwork', 'lmer'];
+  globalThis.qwebrInstallRPackagesList = ['ggplot2', 'patchwork', 'mcprofile'];
 
   // Specify possible locations to search for the repository
   globalThis.qwebrPackageRepoURLS = ['https://repo.r-wasm.org/'];
@@ -554,7 +554,7 @@
   };
 
   // Store cell data
-  globalThis.qwebrCellDetails = [{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-1","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"m1 <- lm(Sepal.Length ~ Sepal.Width, data = iris)\nsummary(m1)","id":1},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-2","classes":"","message":"false","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"p1 <- ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) +\n  geom_point() +  # Scatter plot of the data points\n  geom_smooth(method = \"lm\", col = \"#1F67A4\") +  # Regression line\n  labs(title = \"Simple Linear Regression\",\n       x = \"Sepal Width\",\n       y = \"Sepal Length\")\np1","id":2},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-3","classes":"","message":"false","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"m2 <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)\np2 <- ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) +\n  geom_point() +  \n  geom_smooth(method = \"lm\", aes(x = Sepal.Width, y = predict(m2, iris)), color = \"#0097A7\") +\n  labs(title = \"Sepal Length vs Sepal Width\",x = \"Sepal Width\",y = \"Sepal Length\")\np3 <- ggplot(iris, aes(x = Petal.Length, y = Sepal.Length)) +\n  geom_point() + \n  geom_smooth(method = \"lm\", aes(x = Petal.Length, y = predict(m2, iris)), color = \"#795796\") +\n  labs(title = \"Sepal Length vs Petal Length\",x = \"Petal Length\", y = \"Sepal Length\")\np2 + p3 # Combine both plots","id":3},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-4","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"titanic <- read.csv(\"https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv\")\nm3 <- glm(Survived~Pclass + Sex + Age, family=\"binomial\",data=titanic)\nexp(coef(m3))\nexp(confint(m3))","id":4},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-5","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"R_Int_mod <- lmer(sqrt_abund ~ Scale_Yr + (1|FStation),\ndata=Kukupa)","id":5},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"setup","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-6","classes":"","message":"true","dpi":72,"autorun":"true","out-height":"","results":"markup","output":"true"},"code":"Kukupa <- read.csv(\"Kukupa.csv\")","id":6},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-7","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"R_Slope_only_mod <- lmer(sqrt_abund ~ Scale_Yr + (0 + Scale_Yr|FStation), data=Kukupa)\nranef(R_Slope_only_mod)","id":7},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-8","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"# First let's make some data to play with.\nvec_dat <- data.frame(x = 1:5, y = NA_real_)\nvec_dat\nloop_dat <- data.frame(t = 1:5, N = NA_real_)\nloop_dat\n\n# What is the difference between vectorization and iteration?\nvec_dat$y <- 4*vec_dat$x + 3\nvec_dat\n\nloop_dat$N[1] <- 2\nfor(i in 1:4) {\n  loop_dat$N[i + 1] <- loop_dat$N[i]*exp(0.5*(1 - loop_dat$N[i]/30))\n}\nloop_dat","id":8},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-9","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"# This is a stupid example, but it creates some data for us.\nfor(i in 1:20) {\n  write.csv(data.frame(ID = paste0(\"DataLogger-\", i),\n                    Temperature = runif(30, 10, 20),\n                    Wind = runif(30, 0, 15),\n                    Battery = \"Normal\"),\n            paste0(getwd(), \"/WeatherStation_\", i, \".csv\"))\n}\n\n# Now lets check our work.\nlist.files(getwd(), pattern = \"WeatherStation_\")","id":9},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-10","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"# This is the code we just wrote.\nfor(i in 1:20) {write.csv(data.frame(ID = paste0(\"DataLogger-\", i),\n                Temperature = runif(30, 10, 20), Wind = runif(30, 0, 15),\n                Battery = \"Normal\"),paste0(getwd(), \"/WeatherStation_\", i, \".csv\"))}\n\n# What if we want to read in a bunch of data files?\ndf <- lapply(paste0(getwd(), \"/\", list.files(getwd(), pattern = \".csv\")), read.csv)\n\nlapply(df, function(x) head(x,3))[1:2]\n\ndf2 <- do.call(rbind, lapply(paste0(getwd(), \"/\",\n                             list.files(getwd(), pattern = \".csv\")), read.csv))\nhead(df2)","id":10},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-11","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"# Create some genetic data.\ngenetic_data <- data.frame(matrix(data = sample(c(\"A\", \"T\", \"G\", \"C\"), 3000, replace = TRUE),\n                                  nrow = 300, ncol = 10))\nhead(genetic_data)\n\n# I want to know how many A's there are in each column.\napply(genetic_data, 2, table)[1,]","id":11},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-12","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"if(TRUE) {print(\"I have to work today.\")}\n\nif(FALSE) {print(\"I have to work today.\")\n} else {print(\"It is the weekend!\")}\n\nif(FALSE) {print(\"I have to work today.\")\n} else if(TRUE) {print(\"It is the weekend!\")}\n\nx <- 10\nx == 10\nx != 10","id":12},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-13","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"column1 <- c(1:10, NA)\ncolumn1\nany(is.na(column1))\nis.numeric(column1)\n!is.numeric(column1)\n\nifelse(TRUE, \"cold\", \"hot\")\n\n# Make some data.\ndf2 <- data.frame(ID = \"DataLogger-20\", Temperature = runif(30, 10, 20),\n                  Wind = runif(30, 0, 15), Battery = \"Normal\")\n                    \nhead(df2)\ndf2$WindClass <- ifelse(df2$Wind >= 10, \"Windy\", \"Still\")","id":13},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-14","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"# This is the code from before to make the data.\nfor(i in 1:20) {\nwrite.csv(data.frame(ID = paste0(\"DataLogger-\", i), Temperature = runif(30, 10, 20),\nWind = runif(30, 0, 15), Battery = \"Normal\"), paste0(getwd(), \"/WeatherStation_\", i, \".csv\"))}","id":14},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-15","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"# This is the code from before to make the data.\nfor(i in 1:20) {\nwrite.csv(data.frame(ID = paste0(\"DataLogger-\", i), Temperature = runif(30, 10, 20),\nWind = runif(30, 0, 15), Battery = \"Normal\"), paste0(getwd(), \"/WeatherStation_\", i, \".csv\"))}\n\nfor(i in seq_along(list.files(getwd(), pattern = \"WeatherStation_\"))) {\n  tmp <- read.csv(paste0(getwd(), \"/\", list.files(getwd(), pattern = \".csv\"))[i])\n  if(i == 1) {weather_dat <- tmp\n  } else {weather_dat <- rbind(weather_dat, tmp)}}","id":15},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-16","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"# This is the code from before to make the data.\nfor(i in 1:20) {\nwrite.csv(data.frame(ID = paste0(\"DataLogger-\", i), Temperature = runif(30, 10, 20),\nWind = runif(30, 0, 15), Battery = \"Normal\"), paste0(getwd(), \"/WeatherStation_\", i, \".csv\"))}\n\n# Use this code to put some NA's into the \"Weather Station\" files.\nwrite.csv(data.frame(ID = \"DataLogger-7\", Temperature = c(runif(28, 10, 20), NA, NA),\n          Wind = c(runif(28, 0, 15), NA, NA), Battery = c(rep(\"Normal\", 28), \"Low\", \"Low\")),\n          paste0(getwd(), \"/WeatherStation_7.csv\"))\n\n","id":16},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-17","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"# This is the code from before to make the data.\nfor(i in 1:20) {\nwrite.csv(data.frame(ID = paste0(\"DataLogger-\", i), Temperature = runif(30, 10, 20),\nWind = runif(30, 0, 15), Battery = \"Normal\"), paste0(getwd(), \"/WeatherStation_\", i, \".csv\"))}\n\n# Use this code to put some NA's into the \"Weather Station\" files.\nwrite.csv(data.frame(ID = \"DataLogger-7\", Temperature = c(runif(28, 10, 20), NA, NA),\n          Wind = c(runif(28, 0, 15), NA, NA), Battery = c(rep(\"Normal\", 28), \"Low\", \"Low\")),\n          paste0(getwd(), \"/WeatherStation_7.csv\"))\n\nfor(i in seq_along(list.files(getwd(), pattern = \"WeatherStation_\"))) {\n  tmp <- read.csv(paste0(getwd(), \"/\", list.files(getwd(), pattern = \".csv\"))[i])\n  if(!any(is.na(tmp))) {\n  if(i == 1) {weather_dat <- tmp\n  } else {weather_dat <- rbind(weather_dat, tmp)}}}","id":17},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-18","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"dat <- data.frame(A = rnorm(100, 10, 5), B = rpois(100, 10), C = rnorm(100, 50, 10),\n                  X = runif(100, 0, 100), Y = rbeta(100, 1, 2), Z = rnorm(100, 0, 1))\n","id":18},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-19","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"dat <- data.frame(A = rnorm(100, 10, 5), B = rpois(100, 10), C = rnorm(100, 50, 10),\n                  X = runif(100, 0, 100), Y = rbeta(100, 1, 2), Z = rnorm(100, 0, 1))\n\napply(dat, 2, shapiro.test)","id":19},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-20","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"# Make some data.\ndf2 <- data.frame(X = 1:30, ID = \"DataLogger-20\", Temperature = runif(30, 10, 20),\n                  Wind = runif(30, 0, 15), Battery = \"Normal\")\n","id":20},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-21","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"# Make some data.\ndf2 <- data.frame(X = 1:30, ID = \"DataLogger-20\", Temperature = runif(30, 10, 20),\n                  Wind = runif(30, 0, 15), Battery = \"Normal\")\n\ndf2$Week <- ifelse(df2$X <= 7, 1,\n              ifelse(df2$X >= 8 & df2$X <= 14, 2,\n                ifelse(df2$X >= 15 & df2$X <= 21, 3,\n                  ifelse(df2$X >= 22 & df2$X <= 28, 4, NA))))","id":21},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-22","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"i <- function(x) x^2 # same as `i <- function(x) print(x^2)`\ni(3)\nj <- function(x) return(x^2)\nj(3)","id":22},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-23","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"k <- function(x) {X = x^2; Y = x^3}\nk(3) # nothing is printed to the screen, last assignment is returned as an invisible()\npaste(\"k(3):\", k(3))\nk_val = k(3); k_val","id":23},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-24","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"l <- function(x) {X = x^2; Y = x^3; Z = x^4; invisible(x+1)}\nl(3)\npaste(\"l(3):\", l(3))","id":24},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-25","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"m <- function(x){X = x^2; invisible(x+1); Y = x^3}\npaste(m(3))","id":25},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-26","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"f <- function(x) x^2\nf\nformals(f) #> $x\nbody(f) #> x^2\nenvironment(f) # <environment: R_GlobalEnv>","id":26},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-27","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"k <- function() list(ls(),environment())\nk() # k() has its own environment\nlist(ls()[1:5],environment()) \n# all other environments sit on top of the global environments ","id":27},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-28","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"f1 <- function(){L = 1; L}\nf1()\nL # Error: object 'L' not found\n\nK = 3\nf2 <- function() {K} \nf2() # Functions can access the global environment\n\nf3 <- function() {L <<- 10} \nf3() # returns L to the parent environment\nL    # now we also prints L from global environment\n\nremove(L)\nf4 <- function(){L = 100; f3(); L}\nf4()\nL\n# Avoid using `<<-` when possible!!","id":28},{"options":{"read-only":"false","fig-height":5,"out-width":"700px","warning":"true","comment":"","echo":"true","fig-cap":"","output":"true","fig-width":7,"dpi":72,"classes":"","out-height":"","message":"true","autorun":"false","context":"interactive","results":"markup","label":"unnamed-chunk-29"},"code":"f <- function(a = 1) a\nf()","id":29},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-30","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"f <- function(a, b = NULL) c(a,b)\nf(1)\nf(1,2)","id":30},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-31","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"message(\"notify the user, although we are not indicating any problems\")\n\nwarning(\"notify the user of something potentially problematic\")\n\nstop(\"A condition has been met that is problematic enough to warrant forcing an error.\")\n","id":31},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-32","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"k <- function(a,b) a^(b)\nf <- function(a, b = NULL) {\n  if(is.null(b)){\n    warning(\"{warning()} b is missing, just returning `a`\")\n    return(a)\n  } \n  if(a < 0 && b == 1/2){\n    stop(\"{stop()} can't take the sqrt of a negative number\")\n  } else {\n    message(\"{message()} function completion without conditional execution\")\n    a^(b)\n  }\n}\nk(1) # error without user defined error handling \nf(1) # here we see the `NULL` Conditional Execution\nf(-2,1/2)\nf(3,2)","id":32},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-33","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"f <- function(a, b, c) {\n  if(missing(c)) {\n  return(sum(a,b))\n    }\n  if(!missing(c)) {\n  return(sum(a,b,c))\n    }\n}\nf(1,2)\nf(1,2,3)","id":33},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-34","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"f1 <- function(x, ...){...length()}\nf1(1)      # 0 argument passed to `...`\nf1(1,2)    # 1 arguments passed to `...`\nf1(1,2,3)  # 2 arguments passed to `...`\n\nf2 <- function(x, ...){list(...)}\nf2(1,2,3) # `1` passed to `x`, `2` and `3` passed to `...`","id":34},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-35","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"rnorm\nrandom_num_gen <- function(x, ...) {\n  rnorm(x, ...)\n}\n\nset.seed(1); random_num_gen(5)\nset.seed(1); random_num_gen(5, mean = 3, sd = 1.5)","id":35},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-36","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"# mean and median defined with `...`\nf3 <- function(x, ...){\n  out <- list(mean(x, ...), median(x, ...))\n  out\n}\n\n(k = c(1:8,NA))\nf3(x=k, na.rm = TRUE)                                        # Works \nf3(x=k, na.rm = TRUE, random_message = \"Save the bees\")      # Works \n\n# matrix not defined with \"...\"\nf4 <- function(x, ...){\n  out <- list(mean(x, ...), median(x, ...), matrix(x,...))\n  return(out)\n}\n\nf4(x=k, na.rm = TRUE)                                        # Fails\nlist(mean(k,na.rm = TRUE),median(k,na.rm = TRUE),matrix(k))","id":36},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"setup","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-37","classes":"","message":"true","dpi":72,"autorun":"true","out-height":"","results":"markup","output":"true"},"code":"defined_arguments <- function(...){\n  f <- list(...);out = lapply(f,function(x) names(formals(x)))\n  names(out) = as.character(substitute(list(...)))[-1];out\n}","id":37},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-38","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"defined_arguments(matrix, data.frame, as.data.frame) # which are defined with `...` ?\n(k = c(1:3,NA))\n\nmatrix(k, na.rm = TRUE)\ndata.frame(k, na.rm = TRUE)\nas.data.frame(k,na.rm = TRUE)\n\nf5 <- function(x, ...){\n  out <- list(mean(x, ...), median(x, ...), as.data.frame(x,...))\n  return(out)\n}\nf5(x=k, na.rm = TRUE)","id":38},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-39","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"function(x) x * 2\nsapply(1:5,function(x) x * 2)","id":39},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-40","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"library(purrr)\n# ~ .x * 2  or \\(x) x*2\nmap_dbl(1:5,~ .x * 2)\nmap_dbl(1:5,\\(x) x*2)","id":40},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-41","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"(X <- cbind(x1 = 3, x2 = c(4:1, 2:5)))\n\napply(X, 1, mean) # row-wise \napply(X, 2, mean) # col-wise","id":41},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-42","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"(J = array(rep(1,12), c(2, 2, 3)))\napply(J, c(1), sum)\napply(J, c(2), sum)\napply(J, c(3), sum)\napply(J, c(1,2), sum)\napply(J, c(1,3), sum)","id":42},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-43","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"(Y <- list(a = 1:10, beta = exp(-3:3)))\n\nsapply(Y, quantile)","id":43},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-44","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"(Y <- list(a = 1:10, beta = exp(-3:3)))\n\nlapply(Y, quantile)","id":44},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-45","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"try2 <- function(x,m){tryCatch({x}, error =function(e) {finally = print(m)})}\n(Y <- list(a = 1:10, beta = exp(-3:3)))\n\ntry2(vapply(Y,quantile),\"Error:`FUN.VALUE` is missing\")\nvapply(Y,quantile,seq(0, 1, 0.25))","id":45},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-46","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"W <- warpbreaks; head(W,3) \n\n# contingency table \ntapply(W$breaks, subset(W, select = -breaks), sum) ","id":46},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-47","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"(Z <- lapply(rep(2,2), function(x) data.frame(x=rnorm(x))))\n\ndo.call(cbind, Z)","id":47},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-48","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"abs_dif <- function(x,y) abs(x-y)\nmapply(abs_dif, c(2,10), c(2,30))\n\nmapply(sum, c(1,2,3,5), c(1,2,3,10),c(1,2,3,15))","id":48},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-49","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"abs_dif <- function(x,y) abs(x-y)\nMap(abs_dif, c(2,10), c(2,30))\n\nMap(sum, c(1,2,3,5), c(1,2,3,10),c(1,2,3,15))","id":49},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-50","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"set.seed(1)\n(L <- purrr::map(1:3, ~ sample(1:3, 5, replace = T)))\n\nintersect(c(1,2,3), c(1,2,4)) # demo of intersect()\nReduce(intersect,L)","id":50},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-51","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"set.seed(0); 1:5 |> map(rnorm, n = 4)\n\n# You can also use an anonymous function\nset.seed(0); 1:5 |> map(\\(x) rnorm(n=4, mean = x, sd = 1))\nset.seed(0); 1:5 |> map(~ rnorm(n=4, mean = .x, sd = 1))","id":51},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-52","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"x <- list(1, 1, 1)\ny <- list(10, 20, 30)\n\nmap2(x, y, \\(x, y) x + y)","id":52},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-53","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"x <- list(1, 1, 1)\ny <- list(10, 20, 30)\nz <- list(100, 200, 300)\n\npmap(list(x, y, z), sum)\n\nset.seed(0); list(1:2,1:2,1:2) |> pmap(\\(x,y,z) rhyper(3, m = x, n = y, k = z))\n# These numbers represent the number of white balls drawn in each of the 3 draws from the urn","id":53},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-54","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"set.seed(1)\n(L <- purrr::map(1:3, ~ sample(1:3, 5, replace = T)))\n\npurrr::reduce(L,intersect)","id":54},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-55","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"is_positive <- function(x) {\n\n}","id":55},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-56","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"is_positive <- function(x) {\n  if (x > 0) {\n    TRUE\n  } else {\n    FALSE\n  }\n}\n\nis_positive(5)","id":56},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-57","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"sqrt_safe <- function(x) {\n\n}","id":57},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-58","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"sqrt_safe <- function(x) {\n  if (x < 0) {\n    stop(\"Cannot take square root of a negative number.\")\n  }\n  sqrt(x)\n}\nsqrt_safe(-2)\nsqrt_safe(5)","id":58},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-59","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"find_first_negative <- function(vec) {\n\n}","id":59},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-60","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"find_first_negative <- function(vec) {\n  for (i in 1:length(vec)) {\n    if (vec[i] < 0) {\n      return(i)\n    }\n  }\n  NA\n}\n\nfind_first_negative(c(5, 2, -4, 6, -1))","id":60},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-61","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"halve_until_less_than_one <- function(x) {\n\n}","id":61},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-62","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"halve_until_less_than_one <- function(x) {\n  count = 0\n  while (x >= 1) {\n    x <- x / 2\n    count <- count+1\n  }\n  list(result = x, nsteps = count)\n}\nhalve_until_less_than_one(14)","id":62},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-63","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"set.seed(1)\nM <- as.data.frame(\n  lapply(c(400,400), function(x) data.frame(x=rgamma(x, shape =2, scale = 2)))\n  )\n\nscale_columns <- function(mat) {\n  \n}","id":63},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-64","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"set.seed(1)\nM <- as.data.frame(\n  lapply(c(400,400), function(x) data.frame(x=rgamma(x, shape =2, scale = 2)))\n  )\n\nscale_columns <- function(mat) {\n  apply(mat, 2, function(x) (x - mean(x)) / sd(x))\n}\n\nM_new <- scale_columns(M)\npar(mfrow = c(1,2))\nhist(M$x);hist(M_new)","id":64},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-65","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"set.seed(1)\n(K <- lapply(rep(4,3), rnorm))\n\nlibrary(purrr)\ncalc_means <- function(list_of_vectors) {\n  \n}","id":65},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-66","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"set.seed(1)\n(K <- lapply(rep(4,3), rnorm))\n\nlibrary(purrr)\ncalc_means <- function(list_of_vectors) {\n  map_dbl(list_of_vectors, mean)\n}\n\ncalc_means(K)","id":66},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-67","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"multiply_and_add <- function(...) {\n  \n}","id":67},{"options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","fig-height":5,"out-width":"700px","warning":"true","fig-width":7,"label":"unnamed-chunk-68","classes":"","message":"true","dpi":72,"autorun":"false","out-height":"","results":"markup","output":"true"},"code":"multiply_and_add <- function(...) {\n  vectors <- list(...)\n  result <- 0\n  for (i in seq_along(vectors)) {\n    result <- result + sum(vectors[[i]] * i)\n  }\n  result\n}\nmultiply_and_add(c(1,2),c(3,4))\n# ie \nsum(c(1, 2) * 1) + sum(c(3, 4) * 2)  ","id":68}];
+  globalThis.qwebrCellDetails = [{"id":1,"code":"m1 <- lm(Sepal.Length ~ Sepal.Width, data = iris)\nsummary(m1)","options":{"fig-height":5,"classes":"","results":"markup","fig-cap":"","read-only":"false","autorun":"false","comment":"","message":"true","warning":"true","out-height":"","out-width":"700px","output":"true","dpi":72,"context":"interactive","fig-width":7,"label":"m1"}},{"id":2,"code":"p1 <- ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) +\n  geom_point() +  # Scatter plot of the data points\n  geom_smooth(method = \"lm\", col = \"#1F67A4\") +  # Regression line\n  labs(title = \"Simple Linear Regression\",\n       x = \"Sepal Width\",\n       y = \"Sepal Length\")\np1","options":{"fig-height":5,"classes":"","results":"markup","fig-cap":"","read-only":"false","autorun":"false","comment":"","message":"false","warning":"true","out-height":"","out-width":"700px","output":"true","dpi":72,"context":"interactive","fig-width":7,"label":"p1"}},{"id":3,"code":"# You can work here ","options":{"fig-height":5,"classes":"","results":"markup","fig-cap":"","read-only":"false","autorun":"false","comment":"","message":"true","warning":"true","out-height":"","out-width":"700px","output":"true","dpi":72,"context":"interactive","fig-width":7,"label":"unnamed-chunk-3"}},{"id":4,"code":"# Fit the simple linear model\nmodel1 <- lm(wt ~ hp, data = mtcars)\n\n# Extract the slope (coefficient of hp)\ncoef(model1)[2]","options":{"fig-height":5,"classes":"","results":"markup","fig-cap":"","read-only":"false","autorun":"false","comment":"","message":"true","warning":"true","out-height":"","out-width":"700px","output":"true","dpi":72,"context":"interactive","fig-width":7,"label":"unnamed-chunk-4"}},{"id":5,"code":"# You can work here ","options":{"fig-height":5,"classes":"","results":"markup","fig-cap":"","read-only":"false","autorun":"false","comment":"","message":"true","warning":"true","out-height":"","out-width":"700px","output":"true","dpi":72,"context":"interactive","fig-width":7,"label":"unnamed-chunk-5"}},{"id":6,"code":"# Predict the weight of a car with 150 horsepower\npredict(model1, data.frame(hp = 150))","options":{"fig-height":5,"classes":"","results":"markup","fig-cap":"","read-only":"false","autorun":"false","comment":"","message":"true","warning":"true","out-height":"","out-width":"700px","output":"true","dpi":72,"context":"interactive","fig-width":7,"label":"unnamed-chunk-6"}},{"id":7,"code":"m2 <- lm(Sepal.Length ~ Sepal.Width + Petal.Length, data = iris)\np2 <- ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) +\n  geom_point() +  \n  geom_smooth(method = \"lm\", aes(x = Sepal.Width, y = predict(m2, iris)), color = \"#0097A7\") +\n  labs(title = \"Sepal Length vs Sepal Width\",x = \"Sepal Width\",y = \"Sepal Length\")\np3 <- ggplot(iris, aes(x = Petal.Length, y = Sepal.Length)) +\n  geom_point() + \n  geom_smooth(method = \"lm\", aes(x = Petal.Length, y = predict(m2, iris)), color = \"#795796\") +\n  labs(title = \"Sepal Length vs Petal Length\",x = \"Petal Length\", y = \"Sepal Length\")\np2 + p3 # Combine both plots","options":{"fig-height":5,"classes":"","results":"markup","fig-cap":"","read-only":"false","autorun":"false","comment":"","message":"false","warning":"true","out-height":"","out-width":"700px","output":"true","dpi":72,"context":"interactive","fig-width":7,"label":"m2"}},{"id":8,"code":"titanic <- read.csv(\"https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv\")\nm3 <- glm(Survived~Age, family=\"binomial\",data=titanic)\nK <- matrix(c(0, 1), ncol = 2)\nlinComb <- mcprofile::mcprofile(m3, K)\nlogOddsCI <- confint(linComb, level = 0.95)\nexp(logOddsCI)","options":{"fig-height":5,"classes":"","results":"markup","fig-cap":"","read-only":"false","autorun":"false","comment":"","message":"true","warning":"true","out-height":"","out-width":"700px","output":"true","dpi":72,"context":"interactive","fig-width":7,"label":"titanic logistic regression"}}];
 
   </script>
   <script type="module">
@@ -1463,19 +1463,37 @@ A R Ladies Workshop
 -->
 </section>
 
-<section>
-<section id="outline-1" class="title-slide slide level1 center" data-background-image="images/background_1.png" data-background-size="cover">
-<h1><span style="color:#001F3F; font-size: 55px;">Outline (1)</span></h1>
+<section id="outline" class="title-slide slide level1 center" data-background-image="images/background_1.png" data-background-size="cover">
+<h1><span style="color:#001F3F; font-size: 55px;">Outline</span></h1>
 <div>
-<div style="font-size: 0.6em;">
+<div style="font-size: 1.2em;">
 <ul>
-<li class="fragment">Point 1</li>
-<li class="fragment">Point 2
-<ul>
-<li class="fragment">sub-point 1</li>
-</ul></li>
+<li class="fragment">Simple Linear Regression</li>
+<li class="fragment">Multiple Linear regression</li>
+<li class="fragment">Generalised Linear Models</li>
+<li class="fragment">Logistic Regression</li>
+<li class="fragment">Linear Mixed Models</li>
+<li class="fragment">Generalised Linear Mixed Models</li>
 </ul>
 </div>
+</div>
+</section>
+
+<section>
+<section id="preliminaries" class="title-slide slide level1 center" data-background-image="images/background_2.png" data-background-size="cover">
+<h1><span style="color:#001F3F; font-size: 70px;">Preliminaries</span></h1>
+
+</section>
+<section id="webr-code-execution" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
+<h2><span style="color:#001F3F; font-size: 55px;">Webr Code Execution</span></h2>
+<p align="center">
+<img src="images/webr.gif" alt="webr" width="600px" style="border: 2px solid #000;">
+</p>
+<div>
+<ul>
+<li class="fragment"><p>Use <code>cmd</code> <code>+</code> <code>enter</code> to execute a line.</p></li>
+<li class="fragment"><p>As of <code>webR 0.2.3</code>, <code>webr</code> does not support smart execution, so for multiline code highlight the entire section before hitting <code>cmd</code> <code>+</code> <code>enter</code>.</p></li>
+</ul>
 </div>
 </section>
 <section id="scalars-vectors-and-matrices" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
@@ -1486,10 +1504,10 @@ A R Ladies Workshop
 x = 5
 \]</span></p></li>
 <li class="fragment"><p><strong>Vector:</strong> A vector is a one-dimensional array of values. <span class="math display">\[
-\mathbf{v} = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}
+\underline{v} = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}
 \]</span></p></li>
 <li class="fragment"><p><strong>Matrix:</strong> A matrix is a two-dimensional array of values. <span class="math display">\[
-\mathbf{A} = \begin{bmatrix}
+A = \begin{bmatrix}
 1 &amp; 2 &amp; 3 \\
 4 &amp; 5 &amp; 6 \\
 7 &amp; 8 &amp; 9
@@ -1503,11 +1521,11 @@ x = 5
 <p><span class="math display">\[
 \begin{array}{|c|c|c|}
 \hline
-&amp; \text{roman (known)} &amp; \text{greek (unkown)} \\
-&amp; \text{(scalar, vector, matrix)} &amp; \text{(scalar, vector, matrix)} \\
+&amp; \text{Roman (known)} &amp; \text{Greek (unknown)} \\
+&amp; \text{(Scalar, Vector, Matrix)} &amp; \text{(Scalar, Vector, Matrix)} \\
 \hline
-\text{random} &amp; \mathbb{X}, \underline{X}, \mathbb{X} &amp; \Theta, \underline{\Theta}, \boldsymbol{\Theta} \\
-\text{fixed} &amp; x, \underline{x}, X &amp; \theta, \underline{\theta}, \boldsymbol{\theta} \\
+\text{Random} &amp; \mathbb{X}, \underline{X}, \mathbb{X} &amp; \Theta, \underline{\Theta}, \boldsymbol{\Theta} \\
+\text{Fixed} &amp; x, \underline{x}, X &amp; \theta, \underline{\theta}, \boldsymbol{\theta} \\
 \hline
 \end{array}
 \]</span></p>
@@ -1518,7 +1536,7 @@ x = 5
 <ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Fx,Rm</a></li><li><a href="#tabset-1-2">Fx,Gr</a></li><li><a href="#tabset-1-3">Rd,Rm</a></li><li><a href="#tabset-1-4">Rd,Gr</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1">
-<p>i.e., data (we observe it)</p>
+<p>i.e., data (we observe it).</p>
 <ul>
 <li>Scalar: <span class="math inline">\(x = 7\)</span></li>
 <li>Vector: <span class="math inline">\(\underline{x}= \begin{bmatrix} 4 \\ 5 \end{bmatrix}\)</span></li>
@@ -1526,7 +1544,7 @@ x = 5
 </ul>
 </div>
 <div id="tabset-1-2">
-<p>i.e., Population Parameters, <span class="math inline">\(\mu, \sigma,\)</span> etc</p>
+<p>i.e., Population Parameters, <span class="math inline">\(\mu, \sigma,\)</span> etc.</p>
 <ul>
 <li>Scalar: <span class="math inline">\(\theta\)</span></li>
 <li>Vector: <span class="math inline">\(\underline{\theta} = \begin{bmatrix} \theta_1 \\ \theta_2 \end{bmatrix}\)</span></li>
@@ -1534,10 +1552,10 @@ x = 5
 </ul>
 </div>
 <div id="tabset-1-3">
-<p>Not seen in this Workshop</p>
+<p>Not seen in this Workshop.</p>
 </div>
 <div id="tabset-1-4">
-<p>We will not go into the details for Bayesian Statistics in this workshop</p>
+<p>We will not go into the details for Bayesian Statistics in this workshop.</p>
 <ul>
 <li>Scalar: <span class="math inline">\(\Theta \sim dist()\)</span></li>
 <li>Vector: <span class="math inline">\(\underline{\Theta} \sim dist_i()\)</span></li>
@@ -1555,6 +1573,11 @@ x = 5
 <li><strong>Fixed</strong> variables represent known values or constants.</li>
 <li><strong>Roman letters</strong> represent known quantities, while <strong>Greek letters</strong> typically represent unknown parameters that are estimated.</li>
 </ul>
+</section></section>
+<section>
+<section id="simple-linear-regression" class="title-slide slide level1 center" data-background-image="images/background_2.png" data-background-size="cover">
+<h1><span style="color:#001F3F; font-size: 70px;">Simple Linear Regression</span></h1>
+
 </section>
 <section id="simple-linear-regression-slr" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
 <h2><span style="color:#001F3F; font-size: 55px;">Simple Linear Regression (SLR)</span></h2>
@@ -1567,7 +1590,10 @@ x = 5
 <div class="fragment" data-fragment-index="3">
 <p>The model is expressed as:</p>
 <p><span class="math display">\[
-y_i = \beta_0 + \beta_1 X_i + \varepsilon_i
+\begin{gathered}
+Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i \\
+Y_i \sim N\left(\mu_i, \sigma^2\right)
+\end{gathered}
 \]</span></p>
 </div>
 <div class="fragment" data-fragment-index="4">
@@ -1575,11 +1601,11 @@ y_i = \beta_0 + \beta_1 X_i + \varepsilon_i
 </div>
 <div class="fragment" data-fragment-index="5">
 <ul>
-<li><span class="math inline">\(y_i\)</span> is the dependent variable (response) for observation <span class="math inline">\(i\)</span>,</li>
+<li><span class="math inline">\(Y_i\)</span> is the dependent variable (response) for observation <span class="math inline">\(i\)</span>,</li>
 <li><span class="math inline">\(X_i\)</span> is the independent variable (predictor) for observation <span class="math inline">\(i\)</span>,</li>
-<li><span class="math inline">\(\beta_0\)</span> is the intercept (the predicted value of <span class="math inline">\(y\)</span> when <span class="math inline">\(X = 0\)</span>),</li>
-<li><span class="math inline">\(\beta_1\)</span> is the slope (the change in <span class="math inline">\(y\)</span> for a one-unit change in <span class="math inline">\(X\)</span>),</li>
-<li><span class="math inline">\(\epsilon_i\)</span> is the error term (the difference between the observed and predicted values of <span class="math inline">\(y\)</span>).</li>
+<li><span class="math inline">\(\beta_0\)</span> is the intercept (the predicted value of <span class="math inline">\(Y\)</span> when <span class="math inline">\(X = 0\)</span>),</li>
+<li><span class="math inline">\(\beta_1\)</span> is the slope (the change in <span class="math inline">\(Y\)</span> for a one-unit change in <span class="math inline">\(X\)</span>),</li>
+<li><span class="math inline">\(\epsilon_i\)</span> is the error term (the difference between the observed and predicted values of <span class="math inline">\(Y\)</span>).</li>
 </ul>
 </div>
 <!--
@@ -1601,9 +1627,9 @@ g\left(\mu\right) &amp;= \beta_0 + \beta_1 X_{i1} \\
 </div>
 <div class="fragment" data-fragment-index="2">
 <ul>
-<li><span class="math inline">\(\beta_0, \beta_1\)</span> are fixed coefficients to be estimated</li>
-<li><span class="math inline">\(\epsilon_i \overset{iid}{\sim} N\left(0, \sigma_{\varepsilon}^2\right)\)</span> is random and we can estimate its variance (where <span class="math inline">\(\epsilon_i\)</span> is a model error for observation <span class="math inline">\(i\)</span>)</li>
-<li><span class="math inline">\(X\)</span> is the fixed effects design matrix</li>
+<li><span class="math inline">\(\beta_0, \beta_1\)</span> are fixed coefficients to be estimated.</li>
+<li><span class="math inline">\(\epsilon_i \overset{iid}{\sim} N\left(0, \sigma_{\varepsilon}^2\right)\)</span> is random and we can estimate its variance (where <span class="math inline">\(\epsilon_i\)</span> is a model error for observation <span class="math inline">\(i\)</span>).</li>
+<li><span class="math inline">\(X\)</span> is the fixed effects design matrix.</li>
 </ul>
 </div>
 <div class="fragment" data-fragment-index="3">
@@ -1653,42 +1679,84 @@ X=\left[\begin{array}{cccc}
 <div id="qwebr-insertion-location-2"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
+<section id="q1" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
+<h2><span style="color:#001F3F; font-size: 55px;">Q1</span></h2>
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Question</a></li><li><a href="#tabset-2-2">Answer</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1">
+<p>Fit a simple linear model to predict the weight (wt) of a car based on its horsepower (hp) from the mtcars dataset. What is the slope of the model?</p>
+<div id="qwebr-insertion-location-3"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+<div id="tabset-2-2">
+<div id="qwebr-insertion-location-4"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+</div>
+</div>
+</section>
+<section id="q2" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
+<h2><span style="color:#001F3F; font-size: 55px;">Q2</span></h2>
+<div class="panel-tabset">
+<ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">Question</a></li><li><a href="#tabset-3-2">Answer</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1">
+<p>Using the same model from Q1, predict the weight of a car with 150 horsepower.</p>
+<div id="qwebr-insertion-location-5"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+<div id="tabset-3-2">
+<div id="qwebr-insertion-location-6"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="multiple-linear-regression" class="title-slide slide level1 center" data-background-image="images/background_2.png" data-background-size="cover">
+<h1><span style="color:#001F3F; font-size: 70px;">Multiple Linear Regression</span></h1>
+
+</section>
 <section id="multiple-linear-regression-mlr" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
 <h2><span style="color:#001F3F; font-size: 55px;">Multiple Linear Regression (MLR)</span></h2>
 <div class="fragment" data-fragment-index="1">
 <p><span class="math display">\[
+\begin{gathered}
 \begin{aligned}
-y_i &amp; =\beta_0+\beta_1 X_{i 1}+\ldots+\beta_k X_{i k}+\varepsilon_i \\
-&amp; =\mathbf{x}_i^{\prime} \boldsymbol{\beta}+\varepsilon_i, i=1, \ldots, n
-\end{aligned}
+Y_i &amp; =\beta_0+\beta_1 X_{i 1}+\ldots+\beta_k X_{i k}+\varepsilon_i \\
+&amp; =X \beta + \epsilon_i, ~i=1, \ldots, n
+\end{aligned} \\
+Y_i \sim N\left(\mu_i, \sigma^2\right)
+\end{gathered}
 \]</span></p>
 </div>
 <div class="fragment" data-fragment-index="2">
 <ul>
-<li><span class="math inline">\(\underline{\beta}=\left(\beta_0, \beta_1, \dots \beta_{k}\right)\)</span> are fixed coefficients to be estimated Note: the estimate would be <span class="math inline">\(\hat{\beta} = \text{some number}\)</span>, for example <span class="math inline">\(\hat{\beta_0} = 2\)</span></li>
-<li><span class="math inline">\(\varepsilon_i \overset{iid}{\sim} N\left(0, \sigma_{\varepsilon}^2\right)\)</span> is random and we can estimate its variance</li>
-<li><span class="math inline">\(X\)</span> is the fixed effects design matrix</li>
+<li><span class="math inline">\(\underline{\beta}=\left(\beta_0, \beta_1, \dots \beta_{k}\right)\)</span> are fixed coefficients to be estimated Note: the estimate would be <span class="math inline">\(\hat{\beta} = \text{some number}\)</span>, for example <span class="math inline">\(\hat{\beta_0} = 2\)</span>.</li>
+<li><span class="math inline">\(\varepsilon_i \overset{iid}{\sim} N\left(0, \sigma_{\varepsilon}^2\right)\)</span> is random and we can estimate its variance.</li>
+<li><span class="math inline">\(X\)</span> is the fixed effects design matrix.</li>
 </ul>
 </div>
 </section>
 <section id="mlr-code" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
 <h2><span style="color:#001F3F; font-size: 55px;">MLR Code</span></h2>
-<div id="qwebr-insertion-location-3"></div>
+<div id="qwebr-insertion-location-7"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="fixed-vs-random" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
 <h2><span style="color:#001F3F; font-size: 55px;">Fixed vs Random?</span></h2>
 <ul>
-<li><span class="math inline">\(X_{i j}\)</span> are fixed and known</li>
-<li><span class="math inline">\(\beta_i\)</span> are fixed and unknown; fixed effects</li>
-<li><span class="math inline">\(\varepsilon_i \overset{iid}{\sim} N\left(0, \sigma_{\varepsilon}^2\right)\)</span> ; <span class="math inline">\(\varepsilon_i\)</span> are random and unknown; a random effect</li>
-<li><span class="math inline">\(\sigma_{\varepsilon}^2\)</span> (fixed and unkown) is the variance component of the random effect</li>
+<li><span class="math inline">\(X_{i j}\)</span> are fixed and known.</li>
+<li><span class="math inline">\(\beta_i\)</span> are fixed and unknown; fixed effects.</li>
+<li><span class="math inline">\(\varepsilon_i \overset{iid}{\sim} N\left(0, \sigma_{\varepsilon}^2\right)\)</span> ; <span class="math inline">\(\varepsilon_i\)</span> are random and unknown; a random effect.</li>
+<li><span class="math inline">\(\sigma_{\varepsilon}^2\)</span> (fixed and unknown) is the variance component of the random effect.</li>
 </ul>
 </section>
 <section id="model-assumptions-1" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
 <h2><span style="color:#001F3F; font-size: 55px;">Model Assumptions (1)</span></h2>
 <div class="fragment" data-fragment-index="1">
-<p>Our Model assumptions, are mostly packed assumptions of the model errors. That is what we are assuming about the unknown population parameter <span class="math inline">\(\epsilon_i\)</span>, where <span class="math inline">\(\epsilon_i\)</span> is the model error associated with <span class="math inline">\(i^{th}\)</span> observation for our modeled response <span class="math inline">\(y_i\)</span></p>
+<p>Our Model assumptions, are mostly packed assumptions of the model errors. That is what we are assuming about the unknown population parameter <span class="math inline">\(\epsilon_i\)</span>, where <span class="math inline">\(\epsilon_i\)</span> is the model error associated with <span class="math inline">\(i^{th}\)</span> observation for our modeled response <span class="math inline">\(Y_i\)</span>.</p>
 <p><span class="math display">\[
 \varepsilon_i \overset{iid}{\sim} N\left(0, \sigma_{\varepsilon}^2\right)
 \]</span></p>
@@ -1698,8 +1766,8 @@ y_i &amp; =\beta_0+\beta_1 X_{i 1}+\ldots+\beta_k X_{i k}+\varepsilon_i \\
 <p><span class="math display">\[
 \epsilon_i \color{#6A851D}{\overset{iid}{\sim}} N\left(0, \sigma_{\varepsilon}^2\right)
 \]</span></p>
-<p><strong>Independently Distributed:</strong> The experimental/observational units are independent of one another (ex. Sites/locations in the species richness data)</p>
-<p><strong>Identically Distributed:</strong> The natural variability in the response (i.e.&nbsp;species richness) is the same regardless of the magnitude of species richness</p>
+<p><strong>Independently Distributed:</strong> The experimental/observational units are independent of one another (ex. response per Sites/locations).</p>
+<p><strong>Identically Distributed:</strong> The natural variability in the response (i.e.&nbsp;species richness) is the same regardless of the response’s magnitude.</p>
 </div>
 </section>
 <section id="model-assumptions-2" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
@@ -1737,15 +1805,20 @@ g\left(\mu\right) &amp;= \beta_0 + \beta_1 X_{i1} \\
 - We will gradually address violations of each of the above assumptions...let's first look at a couple of examples violating assumption 1 above.
 
 -->
+</section></section>
+<section>
+<section id="generalised-linear-model" class="title-slide slide level1 center" data-background-image="images/background_2.png" data-background-size="cover">
+<h1><span style="color:#001F3F; font-size: 70px;">Generalised Linear Model</span></h1>
+
 </section>
 <section id="glm-1" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
 <h2><span style="color:#001F3F; font-size: 55px;">GLM (1)</span></h2>
 <div>
 <ul>
-<li class="fragment">Independent observations <span class="math inline">\(y_1, y_2, \ldots, y_n\)</span></li>
-<li class="fragment">Each observation <span class="math inline">\(y_i\)</span> has a distribution that is a member of the exponential family i.e., Normal (Gaussian), Bernoulli, Gamma, Beta, Poisson, chi-sqaured, etc. See full list <a href="https://en.wikipedia.org/wiki/Exponential_family">here</a></li>
-<li class="fragment"><span class="math inline">\(\operatorname{Var}\left(y_i\right)\)</span> is a function of <span class="math inline">\(\mu_i\)</span></li>
-<li class="fragment">The model is derived from a link function, <span class="math inline">\(\eta_i=g\left(\mu_i\right)=\mathbf{x}_i^{\prime} \boldsymbol{\beta}\)</span>, where <span class="math inline">\(E\left(y_i\right)=g^{-1}\left(\eta_i\right)=g^{-1}\left(\mathbf{x}_i \boldsymbol{\underline { \beta }}\right)\)</span></li>
+<li class="fragment">Independent observations <span class="math inline">\(Y_1, Y_2, \ldots, Y_n\)</span>.</li>
+<li class="fragment">Each observation <span class="math inline">\(Y_i\)</span> has a distribution that is a member of the exponential family i.e., Normal (Gaussian), Bernoulli, Gamma, Beta, Poisson, chi-squared, etc. See full list <a href="https://en.wikipedia.org/wiki/Exponential_family">here</a>.</li>
+<li class="fragment"><span class="math inline">\(\operatorname{Var}\left(y_i\right)\)</span> is a function of <span class="math inline">\(\mu_i\)</span>.</li>
+<li class="fragment">The model is derived from a link function, <span class="math inline">\(\eta_i=g\left(\mu_i\right)=\mathbf{x}_i^{\prime} \boldsymbol{\beta}\)</span>, where <span class="math inline">\(E\left(y_i\right)=g^{-1}\left(\eta_i\right)=g^{-1}\left(\mathbf{x}_i \boldsymbol{\underline { \beta }}\right)\)</span>.</li>
 </ul>
 </div>
 </section>
@@ -1812,11 +1885,16 @@ g\left(\mu\right) &amp;= \beta_0 + \beta_1 X_{i1} \\
 <h2><span style="color:#001F3F; font-size: 55px;">GLM (3)</span></h2>
 <p>The most common uses of GLM’s include logistic(binomial) regression for proportion/binary data, Poisson Regression for count data, and Gamma regression for skewed data.</p>
 <ul>
-<li>We will look at logistic regression in this workshop</li>
+<li>We will look at logistic regression in this workshop.</li>
 </ul>
+</section></section>
+<section>
+<section id="logisitc-regression" class="title-slide slide level1 center" data-background-image="images/background_2.png" data-background-size="cover">
+<h1><span style="color:#001F3F; font-size: 70px;">Logisitc Regression</span></h1>
+
 </section>
-<section id="logisitc-regression" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
-<h2><span style="color:#001F3F; font-size: 55px;">Logisitc Regression</span></h2>
+<section id="logisitc-regression-1" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
+<h2><span style="color:#001F3F; font-size: 55px;">Logisitc Regression (1)</span></h2>
 <div class="fragment" data-fragment-index="1">
 <ul>
 <li>Consider a study analyzing survival rates from the Titanic disaster, where passengers are classified based on available demographic and ticket-related factors.</li>
@@ -1842,9 +1920,12 @@ g\left(\mu\right) &amp;= \beta_0 + \beta_1 X_{i1} \\
 <p><strong>The Logit link function</strong> links the probability to the linear predictor:</p>
 <p><span class="math display">\[
 \begin{gathered}
-g\left(\mathbb{E}\left(y_i\right)\right) = \text{logit}(\pi(\underline{x}_i))
+g\left(\mathbb{E}\left(Y_i\right)\right) = \text{logit}(\pi(\underline{x}_i))
 = \log\left[\frac{\pi(\underline{x}_i)}{1 - \pi(\underline{x}_i)}\right] \\
-\log\left[\frac{\pi(\underline{x}_i)}{1 - \pi(\underline{x}_i)}\right] = \underline{x}_i \boldsymbol{\beta}
+\operatorname{logit}\left(\pi_i\right)=\underline{x}_i \boldsymbol{\beta}
+\\
+\log\left[\frac{\pi(\underline{x}_i)}{1 - \pi(\underline{x}_i)}\right] =\underline{x}_i \boldsymbol{\beta} \\
+Y_i \sim \text{Bin}(1, \pi_i)
 \end{gathered}
 \]</span></p>
 </div>
@@ -1855,36 +1936,43 @@ g\left(\mathbb{E}\left(y_i\right)\right) = \text{logit}(\pi(\underline{x}_i))
 <li><span class="math inline">\(\underline{x}_i \boldsymbol{\beta}\)</span> is the linear predictor, which is a linear combination of the predictors and their coefficients.</li>
 </ul>
 </div>
-</section>
+
+<aside><div>
+<p>If were were modeling survival, say as groups of Shipwrecks Titanic, SS Sultana, etc we would have <span class="math inline">\(Y_i \sim \text{Bin}(n_i, \pi_i)\)</span>.</p>
+</div></aside></section>
 <section id="inverse-logit-function" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
-<h2><span style="color:#001F3F; font-size: 55px;">Inverse logit function</span></h2>
+<h2><span style="color:#001F3F; font-size: 55px;">Inverse Logit Function</span></h2>
 <div class="fragment" data-fragment-index="1">
 <p><strong>Inverse logit function</strong> (linking the linear predictor to the expected probability): <span class="math display">\[
-   \mu_i = \mathbb{E}[y_i] = n_i\pi(\underline{x}_i) = n_i\frac{1}{1 + \exp\left(-(\beta_0 + \underline{x}_i \boldsymbol{\beta})\right)}
+\mu_i = \mathbb{E}[Y_i] = \pi(\underline{x}_i) = \frac{1}{1 + \exp\left(-\underline{x}_i^\top \boldsymbol{\beta}\right)}
 \]</span></p>
 </div>
 <div class="fragment" data-fragment-index="2">
 <ul>
-<li><span class="math inline">\(n_i\)</span> represents the total number of passengers in the <span class="math inline">\(i^{th}\)</span> group (e.g., grouped by class, gender, etc.).</li>
-<li><span class="math inline">\(y_i\)</span> denotes the number of survivors for the <span class="math inline">\(i^{th}\)</span> group.</li>
-<li><span class="math inline">\(\pi_i\)</span> denotes the probability of survival at the <span class="math inline">\(i^{th}\)</span> group.</li>
-<li><span class="math inline">\(x_{i 1}\)</span> denotes the passenger characteristics such as class, gender, age, fare, etc. for the <span class="math inline">\(i^{th}\)</span> subject.</li>
+<li><span class="math inline">\(Y_i\)</span> denotes the number of survivors for the <span class="math inline">\(i^{th}\)</span> subject.</li>
+<li><span class="math inline">\(\pi_i\)</span> denotes the probability of survival at the <span class="math inline">\(i^{th}\)</span> subject.</li>
+<li><span class="math inline">\(\underline{\beta}\)</span> the vector of coefficients.<br>
+</li>
+<li><span class="math inline">\(\underline{x}_i\)</span> refers to the vector of covariates (or features, predictors) for the <span class="math inline">\(i^{\text{th}}\)</span> observation.</li>
 </ul>
-</div>
-<div class="fragment" data-fragment-index="3">
-<p>If we assume independence of passengers, then <span class="math inline">\(y_i\)</span> is a binomial random variable, and survival outcomes across different groups (e.g., 1st class males, 3rd class females, etc.) are observed values of the independent binomial random variables.</p>
 </div>
 </section>
 <section id="logisitc-regression-code" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
 <h2><span style="color:#001F3F; font-size: 55px;">Logisitc Regression Code</span></h2>
 <ul>
-<li>The estimated coefficients are given in the log odds scale. If we want odds ratios, we need to exponentiate the</li>
+<li>The estimated coefficients are given in the log odds scale. If we want odds ratios, we need to exponentiate the CI.</li>
 </ul>
-<div id="qwebr-insertion-location-4"></div>
+<div id="qwebr-insertion-location-8"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>For a 1 year increase in passengers age, the estimated estimated odds of a patient surviving decreases by 1.1 %. I am 95% confident that the interval (0.979, 0.999), captures the true ratio in the odds of a patient having survived the sinking of the titanic.</p>
+</section></section>
+<section>
+<section id="linear-mixed-model" class="title-slide slide level1 center" data-background-image="images/background_2.png" data-background-size="cover">
+<h1><span style="color:#001F3F; font-size: 70px;">Linear Mixed Model</span></h1>
+
 </section>
-<section id="linear-mixed-model" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
-<h2><span style="color:#001F3F; font-size: 55px;">Linear Mixed Model</span></h2>
+<section id="linear-mixed-model-1" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
+<h2><span style="color:#001F3F; font-size: 55px;">Linear Mixed Model (1)</span></h2>
 <div class="fragment" data-fragment-index="1">
 <p>A <strong>Linear Mixed Model (LMM)</strong> is an extension of the standard linear regression model that allows for both <strong>fixed effects</strong> and <strong>random effects</strong> in the analysis. It is commonly used when data are grouped or clustered, and it accounts for both <strong>within-group</strong> and <strong>between-group</strong> variability.</p>
 </div>
@@ -1912,8 +2000,8 @@ g\left(\mathbb{E}\left(y_i\right)\right) = \text{logit}(\pi(\underline{x}_i))
 </ul>
 </div>
 </section>
-<section id="lmm-wood-pidoen-example" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
-<h2><span style="color:#001F3F; font-size: 55px;">LMM; Wood Pidoen Example</span></h2>
+<section id="lmm-wood-pigeon-example" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
+<h2><span style="color:#001F3F; font-size: 55px;">LMM; Wood Pigeon Example</span></h2>
 <div>
 <ul>
 <li class="fragment"><p>Westbrooke and Robinson (2009) reported on monitoring efforts of the <strong>Kukupa (or Wood Pigeon)</strong>, New Zealand’s only native pigeon, in a study area exposed to intensive pest control.</p></li>
@@ -1946,20 +2034,20 @@ g\left(\mathbb{E}\left(y_i\right)\right) = \text{logit}(\pi(\underline{x}_i))
 <div>
 <ul>
 <li class="fragment">Differences among Stations could be due to variation in unmeasured factors such as: forest composition, elevation, pest densities, etc.</li>
-<li class="fragment">We can explicitly model Station to Station differences with a random effect</li>
-<li class="fragment">We also have within Station variation in abundance (ex. measurement error, time of day, etc.)</li>
+<li class="fragment">We can explicitly model Station to Station differences with a random effect.</li>
+<li class="fragment">We also have within Station variation in abundance (ex. measurement error, time of day, etc).</li>
 </ul>
 </div>
 </section>
 <section id="slr-for-kukupa-monitoring" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
-<h2><span style="color:#001F3F; font-size: 55px;">SLR for Kukupa monitoring</span></h2>
+<h2><span style="color:#001F3F; font-size: 55px;">SLR for Kukupa Monitoring</span></h2>
 <p><span class="math display">\[
 y_{i j}=\beta_0+\beta_1 t_{i j}+\varepsilon_{i j} \quad(i=1,2, \ldots, 10 ; \mathrm{j}=1,2, \ldots, 12)
 \]</span></p>
 <div>
 <ul>
-<li class="fragment">The model above does not allow for Station to Station variation to be modeled explicitly</li>
-<li class="fragment">Since the intercept reflects initial abundances (i.e.&nbsp;abundances in <span class="math inline">\(t=0\)</span> ), we can think of a random intercept model to account for Station to Station variation</li>
+<li class="fragment">The model above does not allow for Station to Station variation to be modeled explicitly.</li>
+<li class="fragment">Since the intercept reflects initial abundances (i.e.&nbsp;abundances in <span class="math inline">\(t=0\)</span> ), we can think of a random intercept model to account for Station to Station variation.</li>
 </ul>
 </div>
 </section>
@@ -1969,13 +2057,13 @@ y_{i j}=\beta_0+\beta_1 t_{i j}+\varepsilon_{i j} \quad(i=1,2, \ldots, 10 ; \mat
 <p><span class="math display">\[
 \begin{gathered}
 y_{i j}=\beta_0+\beta_1 t_{i j}+\delta_{0 i}+\varepsilon_{i j} \quad(i=1,2, \ldots, 10 ; \mathrm{j}=1,2, \ldots, 12) \\
-\delta_i  \overset{\text{iid}}{\sim} N\left(0, \sigma_\delta^2\right) \quad \varepsilon_{i j} \overset{\text{iid}}{\sim} N\left(0, \sigma_{\varepsilon}^2\right)
+\delta_i  \overset{\text{iid}}{\sim} N\left(0, \sigma_\delta^2\right) \quad \varepsilon_{i j} \overset{\text{iid}}{\sim} N\left(0, \sigma_{\varepsilon}^2\right) \quad Y \sim N\left(X \underline{\beta}, Z G Z^{\prime}+R\right)
 \end{gathered}
 \]</span></p>
 </div>
 <div class="fragment" data-fragment-index="2">
 <p align="center">
-<img src="images/Kukupa_RI.png" alt="Kukupa Random intercepts" width="700px" style="border: 2px solid #000;">
+<img src="images/Kukupa_RI.png" alt="Kukupa Random intercepts" width="500px" style="border: 2px solid #000;">
 </p>
 </div>
 <div class="fragment" data-fragment-index="3" style="font-size: 0.8em;">
@@ -1984,935 +2072,534 @@ y_{i j}=\beta_0+\beta_1 t_{i j}+\delta_{0 i}+\varepsilon_{i j} \quad(i=1,2, \ldo
 </ul>
 </div>
 <div class="fragment" data-fragment-index="4" style="font-size: 0.8em;">
-<p><strong>Response Model:</strong> <span class="math display">\[
+<p><span class="math display">\[
+Response Model: \\
 \begin{aligned}
-&amp; y_{11}=\beta_0+\beta_1 t_{11}+\delta_{01}+\varepsilon_{11} \\
+&amp; y_{1,1}=\beta_0+\beta_1 t_{1,1}+\delta_{01}+\varepsilon_{1,1} \\
 &amp; \vdots \\
 &amp; y_{10,12}=\beta_0+\beta_1 t_{10,12}+\delta_{0,10}+\varepsilon_{10,12}
 \end{aligned}
 \]</span></p>
 </div>
-</section>
-<section id="lmm-in-code" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
-<h2><span style="color:#001F3F; font-size: 55px;">LMM in Code</span></h2>
-<div id="qwebr-insertion-location-5"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+
+<aside><div>
+<p>Note: <span class="math inline">\(Z\)</span> is the incidence matrix, <span class="math inline">\(G\)</span> is the matrix <span class="math inline">\(Var(\delta)\)</span>, and <span class="math inline">\(R\)</span> is the matrix <span class="math inline">\(Var(\epsilon)\)</span>.</p>
+</div></aside></section>
+<section id="lmm-code" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
+<h2><span style="color:#001F3F; font-size: 55px;">LMM Code</span></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(lme4)</span>
+<span id="cb1-2"><a href=""></a>R_Int_mod <span class="ot">&lt;-</span> <span class="fu">lmer</span>(sqrt_abund <span class="sc">~</span> Scale_Yr <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>FStation),</span>
+<span id="cb1-3"><a href=""></a><span class="at">data=</span>Kukupa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Model Summary</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">summary</span>(R_Int_mod)</span>
+<span id="cb2-2"><a href=""></a><span class="do">## Linear mixed model fit by REML ['lmerMod']</span></span>
+<span id="cb2-3"><a href=""></a><span class="do">## Formula: sqrt_abund ~ Scale_Yr + (1 | FStation)</span></span>
+<span id="cb2-4"><a href=""></a><span class="do">##    Data: Kukupa</span></span>
+<span id="cb2-5"><a href=""></a><span class="do">## </span></span>
+<span id="cb2-6"><a href=""></a><span class="do">## REML criterion at convergence: 69.9</span></span>
+<span id="cb2-7"><a href=""></a><span class="do">## </span></span>
+<span id="cb2-8"><a href=""></a><span class="do">## Scaled residuals: </span></span>
+<span id="cb2-9"><a href=""></a><span class="do">##     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb2-10"><a href=""></a><span class="do">## -2.4324 -0.7144  0.0347  0.6736  2.3048 </span></span>
+<span id="cb2-11"><a href=""></a><span class="do">## </span></span>
+<span id="cb2-12"><a href=""></a><span class="do">## Random effects:</span></span>
+<span id="cb2-13"><a href=""></a><span class="do">##  Groups   Name        Variance Std.Dev.</span></span>
+<span id="cb2-14"><a href=""></a><span class="do">##  FStation (Intercept) 0.0121   0.110   </span></span>
+<span id="cb2-15"><a href=""></a><span class="do">##  Residual             0.0888   0.298   </span></span>
+<span id="cb2-16"><a href=""></a><span class="do">## Number of obs: 120, groups:  FStation, 10</span></span>
+<span id="cb2-17"><a href=""></a><span class="do">## </span></span>
+<span id="cb2-18"><a href=""></a><span class="do">## Fixed effects:</span></span>
+<span id="cb2-19"><a href=""></a><span class="do">##             Estimate Std. Error t value</span></span>
+<span id="cb2-20"><a href=""></a><span class="do">## (Intercept)  0.15356    0.06190    2.48</span></span>
+<span id="cb2-21"><a href=""></a><span class="do">## Scale_Yr     0.05245    0.00788    6.66</span></span>
+<span id="cb2-22"><a href=""></a><span class="do">## </span></span>
+<span id="cb2-23"><a href=""></a><span class="do">## Correlation of Fixed Effects:</span></span>
+<span id="cb2-24"><a href=""></a><span class="do">##          (Intr)</span></span>
+<span id="cb2-25"><a href=""></a><span class="do">## Scale_Yr -0.700</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Random Effects</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">ranef</span>(R_Int_mod)</span>
+<span id="cb3-2"><a href=""></a><span class="do">## $FStation</span></span>
+<span id="cb3-3"><a href=""></a><span class="do">##    (Intercept)</span></span>
+<span id="cb3-4"><a href=""></a><span class="do">## 81  -0.0057806</span></span>
+<span id="cb3-5"><a href=""></a><span class="do">## 82   0.1227747</span></span>
+<span id="cb3-6"><a href=""></a><span class="do">## 83  -0.0845759</span></span>
+<span id="cb3-7"><a href=""></a><span class="do">## 84  -0.1504561</span></span>
+<span id="cb3-8"><a href=""></a><span class="do">## 85   0.0045180</span></span>
+<span id="cb3-9"><a href=""></a><span class="do">## 86   0.1184643</span></span>
+<span id="cb3-10"><a href=""></a><span class="do">## 87  -0.0290231</span></span>
+<span id="cb3-11"><a href=""></a><span class="do">## 88   0.0325376</span></span>
+<span id="cb3-12"><a href=""></a><span class="do">## 89  -0.0632585</span></span>
+<span id="cb3-13"><a href=""></a><span class="do">## 90   0.0547996</span></span>
+<span id="cb3-14"><a href=""></a><span class="do">## </span></span>
+<span id="cb3-15"><a href=""></a><span class="do">## with conditional variances for "FStation"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><strong>Illustrating Predictions</strong></p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;\begin{aligned}
+\sqrt{\hat{\mu}}= &amp; \hat{\beta}_o+\hat{\beta}_y \text { year } \\
+&amp; =0.15356+0.05245 t_{1 j}
+\end{aligned}\\
+&amp;\begin{aligned}
+\sqrt{\hat{\mu}_{90}} &amp; =\hat{\beta}_o+\hat{\beta}_1 \text { year }+\hat{\delta}_{0,90} \\
+&amp; =(0.15356+0.05479)+(0.05245) t_{1 j} \\
+&amp; =0.20835+0.05245 t_{1 j}
+\end{aligned}
+\end{aligned}
+\]</span></p>
 </section>
 <section id="random-slopes-mixed-model" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
 <h2><span style="color:#001F3F; font-size: 55px;">Random Slopes Mixed Model</span></h2>
+<div class="fragment" data-fragment-index="1" style="font-size: 0.8em;">
 <p><span class="math display">\[
-y_{i j}=\beta_0+ (\beta_1 + \delta_{1i}) t_{i j} +\epsilon_{i j} \quad(i=1,2, \ldots, 10 ; \mathrm{j}=1,2, \ldots, 12)
+\begin{gathered}
+y_{i j}=\beta_0+ (\beta_1 + \delta_{1i}) t_{i j} +\epsilon_{i j} \quad(i=1,2, \ldots, 10 ; \mathrm{j}=1,2, \ldots, 12)\\
+\delta_i  \overset{\text{iid}}{\sim} N\left(0, \sigma_\delta^2\right) \quad \varepsilon_{i j} \overset{\text{iid}}{\sim} N\left(0, \sigma_{\varepsilon}^2\right) \quad Y \sim N\left(X \underline{\beta}, Z G Z^{\prime}+R\right)
+\end{gathered}
 \]</span></p>
+</div>
+<div class="fragment" data-fragment-index="2">
 <p align="center">
 <img src="images/Kukupa_RS.png" alt="Kukupa Random intercepts" width="700px" style="border: 2px solid #000;">
 </p>
+</div>
+<div class="fragment" data-fragment-index="3" style="font-size: 0.8em;">
 <ul>
-<li>It may be that instead of allowing the modeling of fluctuations in the initial abundances, we allow for the modeling of varying trends over time from Station to Station.</li>
+<li>Here, instead of allowing the modeling of fluctuations in the initial abundances (the intercepts), we allow for the modeling of varying trends over time from Station to Station.</li>
 </ul>
+</div>
+<div class="fragment" data-fragment-index="4">
 <p><span class="math display">\[
 \begin{aligned}
 y_{i j} &amp; =\beta_0 +\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \quad(i=1,2, \ldots, 10 ; \mathrm{j}=1,2, \ldots, 12) \\
 &amp; =\beta_0+\left(\beta_1+\delta_{1 i}\right) t_{i j}+\varepsilon_{i j}
 \end{aligned}
 \]</span></p>
+</div>
 </section>
 <section id="random-slopes-lmm-code" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
 <h2><span style="color:#001F3F; font-size: 55px;">Random Slopes LMM Code</span></h2>
-<div id="qwebr-insertion-location-6"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>Kukupa <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Kukupa.csv"</span>)</span>
-<span id="cb1-2"><a href=""></a></span>
-<span id="cb1-3"><a href=""></a></span>
-<span id="cb1-4"><a href=""></a>Kukupa<span class="sc">$</span>sqrt_abund <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(Kukupa<span class="sc">$</span>abundance)</span>
-<span id="cb1-5"><a href=""></a>Kukupa<span class="sc">$</span>FStation <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Kukupa<span class="sc">$</span>Station)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="qwebr-insertion-location-7"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</section>
-<section id="webr-code-execution" class="slide level2">
-<h2>Webr Code Execution</h2>
-
-<img data-src="images/webr.gif" class="quarto-figure quarto-figure-center r-stretch"><div>
-<ul>
-<li class="fragment"><p>Use <code>cmd</code> <code>+</code> <code>enter</code> to execute a line</p></li>
-<li class="fragment"><p>As of <code>webR 0.2.3</code>, <code>webr</code> does not support smart execution, so for multiline code highlight the entire section before hitting <code>cmd</code> <code>+</code> <code>enter</code></p></li>
-</ul>
-</div>
-</section></section>
-<section>
-<section id="loops-functions-and-logical-statements" class="title-slide slide level1 center" data-background-color="#8FA9C2">
-<h1><span style="color:white;">Loops, Functions, and Logical Statements</span></h1>
-
-</section>
-<section id="what-is-the-difference-between-vectorization-and-iteration" class="slide level2">
-<h2>What is the Difference Between Vectorization and Iteration?</h2>
-<div>
-<ul>
-<li class="fragment">If y = 4x + 3, what is y for x = 4?</li>
-<li class="fragment">If <span class="math inline">\(N_{(t + 1)} = N_{t}e^{r\left(1 ~-~ \frac{N_{t}}{K}\right)}\)</span>, what is <span class="math inline">\(N\)</span> for <span class="math inline">\(t = 4\)</span> <span class="math inline">\(~~\)</span>(<span class="math inline">\(N_{1} = 2\)</span>, <span class="math inline">\(r = 0.5\)</span>, and <span class="math inline">\(K = 30\)</span>)?</li>
-</ul>
-</div>
-</section>
-<section id="now-for-the-math-in-r" class="slide level2">
-<h2>Now for the Math in R</h2>
-<div id="qwebr-insertion-location-8"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</section>
-<section id="now-onto-a-more-complex-for-loop" class="slide level2 scrollable">
-<h2>Now Onto a More Complex <code>for</code> Loop</h2>
-<div id="qwebr-insertion-location-9"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <!--
--   There are also while and repeat loops, but you shouldn't be writing code in R if you are using them.
+
+::: {.cell .smaller_output_class1}
+
+```{.r .smaller_output_class1 .cell-code}
+list("a", "b")
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+[[1]]
+[1] "a"
+
+[[2]]
+[1] "b"
+```
+
+
+:::
+:::
+
 -->
-<ul>
-<li>For people that write their own algorithms, <code>while</code> loops are a good skill to know<sup>1</sup></li>
-</ul>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>Their usage, however, can be more niche as they are used when the number of iterations is not known a priori and reach completion via convergence criterion such as the max number of iterations or some metric like Euclidean Distance</p></li></ol></aside></section>
-<section id="now-for-apply-functions" class="slide level2">
-<h2>Now for <code>apply</code> Functions</h2>
-<div id="qwebr-insertion-location-10"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</section>
-<section id="apply-functions-contd" class="slide level2">
-<h2><code>apply</code> Functions (cont’d)</h2>
-<div id="qwebr-insertion-location-11"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div class="fragment">
-<ul>
-<li>You might want to look at the <code>pbapply</code> package if you regularly parallelize your code.</li>
-</ul>
-</div>
-</section>
-<section id="logical-statements-1" class="slide level2">
-<h2>Logical Statements (1)</h2>
-<div id="qwebr-insertion-location-12"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</section>
-<section id="logical-statements-2" class="slide level2">
-<h2>Logical Statements (2)</h2>
-<div id="qwebr-insertion-location-13"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</section></section>
-<section>
-<section id="lets-try-some-exercises" class="title-slide slide level1 center" data-background-color="#8FA9C2">
-<h1><svg aria-hidden="true" role="img" viewbox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M64 96c0-35.3 28.7-64 64-64H512c35.3 0 64 28.7 64 64V352H512V96H128V352H64V96zM0 403.2C0 392.6 8.6 384 19.2 384H620.8c10.6 0 19.2 8.6 19.2 19.2c0 42.4-34.4 76.8-76.8 76.8H76.8C34.4 480 0 445.6 0 403.2zM281 209l-31 31 31 31c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-48-48c-9.4-9.4-9.4-24.6 0-33.9l48-48c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9zM393 175l48 48c9.4 9.4 9.4 24.6 0 33.9l-48 48c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l31-31-31-31c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0z"></path></svg> <span style="color:white;">Lets Try Some Exercises</span></h1>
-
-</section>
-<section id="q1" class="slide level2">
-<h2>Q1</h2>
-<div class="panel-tabset">
-<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Question</a></li><li><a href="#tabset-2-2">Answer</a></li></ul>
-<div class="tab-content">
-<div id="tabset-2-1">
-<p>Read in the 20 “Weather Station” data files with a <code>for</code> loop and combine into one dataframe.</p>
-<div id="qwebr-insertion-location-14"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-2-2">
-<div id="qwebr-insertion-location-15"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-</div>
-</div>
-</section>
-<section id="q2" class="slide level2">
-<h2>Q2</h2>
-<div class="panel-tabset">
-<ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">Question</a></li><li><a href="#tabset-3-2">Answer</a></li></ul>
-<div class="tab-content">
-<div id="tabset-3-1">
-<p>Now modify your <code>for</code> loop to omit any files that contain an <code>NA</code>.</p>
-<div id="qwebr-insertion-location-16"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-3-2">
-<div id="qwebr-insertion-location-17"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-</div>
-</div>
-</section>
-<section id="q3" class="slide level2">
-<h2>Q3</h2>
-<div class="panel-tabset">
-<ul id="tabset-4" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-4-1">Question</a></li><li><a href="#tabset-4-2">Answer</a></li></ul>
-<div class="tab-content">
-<div id="tabset-4-1">
-<p>Use an <code>apply</code> function to perform a Shapiro-Wilk test on each column of the data set created below (dat) to determine if the data in each column is normally distributed.</p>
-<div id="qwebr-insertion-location-18"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-4-2">
-<div id="qwebr-insertion-location-19"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-</div>
-</div>
-</section>
-<section id="q4" class="slide level2">
-<h2>Q4</h2>
-<div class="panel-tabset">
-<ul id="tabset-5" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-5-1">Question</a></li><li><a href="#tabset-5-2">Answer</a></li></ul>
-<div class="tab-content">
-<div id="tabset-5-1">
-<p>Make a column in the data created below (a subset of the weather station data) for week. When <code>X</code> (this is the row ID or day of the month) is 1-7, <code>Week</code> should be 1; when <code>X</code> (day) is 8-14, <code>Week</code> should be 2; when <code>X</code> (day) is 15-21, <code>Week</code> should be 3; when <code>X</code> (day) is 22-28, <code>Week</code> should be 4; and for <code>X</code> (day) from 28-30, <code>Week</code> should be assigned a value of <code>NA</code>.</p>
-<div id="qwebr-insertion-location-20"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-5-2">
-<div id="qwebr-insertion-location-21"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-</div>
-</div>
-</section></section>
-<section>
-<section id="r-function-basics" class="title-slide slide level1 center" data-background-color="#8FA9C2">
-<h1><span style="color:white;">R Function Basics</span></h1>
-
-</section>
-<section id="function-structure" class="slide level2 scrollable">
-<h2>Function Structure</h2>
-<blockquote>
-<p>Functions are like a grammatically correct sentences; they require arguments, a body, and an environment<sup>1</sup>.</p>
-</blockquote>
-<div class="fragment">
-<p><img data-src="images/function-structure.png" height="300"></p>
-</div>
-<aside><ol class="aside-footnotes"><li id="fn2"><p>See Hadley’s section on <a href="https://adv-r.hadley.nz/functions.html#function-fundamentals">function-fundamentals</a> for more details</p></li></ol></aside></section>
-<section id="lets-write-some-functions" class="slide level2">
-<h2>Lets Write Some Functions</h2>
-<div id="qwebr-insertion-location-22"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div class="fragment">
-<div style="margin-top: 10px;">
-
-</div>
-<div id="qwebr-insertion-location-23"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div class="fragment">
-<div style="margin-top: 10px;">
-
-</div>
-<div id="qwebr-insertion-location-24"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div class="fragment">
-<div style="margin-top: 10px;">
-
-</div>
-<div id="qwebr-insertion-location-25"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-</section>
-<section id="functions-need-an-object-call-i.e.-x-or-a-returnx-in-order-to-return-output-from-x-to-the-global-environment" class="slide level2" data-background-color="#447099">
-<h2><svg aria-hidden="true" role="img" viewbox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"></path></svg> <span style="color:white;">Functions need an object call (i.e.&nbsp;<code>x</code> or a <code>return(x)</code>) in order to return output from <code>x</code> to the global environment</span></h2>
-</section></section>
-<section>
-<section id="r-functions-extended" class="title-slide slide level1 center" data-background-color="#8FA9C2">
-<h1><span style="color:white;">R Function’s Extended</span></h1>
-
-</section>
-<section id="function-formals-body-and-environment" class="slide level2">
-<h2>Function <code>formals()</code>, <code>body()</code> and <code>environment()</code></h2>
-<div id="qwebr-insertion-location-26"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-
-<aside><div>
-<p>See <a href="https://adv-r.hadley.nz/functions.html#fun-components">Function-Components</a></p>
-</div></aside></section>
-<section id="more-on-environments" class="slide level2">
-<h2>More on Environments</h2>
-<div id="qwebr-insertion-location-27"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div class="fragment">
-<ul>
-<li>Environments are important to understand as they relate to <strong>Lexical scoping</strong></li>
-</ul>
-</div>
-</section>
-<section id="lexical-scoping" class="slide level2">
-<h2>Lexical Scoping</h2>
-<div class="columns">
-<div class="column" style="padding-right: 0px;">
-<p><img data-src="images/castle.jpeg" height="425"></p>
-</div><div class="column" style="padding-right: 0px;">
-<div id="qwebr-insertion-location-28"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-</div>
-<aside class="notes">
-<ul>
-<li><p>Imagine a castle where of the three levels (Keep, Main, Lower), some levels can see more levels than others. For example from the Keep, you can see inside the keep, into the Main level as well as the lower level. In <code>R</code>, their are also varying degrees of <em>“sight”</em>. For example, inside a function, objects that were defined inside the function are visible as well as objects that were defined outside the function, say like the global environment.</p></li>
-<li><p>If you were in the castle and you wanted to search for an object, one possible procedure is to first search the lower level (say a f3), then if you still haven’t found it, proceed to search the main level (f4) and finally, if still haven’t found it, you would search the keep and if were still not found you would declare the object is not in the castle. This is analogous to how lexical scoping works in R.</p></li>
-<li><p>In R, the <code>&lt;&lt;-</code> operator does not simply assign a value to a variable in the parent environment; it assigns a value to a variable in the parent environment if the variable already exists there. If the variable does not exist in the parent environment, R searches up through the chain of environments until it finds an environment where the variable exists and assigns the value there. If it does not find the variable in any parent environments, it will assign the value in the global environment.</p></li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-
-<aside><div>
-<p>For more information see <a href="https://adv-r.hadley.nz/functions.html#lexical-scoping">here</a>.</p>
-</div></aside></section>
-<section id="default-argument-assignment" class="slide level2">
-<h2>Default Argument Assignment</h2>
-<div id="qwebr-insertion-location-29"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</section>
-<section id="null-conditional-execution-1" class="slide level2">
-<h2><code>NULL</code> Conditional Execution (1)</h2>
-<div id="qwebr-insertion-location-30"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</section>
-<section id="message-warning-and-stop" class="slide level2">
-<h2><code>message()</code>, <code>warning()</code>, and <code>stop()</code></h2>
-<div id="qwebr-insertion-location-31"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</section>
-<section id="null-conditional-execution-2" class="slide level2">
-<h2><code>NULL</code> Conditional Execution (2)</h2>
-<div id="qwebr-insertion-location-32"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</section>
-<section id="conditional-execution-with-missing" class="slide level2">
-<h2>Conditional Execution with <code>missing()</code></h2>
-<div id="qwebr-insertion-location-33"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</section>
-<section id="dot-dot-dot-1" class="slide level2">
-<h2><code>...</code> dot-dot-dot (1)</h2>
-<div id="qwebr-insertion-location-34"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div class="fragment">
-<div style="margin-top: 10px;">
-
-</div>
-<div id="qwebr-insertion-location-35"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div class="fragment">
-<ul>
-<li>The `<code>...</code>` argument is also known as an Ellipsis or simply dot-dot-dot.</li>
-</ul>
-</div>
-</section>
-<section id="dot-dot-dot-2" class="slide level2">
-<h2><code>...</code> dot-dot-dot (2)</h2>
-<div id="qwebr-insertion-location-36"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p>`<code>...</code>` has pros and cons, for more info see <a href="https://adv-r.hadley.nz/functions.html#fun-dot-dot-dot">here</a></p>
-<aside class="notes">
-<ul>
-<li><p>Functions that were defined without <code>...</code>, will fail to execute when arguments are given to the Ellipsis, and restricts future users of having full access to arguments nested function arguments with the larger function</p></li>
-<li><p>Because of this, some package developers in R, are advocates for <strong>all</strong> functions being defined with <code>...</code>!</p></li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="dot-dot-dot-3" class="slide level2">
-<h2><code>...</code> dot-dot-dot (3)</h2>
-<p>So why does <code>f5</code> work?</p>
-<div id="qwebr-insertion-location-37"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div id="qwebr-insertion-location-38"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</section>
-<section id="anonymous-functions" class="slide level2">
-<h2>Anonymous Functions</h2>
-<div style="font-size: 0.7em;">
-<blockquote>
-<p>“An Anonymous Function (also known as a lambda expression) is a function definition that is not bound to an identifier. That is, it is a function that is created and used, but never assigned to a variable” (see <a href="https://coolbutuseless.github.io/2019/03/13/anonymous-functions-in-r-part-1/">link</a>)</p>
-</blockquote>
-</div>
-<div class="fragment">
-<div style="margin-top: 40px;">
-
-</div>
-<div style="font-size: 0.65em;">
-<p><code>base</code> R anonymous function syntax:</p>
-</div>
-<div id="qwebr-insertion-location-39"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div class="fragment">
-<div style="margin-top: 40px;">
-
-</div>
-<div style="font-size: 0.65em;">
-<p><code>purrr</code>’s anonymous function syntax:</p>
-</div>
-<div id="qwebr-insertion-location-40"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-</section></section>
-<section>
-<section id="functional-programming-with-base-r" class="title-slide slide level1 center" data-background-color="#8FA9C2">
-<h1><span style="color:white;">Functional Programming with <code>base</code> R</span></h1>
-
-</section>
-<section id="functional-programming-with-base-r-1" class="slide level2">
-<h2>Functional Programming with <code>base</code> R</h2>
-<div style="font-size: 0.45em;">
-<table>
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Function</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>apply(X, MARGIN, FUN, ...)</code></td>
-<td>Applies a function over the margins (rows or columns) of an array or matrix.</td>
-</tr>
-<tr class="even">
-<td><code>sapply(X, FUN, ...)</code></td>
-<td>Simplifies the result of <code>lapply()</code> by attempting to reduce the result to a vector, matrix, or higher-dimensional array.</td>
-</tr>
-<tr class="odd">
-<td><code>vapply(X, FUN, FUN.VALUE)</code></td>
-<td>Similar to <code>sapply()</code>, but with a specified type of return value, making it safer and faster by avoiding unexpected type coercion.</td>
-</tr>
-<tr class="even">
-<td><code>lapply(X, FUN, ...)</code></td>
-<td>Applies a function to each element of a list or vector and returns a list.</td>
-</tr>
-<tr class="odd">
-<td><code>tapply(X, INDEX, FUN = NULL)</code></td>
-<td>Applies a function over subsets of a vector, array, or data frame, split by the levels of a factor or list of factors</td>
-</tr>
-<tr class="even">
-<td><code>do.call(what, args, ...)</code></td>
-<td>constructs and executes a function call from a name or a function and a list of arguments to be passed to it</td>
-</tr>
-<tr class="odd">
-<td><code>mapply(FUN, ...)</code></td>
-<td>A multivariate version of <code>sapply()</code>, applies a function to the 1st elements of each argument, then the 2nd elements of each argument, and so on.</td>
-</tr>
-<tr class="even">
-<td><code>Map(f, ...)</code></td>
-<td>Similar to <code>mapply()</code> but always returns a list, regardless of the output type.</td>
-</tr>
-<tr class="odd">
-<td><code>Reduce(f, x, init, ...)</code></td>
-<td>Applies a function successively to elements of a vector from left to right so as to reduce the vector to a single value.</td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="base-r-examples-1" class="slide level2">
-<h2><code>base</code> R Examples (1)</h2>
-<div class="panel-tabset">
-<ul id="tabset-6" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-6-1"><code>apply</code></a></li><li><a href="#tabset-6-2"><code>sapply</code></a></li><li><a href="#tabset-6-3"><code>lapply</code></a></li><li><a href="#tabset-6-4"><code>vapply</code></a></li><li><a href="#tabset-6-5"><code>tapply</code></a></li></ul>
-<div class="tab-content">
-<div id="tabset-6-1">
-<div id="qwebr-insertion-location-41"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div style="margin-top: 10px;">
-
-</div>
-<div id="qwebr-insertion-location-42"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-6-2">
-<div id="qwebr-insertion-location-43"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-6-3">
-<div id="qwebr-insertion-location-44"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-6-4">
-<div id="qwebr-insertion-location-45"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-6-5">
-<div id="qwebr-insertion-location-46"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-</div>
-</div>
-</section>
-<section id="base-r-examples-2" class="slide level2">
-<h2><code>base</code> R Examples (2)</h2>
-<div class="panel-tabset">
-<ul id="tabset-7" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-7-1"><code>do.call</code></a></li><li><a href="#tabset-7-2"><code>mapply</code></a></li><li><a href="#tabset-7-3"><code>Map</code></a></li><li><a href="#tabset-7-4"><code>Reduce</code></a></li></ul>
-<div class="tab-content">
-<div id="tabset-7-1">
-<div id="qwebr-insertion-location-47"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-7-2">
-<div id="qwebr-insertion-location-48"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-7-3">
-<div id="qwebr-insertion-location-49"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-7-4">
-<div id="qwebr-insertion-location-50"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<div style="font-size: 0.65em;">
-<ul>
-<li>“[1] 3 2” indicates that among the three random samples generated, the numbers 3 and 2 are the only ones that appear at least once in all three vectors.</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</section></section>
-<section>
-<section id="functional-programming-with-purrr" class="title-slide slide level1 center" data-background-color="#8FA9C2">
-<h1><span style="color:white;">Functional Programming with <code>purrr</code></span></h1>
-
-</section>
-<section id="functional-programming-with-purrr-1" class="slide level2">
-<h2>Functional Programming with <code>purrr</code></h2>
-<div style="font-size: 0.65em;">
-<table>
-<colgroup>
-<col style="width: 44%">
-<col style="width: 55%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Function</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>map(.x, .f, ...)</code></td>
-<td>Applies a function to each element of a list or vector and returns a list. Useful for operations on list elements.</td>
-</tr>
-<tr class="even">
-<td><code>map2(.x, .y, .f, ...)</code></td>
-<td>Applies a function to the corresponding elements of two vectors/lists, useful for element-wise operations on two inputs.</td>
-</tr>
-<tr class="odd">
-<td><code>pmap(.l, .f, ...)</code></td>
-<td>Applies a function to each element of a list or vector in parallel, taking multiple arguments from parallel lists or vectors.</td>
-</tr>
-<tr class="even">
-<td><code>reduce(.x, .f, ..., .init, .)</code></td>
-<td>Reduces a list or vector to a single value by iteratively applying a function that takes two arguments.</td>
-</tr>
-<tr class="odd">
-<td><code>_dbl,</code> <code>_int</code> <code>_chr</code>, <code>_lgl and</code> <code>_vec</code></td>
-<td><code>map, map2</code> and <code>pmap</code> variants to change output type, e.g., <code>map_dbl</code>, <code>map_int</code>, <code>map_chr</code>, <code>map_lgl</code>, <code>map_vec</code>, <code>map2_dbl ...</code></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="purrr-examples" class="slide level2">
-<h2><code>purrr</code> Examples</h2>
-<div class="panel-tabset">
-<ul id="tabset-8" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-8-1"><code>map</code></a></li><li><a href="#tabset-8-2"><code>map2</code></a></li><li><a href="#tabset-8-3"><code>pmap</code></a></li><li><a href="#tabset-8-4"><code>reduce</code></a></li></ul>
-<div class="tab-content">
-<div id="tabset-8-1">
-<div id="qwebr-insertion-location-51"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-8-2">
-<div id="qwebr-insertion-location-52"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-8-3">
-<div id="qwebr-insertion-location-53"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<aside class="notes">
-<ul>
-<li><p>For the first combination <code>(x = 1, y = 1, z = 1)</code>, three numbers are generated based on the hypergeometric distribution parameters, resulting in [1] 0 1 1.</p></li>
-<li><p>For the second combination <code>(x = 2, y = 2, z = 2)</code>, it generates another set of three numbers, resulting in [1] 1 0 1.</p></li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</div>
-<div id="tabset-8-4">
-<div id="qwebr-insertion-location-54"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-</div>
-</div>
-</section></section>
-<section>
-<section id="parallel-computing" class="title-slide slide level1 center" data-background-color="#8FA9C2">
-<h1><span style="color:white;">Parallel Computing</span></h1>
-
-</section>
-<section id="parallel-computing-with-furrr" class="slide level2">
-<h2>Parallel Computing with <code>furrr</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>fib_n <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb2-2"><a href=""></a>    <span class="cf">if</span> ((n <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|</span> (n <span class="sc">==</span> <span class="dv">1</span>)) </span>
-<span id="cb2-3"><a href=""></a>        <span class="fu">return</span>(<span class="dv">1</span>)</span>
-<span id="cb2-4"><a href=""></a>    <span class="cf">else</span></span>
-<span id="cb2-5"><a href=""></a>        <span class="fu">return</span>(<span class="fu">fib_n</span>(n<span class="dv">-1</span>) <span class="sc">+</span> <span class="fu">fib_n</span>(n<span class="dv">-2</span>))</span>
-<span id="cb2-6"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>R_Slope_only_mod <span class="ot">&lt;-</span> <span class="fu">lmer</span>(sqrt_abund <span class="sc">~</span> Scale_Yr <span class="sc">+</span> (<span class="dv">0</span> <span class="sc">+</span> Scale_Yr<span class="sc">|</span>FStation), <span class="at">data=</span>Kukupa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="fragment">
-<div style="margin-top: 20px;">
-
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3" data-code-line-numbers="1-2|4|5-7|1-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">library</span>(furrr) <span class="co"># library(furrr) loads future by default</span></span>
-<span id="cb3-2"><a href=""></a><span class="fu">library</span>(tictoc)</span>
-<span id="cb3-3"><a href=""></a></span>
-<span id="cb3-4"><a href=""></a>future<span class="sc">::</span><span class="fu">plan</span>(multisession, <span class="at">workers =</span> <span class="dv">1</span>) <span class="co"># setting num of cores/workers</span></span>
-<span id="cb3-5"><a href=""></a><span class="fu">tic</span>()</span>
-<span id="cb3-6"><a href=""></a>num <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span> <span class="sc">|&gt;</span> <span class="fu">future_map</span>(fib_n)</span>
-<span id="cb3-7"><a href=""></a><span class="fu">toc</span>() <span class="co"># 4.151 sec elapsed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<div style="margin-top: 20px;">
-
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4" data-code-line-numbers="1|2-4|1-4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>future<span class="sc">::</span><span class="fu">plan</span>(multisession, <span class="at">workers =</span> <span class="dv">2</span>) <span class="co"># Using 1 additional core</span></span>
-<span id="cb4-2"><a href=""></a><span class="fu">tic</span>()</span>
-<span id="cb4-3"><a href=""></a>num <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span> <span class="sc">|&gt;</span> <span class="fu">future_map</span>(fib_n)</span>
-<span id="cb4-4"><a href=""></a><span class="fu">toc</span>() <span class="co"># 2.174 sec elapsed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</section>
-<section id="a-note-on-parallel-computing" class="slide level2">
-<h2>A Note on Parallel Computing</h2>
-<blockquote>
-<p>Parallel Computing is not a magic bullet. Performance depends on Overhead of Parallelization, Task Granularity, and whether or not the task is sequential</p>
-</blockquote>
-<div class="fragment">
-<div>
-<ul>
-<li class="fragment">Sequential Tasks, generally speaking, are not capable of being parallized, though they can be <em>“functionally parallized”</em>; meaning given a function, <code>seq_func</code>, the internals of <code>seq_func</code> <strong>cannot</strong> not be parallized, but the call to <code>seq_func</code> <strong>can</strong> be parallized.</li>
-<li class="fragment">We will illustrate this concept with Random Walks</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="random-walks" class="slide level2">
-<h2>Random Walks</h2>
 <div class="cell">
 <details class="code-fold">
-<summary>expand for <code>random_walk()</code> source code</summary>
-<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="4|5-16|6|7|8-14|8|9-10|11-13|5-16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">library</span>(furrr)</span>
-<span id="cb5-2"><a href=""></a><span class="fu">library</span>(tictoc)</span>
-<span id="cb5-3"><a href=""></a></span>
-<span id="cb5-4"><a href=""></a>nworkers <span class="ot">=</span> parallel<span class="sc">::</span><span class="fu">detectCores</span>() <span class="sc">-</span> <span class="dv">1</span> <span class="co"># select nworkers to amount of cores - 1 </span></span>
-<span id="cb5-5"><a href=""></a>random_walk <span class="ot">&lt;-</span> <span class="cf">function</span>(steps) {</span>
-<span id="cb5-6"><a href=""></a>  position <span class="ot">&lt;-</span> <span class="fu">numeric</span>(steps) <span class="co"># Initialize the position vector</span></span>
-<span id="cb5-7"><a href=""></a>  position[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># Start at the origin</span></span>
-<span id="cb5-8"><a href=""></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>steps) {                   <span class="co"># Simulate each step of the walk</span></span>
-<span id="cb5-9"><a href=""></a>    <span class="cf">if</span> (<span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">&lt;</span> <span class="fl">0.5</span>) {</span>
-<span id="cb5-10"><a href=""></a>      position[i] <span class="ot">&lt;-</span> position[i <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">+</span> <span class="dv">1</span> <span class="co"># Move forward</span></span>
-<span id="cb5-11"><a href=""></a>    } <span class="cf">else</span> {</span>
-<span id="cb5-12"><a href=""></a>      position[i] <span class="ot">&lt;-</span> position[i <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">-</span> <span class="dv">1</span> <span class="co"># Move backward</span></span>
-<span id="cb5-13"><a href=""></a>    }</span>
-<span id="cb5-14"><a href=""></a>  }</span>
-<span id="cb5-15"><a href=""></a>  <span class="fu">return</span>(position)</span>
-<span id="cb5-16"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<summary>Model Summary</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">summary</span>(R_Slope_only_mod)</span>
+<span id="cb5-2"><a href=""></a><span class="do">## Linear mixed model fit by REML ['lmerMod']</span></span>
+<span id="cb5-3"><a href=""></a><span class="do">## Formula: sqrt_abund ~ Scale_Yr + (0 + Scale_Yr | FStation)</span></span>
+<span id="cb5-4"><a href=""></a><span class="do">##    Data: Kukupa</span></span>
+<span id="cb5-5"><a href=""></a><span class="do">## </span></span>
+<span id="cb5-6"><a href=""></a><span class="do">## REML criterion at convergence: 67.1</span></span>
+<span id="cb5-7"><a href=""></a><span class="do">## </span></span>
+<span id="cb5-8"><a href=""></a><span class="do">## Scaled residuals: </span></span>
+<span id="cb5-9"><a href=""></a><span class="do">##     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb5-10"><a href=""></a><span class="do">## -2.0636 -0.7707  0.0103  0.7337  1.8888 </span></span>
+<span id="cb5-11"><a href=""></a><span class="do">## </span></span>
+<span id="cb5-12"><a href=""></a><span class="do">## Random effects:</span></span>
+<span id="cb5-13"><a href=""></a><span class="do">##  Groups   Name     Variance Std.Dev.</span></span>
+<span id="cb5-14"><a href=""></a><span class="do">##  FStation Scale_Yr 0.000376 0.0194  </span></span>
+<span id="cb5-15"><a href=""></a><span class="do">##  Residual          0.085363 0.2922  </span></span>
+<span id="cb5-16"><a href=""></a><span class="do">## Number of obs: 120, groups:  FStation, 10</span></span>
+<span id="cb5-17"><a href=""></a><span class="do">## </span></span>
+<span id="cb5-18"><a href=""></a><span class="do">## Fixed effects:</span></span>
+<span id="cb5-19"><a href=""></a><span class="do">##             Estimate Std. Error t value</span></span>
+<span id="cb5-20"><a href=""></a><span class="do">## (Intercept)  0.15356    0.05017    3.06</span></span>
+<span id="cb5-21"><a href=""></a><span class="do">## Scale_Yr     0.05245    0.00987    5.32</span></span>
+<span id="cb5-22"><a href=""></a><span class="do">## </span></span>
+<span id="cb5-23"><a href=""></a><span class="do">## Correlation of Fixed Effects:</span></span>
+<span id="cb5-24"><a href=""></a><span class="do">##          (Intr)</span></span>
+<span id="cb5-25"><a href=""></a><span class="do">## Scale_Yr -0.663</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6" data-code-line-numbers="1|3-6|7-11|13-18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>steps <span class="ot">=</span> <span class="dv">10000</span>; n_random_walks <span class="ot">=</span> <span class="dv">300</span> <span class="co"># Define the number of steps and walks</span></span>
-<span id="cb6-2"><a href=""></a></span>
-<span id="cb6-3"><a href=""></a>future<span class="sc">::</span><span class="fu">plan</span>(multisession, <span class="at">workers =</span> <span class="dv">1</span>) <span class="co"># setting num of cores/workers</span></span>
-<span id="cb6-4"><a href=""></a><span class="fu">tic</span>() <span class="co"># Measure time taken to execute the random walk</span></span>
-<span id="cb6-5"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">1</span>); walks <span class="ot">=</span> <span class="fu">future_map</span>(<span class="dv">1</span><span class="sc">:</span>n_random_walks , <span class="sc">~</span><span class="fu">random_walk</span>(steps),<span class="at">.options =</span> <span class="fu">furrr_options</span>(<span class="at">seed =</span> <span class="cn">TRUE</span>)) </span>
-<span id="cb6-6"><a href=""></a><span class="fu">toc</span>() <span class="co"># 3.088 sec elapsed</span></span>
-<span id="cb6-7"><a href=""></a></span>
-<span id="cb6-8"><a href=""></a><span class="fu">tic</span>()</span>
-<span id="cb6-9"><a href=""></a>future<span class="sc">::</span><span class="fu">plan</span>(multisession, <span class="at">workers =</span> nworkers) <span class="co"># setting num of cores/workers</span></span>
-<span id="cb6-10"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">1</span>);walks <span class="ot">=</span> <span class="fu">future_map</span>(<span class="dv">1</span><span class="sc">:</span>n_random_walks , <span class="sc">~</span><span class="fu">random_walk</span>(steps),<span class="at">.options =</span> <span class="fu">furrr_options</span>(<span class="at">seed =</span> <span class="cn">TRUE</span>)) </span>
-<span id="cb6-11"><a href=""></a><span class="fu">toc</span>() <span class="co"># 1.713 sec elapsed</span></span>
-<span id="cb6-12"><a href=""></a></span>
-<span id="cb6-13"><a href=""></a><span class="fu">pdf</span>(<span class="st">"random_walks.pdf"</span>)</span>
-<span id="cb6-14"><a href=""></a><span class="fu">invisible</span>(</span>
-<span id="cb6-15"><a href=""></a>  <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="cf">function</span>(i) </span>
-<span id="cb6-16"><a href=""></a>    <span class="fu">plot</span>(walks[[i]],<span class="at">type =</span> <span class="st">"l"</span>, <span class="at">ylab =</span> <span class="st">"Position"</span>, <span class="at">xlab =</span> <span class="st">"Step"</span>,</span>
-<span id="cb6-17"><a href=""></a>         <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Random Walk"</span>,i)))</span>
-<span id="cb6-18"><a href=""></a>  );<span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="our-first-10-random-walks-plots" class="slide level2">
-<h2>Our First 10 Random Walks Plots</h2>
-<p><object data="random_walks.pdf" type="application/pdf" width="1000" height="650"><iframe src="random_walks.pdf" width="1000" height="650">This browser does not support PDFs. Please download the PDF to view it: <a href="random_walks.pdf">Download PDF</a></iframe></object></p>
-</section>
-<section id="bootstraps-in-parallel" class="slide level2">
-<h2>Bootstraps in Parallel</h2>
-<div class="cell">
 <details class="code-fold">
-<summary>expand for source code for <code>boot()</code> and <code>samp.o()</code></summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>boot <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">B =</span> <span class="dv">5000</span>, m, theta.f, <span class="at">w =</span> <span class="dv">1</span>, rdist, ...) {</span>
-<span id="cb7-2"><a href=""></a>  <span class="fu">plan</span>(multisession, <span class="at">workers =</span> w) <span class="co"># Set up for parallel execution</span></span>
-<span id="cb7-3"><a href=""></a>  b_indices <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>B <span class="co"># vector of indices for bootstrapping iterations</span></span>
-<span id="cb7-4"><a href=""></a>  iterate_func <span class="ot">&lt;-</span> <span class="cf">function</span>(b) { <span class="co"># apply for each bootstrap iteration</span></span>
-<span id="cb7-5"><a href=""></a>    <span class="cf">if</span> (m <span class="sc">==</span> <span class="st">"p"</span>) {</span>
-<span id="cb7-6"><a href=""></a>      d.b <span class="ot">&lt;-</span> <span class="fu">rdist</span>(...) <span class="co"># parametric bootstrap</span></span>
-<span id="cb7-7"><a href=""></a>    } <span class="cf">else</span> <span class="cf">if</span> (m <span class="sc">==</span> <span class="st">"np"</span>) {</span>
-<span id="cb7-8"><a href=""></a>      d.b <span class="ot">&lt;-</span> x[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x), <span class="at">replace =</span> <span class="cn">TRUE</span>)] <span class="co"># nonparametric bootstrap</span></span>
-<span id="cb7-9"><a href=""></a>    } <span class="cf">else</span> {</span>
-<span id="cb7-10"><a href=""></a>      <span class="fu">stop</span>(<span class="st">"possible arguments for m is 'p' (parametric) or 'np' (nonparametric)"</span>)</span>
-<span id="cb7-11"><a href=""></a>    }</span>
-<span id="cb7-12"><a href=""></a>    <span class="fu">theta.f</span>(d.b)</span>
-<span id="cb7-13"><a href=""></a>  }</span>
-<span id="cb7-14"><a href=""></a>  <span class="co"># future_map_dbl to apply iterate_func over each index in parallel with proper seeding</span></span>
-<span id="cb7-15"><a href=""></a>  t.s <span class="ot">&lt;-</span> <span class="fu">future_map_dbl</span>(b_indices, iterate_func, <span class="at">.options =</span> <span class="fu">furrr_options</span>(<span class="at">seed =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb7-16"><a href=""></a>  <span class="fu">samp.o</span>(t.s) <span class="co"># Summarize the bootstrap results</span></span>
-<span id="cb7-17"><a href=""></a>}</span>
-<span id="cb7-18"><a href=""></a>samp.o <span class="ot">=</span> <span class="cf">function</span>(t.s) {</span>
-<span id="cb7-19"><a href=""></a>  <span class="fu">round</span>(<span class="fu">c</span>(<span class="at">mean=</span><span class="fu">mean</span>(t.s),<span class="at">sd=</span><span class="fu">sd</span>(t.s),<span class="at">lower=</span><span class="fu">quantile</span>(t.s, <span class="fl">0.025</span>, <span class="at">names =</span> F),</span>
-<span id="cb7-20"><a href=""></a>  <span class="at">upper=</span> <span class="fu">quantile</span>(t.s, <span class="fl">0.975</span>, <span class="at">names =</span> F)),<span class="at">digits=</span><span class="dv">6</span>)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<summary>Random Effects</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="fu">ranef</span>(R_Slope_only_mod)</span>
+<span id="cb6-2"><a href=""></a><span class="do">## $FStation</span></span>
+<span id="cb6-3"><a href=""></a><span class="do">##       Scale_Yr</span></span>
+<span id="cb6-4"><a href=""></a><span class="do">## 81 -0.01159938</span></span>
+<span id="cb6-5"><a href=""></a><span class="do">## 82  0.01306973</span></span>
+<span id="cb6-6"><a href=""></a><span class="do">## 83 -0.01705482</span></span>
+<span id="cb6-7"><a href=""></a><span class="do">## 84 -0.02374210</span></span>
+<span id="cb6-8"><a href=""></a><span class="do">## 85 -0.00117010</span></span>
+<span id="cb6-9"><a href=""></a><span class="do">## 86  0.02197598</span></span>
+<span id="cb6-10"><a href=""></a><span class="do">## 87  0.00057102</span></span>
+<span id="cb6-11"><a href=""></a><span class="do">## 88  0.00858345</span></span>
+<span id="cb6-12"><a href=""></a><span class="do">## 89 -0.01229392</span></span>
+<span id="cb6-13"><a href=""></a><span class="do">## 90  0.02166014</span></span>
+<span id="cb6-14"><a href=""></a><span class="do">## </span></span>
+<span id="cb6-15"><a href=""></a><span class="do">## with conditional variances for "FStation"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">library</span>(purrr)</span>
-<span id="cb8-2"><a href=""></a><span class="fu">library</span>(future)</span>
-<span id="cb8-3"><a href=""></a><span class="fu">library</span>(tictoc)</span>
-<span id="cb8-4"><a href=""></a></span>
-<span id="cb8-5"><a href=""></a><span class="co"># boot &lt;- function(x, B = 5000, m, theta.f, w = 1, rdist, ...) {} # see above</span></span>
-<span id="cb8-6"><a href=""></a><span class="co"># samp.o = function(t.s) {} # see above</span></span>
-<span id="cb8-7"><a href=""></a>theta.f <span class="ot">=</span> <span class="cf">function</span>(d.b) {p <span class="ot">=</span> <span class="fu">sum</span>(d.b)<span class="sc">/</span>n; p<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>p)} </span>
-<span id="cb8-8"><a href=""></a></span>
-<span id="cb8-9"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">1</span>); n <span class="ot">=</span> <span class="dv">800000</span>; y <span class="ot">=</span> <span class="dv">480</span>; B <span class="ot">=</span> <span class="dv">5000</span></span>
-<span id="cb8-10"><a href=""></a>data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, y), <span class="fu">rep</span>(<span class="dv">0</span>, n<span class="sc">-</span>y)); phat <span class="ot">&lt;-</span> <span class="fu">sum</span>(data)<span class="sc">/</span>n</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<div style="margin-top: 20px;">
-
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="fu">tic</span>()</span>
-<span id="cb9-2"><a href=""></a>(b_p_future <span class="ot">&lt;-</span> <span class="fu">boot</span>(data, <span class="at">B =</span> B, <span class="at">m =</span> <span class="st">"p"</span>, <span class="at">theta.f =</span> theta.f, <span class="at">w =</span> <span class="dv">1</span>,</span>
-<span id="cb9-3"><a href=""></a>                    <span class="at">rdist =</span> rbinom, <span class="at">n =</span> n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> phat))</span>
-<span id="cb9-4"><a href=""></a><span class="fu">toc</span>() <span class="co"># 49.859 sec elapsed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<div style="margin-top: 20px;">
-
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="fu">tic</span>()</span>
-<span id="cb10-2"><a href=""></a>(<span class="at">b_p_future =</span> <span class="fu">boot</span>(data, <span class="at">B =</span> B, <span class="at">m =</span> <span class="st">"p"</span>, <span class="at">theta.f =</span> theta.f, <span class="at">w =</span> <span class="dv">9</span>,</span>
-<span id="cb10-3"><a href=""></a>                    <span class="at">rdist =</span> rbinom, <span class="at">n =</span> n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> phat))</span>
-<span id="cb10-4"><a href=""></a><span class="fu">toc</span>() <span class="co"># 8.014 sec elapsed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</section></section>
-<section>
-<section id="its-time-for-some-more-exercises" class="title-slide slide level1 center" data-background-color="#8FA9C2">
-<h1><svg aria-hidden="true" role="img" viewbox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M64 96c0-35.3 28.7-64 64-64H512c35.3 0 64 28.7 64 64V352H512V96H128V352H64V96zM0 403.2C0 392.6 8.6 384 19.2 384H620.8c10.6 0 19.2 8.6 19.2 19.2c0 42.4-34.4 76.8-76.8 76.8H76.8C34.4 480 0 445.6 0 403.2zM281 209l-31 31 31 31c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-48-48c-9.4-9.4-9.4-24.6 0-33.9l48-48c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9zM393 175l48 48c9.4 9.4 9.4 24.6 0 33.9l-48 48c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l31-31-31-31c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0z"></path></svg> <span style="color:white;">Its Time for Some More Exercises</span></h1>
-
+<p><strong>Illustrating Predictions</strong></p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;\begin{aligned}
+\sqrt{\hat{\mu}}= &amp; \hat{\beta}_o+\hat{\beta}_y \text { year } \\
+&amp; =0.15356+0.05245 t_{1 j}
+\end{aligned}\\
+&amp;\begin{aligned}
+\sqrt{\hat{\mu}_{90}} &amp; =\hat{\beta}_o+\hat{\beta}_1 t_{1 j}  + \hat{\delta}_{1,90} t_{1 j}\\
+&amp; =(0.15356)+(0.05245 + 0.02166014) t_{1 j} \\
+&amp; =0.15356 + 0.07411 t_{1 j}
+\end{aligned}
+\end{aligned}
+\]</span></p>
 </section>
-<section id="q5" class="slide level2">
-<h2>Q5</h2>
-<div class="panel-tabset">
-<ul id="tabset-9" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-9-1">Question</a></li><li><a href="#tabset-9-2">Answer</a></li></ul>
-<div class="tab-content">
-<div id="tabset-9-1">
-<!--Basic If-Else-->
-<p>Write an R function named <code>is_positive</code> that takes a single numeric input and returns <code>TRUE</code> if the number is positive, and <code>FALSE</code> otherwise.</p>
-<div id="qwebr-insertion-location-55"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-9-2">
-<div id="qwebr-insertion-location-56"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-</div>
-</div>
-</section>
-<section id="q6" class="slide level2">
-<h2>Q6</h2>
-<!--Error Handling with Stop-->
-<div class="panel-tabset">
-<ul id="tabset-10" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-10-1">Question</a></li><li><a href="#tabset-10-2">Answer</a></li></ul>
-<div class="tab-content">
-<div id="tabset-10-1">
-<p>Create a function named <code>sqrt_safe</code> that computes the square root of a number. If the input is negative, the function should stop execution and return an error message <code>"Cannot take square root of a negative number."</code></p>
-<div id="qwebr-insertion-location-57"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-10-2">
-<div id="qwebr-insertion-location-58"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-</div>
-</div>
-</section>
-<section id="q7" class="slide level2">
-<h2>Q7</h2>
-<!--Loop with Break-->
-<div class="panel-tabset">
-<ul id="tabset-11" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-11-1">Question</a></li><li><a href="#tabset-11-2">Answer</a></li></ul>
-<div class="tab-content">
-<div id="tabset-11-1">
-<p>Write a function named <code>find_first_negative</code> that takes a numeric vector and returns the position of the first negative number. If there are no negative numbers, return <code>NA</code>.</p>
-<div id="qwebr-insertion-location-59"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-11-2">
-<div id="qwebr-insertion-location-60"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-</div>
-</div>
-</section>
-<section id="q8" class="slide level2">
-<h2>Q8</h2>
-<!--While Loop-->
-<div class="panel-tabset">
-<ul id="tabset-12" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-12-1">Question</a></li><li><a href="#tabset-12-2">Answer</a></li></ul>
-<div class="tab-content">
-<div id="tabset-12-1">
-<p>Create a function named <code>halve_until_less_than_one</code> that takes a single numeric argument and keeps halving it until it is less than 1, then returns the result. Keep track of the number of times the input is halved; print the function output as <code>list(result = x, nsteps = count)</code></p>
-<div id="qwebr-insertion-location-61"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-12-2">
-<div id="qwebr-insertion-location-62"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-</div>
-</div>
-</section>
-<section id="q9" class="slide level2">
-<h2>Q9</h2>
-<!--Apply Function-->
-<div class="panel-tabset">
-<ul id="tabset-13" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-13-1">Question</a></li><li><a href="#tabset-13-2">Answer</a></li></ul>
-<div class="tab-content">
-<div id="tabset-13-1">
-<p>Write a function named <code>scale_columns</code> that takes a matrix and scales (normalizes) each column to have a mean of 0 and a standard deviation of 1. Use the given dataframe <code>M</code></p>
-<div id="qwebr-insertion-location-63"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-13-2">
-<div id="qwebr-insertion-location-64"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-</div>
-</div>
-</section>
-<section id="q10" class="slide level2">
-<h2>Q10</h2>
-<!--`map` with purr-->
-<div class="panel-tabset">
-<ul id="tabset-14" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-14-1">Question</a></li><li><a href="#tabset-14-2">Answer</a></li></ul>
-<div class="tab-content">
-<div id="tabset-14-1">
-<p>Using the <code>purrr</code> package, write a function that takes a list of numeric vectors and returns a list of their means. Use <code>purrr::map</code>.</p>
-<div id="qwebr-insertion-location-65"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-14-2">
-<div id="qwebr-insertion-location-66"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-</div>
-</div>
-</section>
-<section id="q11" class="slide level2">
-<h2>Q11</h2>
-<!--Using the Ellipsis (...)-->
-<div class="panel-tabset">
-<ul id="tabset-15" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-15-1">Question</a></li><li><a href="#tabset-15-2">Answer</a></li></ul>
-<div class="tab-content">
-<div id="tabset-15-1">
-<p>Create a function named <code>multiply_and_add</code> that takes an arbitrary number of numeric vectors. It should multiply each vector by its index in the argument list and then sum all the results into a single number.</p>
-<div id="qwebr-insertion-location-67"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-<div id="tabset-15-2">
-<div id="qwebr-insertion-location-68"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</div>
-</div>
-</div>
-</section></section>
-<section id="acknowledgements" class="title-slide slide level1 center" data-background-color="#8FA9C2">
-<h1><svg aria-hidden="true" role="img" viewbox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M163.9 136.9c-29.4-29.8-29.4-78.2 0-108s77-29.8 106.4 0l17.7 18 17.7-18c29.4-29.8 77-29.8 106.4 0s29.4 78.2 0 108L310.5 240.1c-6.2 6.3-14.3 9.4-22.5 9.4s-16.3-3.1-22.5-9.4L163.9 136.9zM568.2 336.3c13.1 17.8 9.3 42.8-8.5 55.9L433.1 485.5c-23.4 17.2-51.6 26.5-80.7 26.5H192 32c-17.7 0-32-14.3-32-32V416c0-17.7 14.3-32 32-32H68.8l44.9-36c22.7-18.2 50.9-28 80-28H272h16 64c17.7 0 32 14.3 32 32s-14.3 32-32 32H288 272c-8.8 0-16 7.2-16 16s7.2 16 16 16H392.6l119.7-88.2c17.8-13.1 42.8-9.3 55.9 8.5zM193.6 384l0 0-.9 0c.3 0 .6 0 .9 0z"></path></svg> <span style="color:white; font-size: 70px;">Acknowledgements</span></h1>
-<div>
-<ul>
-<li class="fragment">Thank you Molly Caldwell your efforts organizing!</li>
-<li class="fragment">A big thanks to the R-Ladies Community!</li>
-<li class="fragment">Thank you Seth for your patience in my experiment using quarto revealjs and <code>webr</code>!!</li>
-<li class="fragment">Photo Credit: <a href="https://unsplash.com/photos/a-blue-background-with-lines-and-dots-xuTJZ7uD7PI">Conny Schneider</a> <svg aria-hidden="true" role="img" viewbox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M220.6 121.2L271.1 96 448 96v96H333.2c-21.9-15.1-48.5-24-77.2-24s-55.2 8.9-77.2 24H64V128H192c9.9 0 19.7-2.3 28.6-6.8zM0 128V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H271.1c-9.9 0-19.7 2.3-28.6 6.8L192 64H160V48c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16l0 16C28.7 64 0 92.7 0 128zM168 304a88 88 0 1 1 176 0 88 88 0 1 1 -176 0z"></path></svg></li>
-</ul>
-</div>
-</section>
-
-<section id="wanna-hear-from-us" class="title-slide slide level1 center" data-background-color="#8FA9C2">
-<h1><span style="color:white; font-size: 70px;">Wanna Hear From Us?</span></h1>
-<div class="columns">
-<div class="column" style="width:50%;">
+<section id="random-intercept-and-random-slope-mixed-model" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
+<h2><span style="color:#001F3F; font-size: 55px;">Random Intercept and Random Slope Mixed Model</span></h2>
+<p>Or if we want we can allow for a random intercept and a random slope.</p>
+<p><span class="math display">\[
+\begin{aligned} y_{i j} &amp; =\beta_0+\delta_{0 i}+\beta_1 t_{i j}+\delta_{1 i} t_{i j}+\varepsilon_{i j} \quad(i=1,2, \ldots, 10 ; \mathrm{j}=1,2, \ldots, 12) \\ &amp; =\left(\beta_0+\delta_{0 i}\right)+\left(\beta_1+\delta_{1 i}\right) t_{i j}+\varepsilon_{i j}\end{aligned}
+\]</span></p>
 <p align="center">
-<img src="images/Dan.png" alt="Cover Image" height="250px">
+<img src="images/Kukupa_RI_RS.png" alt="Kukupa Random intercepts" width="700px" style="border: 2px solid #000;">
 </p>
+</section>
+<section id="random-intercepts-and-slopes-code" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
+<h2><span style="color:#001F3F; font-size: 55px;">Random Intercepts and Slopes Code</span></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>R_Int_and_Slope_mod <span class="ot">&lt;-</span> <span class="fu">lmer</span>(sqrt_abund <span class="sc">~</span> Scale_Yr <span class="sc">+</span> (Scale_Yr<span class="sc">|</span>FStation), <span class="at">data=</span>Kukupa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Model Summary</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">summary</span>(R_Int_and_Slope_mod)</span>
+<span id="cb8-2"><a href=""></a><span class="do">## Linear mixed model fit by REML ['lmerMod']</span></span>
+<span id="cb8-3"><a href=""></a><span class="do">## Formula: sqrt_abund ~ Scale_Yr + (Scale_Yr | FStation)</span></span>
+<span id="cb8-4"><a href=""></a><span class="do">##    Data: Kukupa</span></span>
+<span id="cb8-5"><a href=""></a><span class="do">## </span></span>
+<span id="cb8-6"><a href=""></a><span class="do">## REML criterion at convergence: 65.8</span></span>
+<span id="cb8-7"><a href=""></a><span class="do">## </span></span>
+<span id="cb8-8"><a href=""></a><span class="do">## Scaled residuals: </span></span>
+<span id="cb8-9"><a href=""></a><span class="do">##     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb8-10"><a href=""></a><span class="do">## -1.9484 -0.7265 -0.0023  0.7332  1.9540 </span></span>
+<span id="cb8-11"><a href=""></a><span class="do">## </span></span>
+<span id="cb8-12"><a href=""></a><span class="do">## Random effects:</span></span>
+<span id="cb8-13"><a href=""></a><span class="do">##  Groups   Name        Variance Std.Dev. Corr </span></span>
+<span id="cb8-14"><a href=""></a><span class="do">##  FStation (Intercept) 0.016536 0.1286        </span></span>
+<span id="cb8-15"><a href=""></a><span class="do">##           Scale_Yr    0.000681 0.0261   -0.66</span></span>
+<span id="cb8-16"><a href=""></a><span class="do">##  Residual             0.080733 0.2841        </span></span>
+<span id="cb8-17"><a href=""></a><span class="do">## Number of obs: 120, groups:  FStation, 10</span></span>
+<span id="cb8-18"><a href=""></a><span class="do">## </span></span>
+<span id="cb8-19"><a href=""></a><span class="do">## Fixed effects:</span></span>
+<span id="cb8-20"><a href=""></a><span class="do">##             Estimate Std. Error t value</span></span>
+<span id="cb8-21"><a href=""></a><span class="do">## (Intercept)   0.1536     0.0635    2.42</span></span>
+<span id="cb8-22"><a href=""></a><span class="do">## Scale_Yr      0.0525     0.0112    4.70</span></span>
+<span id="cb8-23"><a href=""></a><span class="do">## </span></span>
+<span id="cb8-24"><a href=""></a><span class="do">## Correlation of Fixed Effects:</span></span>
+<span id="cb8-25"><a href=""></a><span class="do">##          (Intr)</span></span>
+<span id="cb8-26"><a href=""></a><span class="do">## Scale_Yr -0.750</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Random Effects</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="fu">ranef</span>(R_Int_and_Slope_mod)</span>
+<span id="cb9-2"><a href=""></a><span class="do">## $FStation</span></span>
+<span id="cb9-3"><a href=""></a><span class="do">##    (Intercept)   Scale_Yr</span></span>
+<span id="cb9-4"><a href=""></a><span class="do">## 81   0.1215110 -0.0278495</span></span>
+<span id="cb9-5"><a href=""></a><span class="do">## 82   0.1344547 -0.0042853</span></span>
+<span id="cb9-6"><a href=""></a><span class="do">## 83   0.0010878 -0.0176100</span></span>
+<span id="cb9-7"><a href=""></a><span class="do">## 84  -0.0748525 -0.0144783</span></span>
+<span id="cb9-8"><a href=""></a><span class="do">## 85   0.0241642 -0.0043742</span></span>
+<span id="cb9-9"><a href=""></a><span class="do">## 86   0.0207353  0.0197820</span></span>
+<span id="cb9-10"><a href=""></a><span class="do">## 87  -0.0743896  0.0103616</span></span>
+<span id="cb9-11"><a href=""></a><span class="do">## 88  -0.0239548  0.0119392</span></span>
+<span id="cb9-12"><a href=""></a><span class="do">## 89  -0.0045661 -0.0119910</span></span>
+<span id="cb9-13"><a href=""></a><span class="do">## 90  -0.1241901  0.0385055</span></span>
+<span id="cb9-14"><a href=""></a><span class="do">## </span></span>
+<span id="cb9-15"><a href=""></a><span class="do">## with conditional variances for "FStation"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><strong>Illustrating Predictions</strong></p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;\begin{aligned}
+\sqrt{\hat{\mu}}= &amp; \hat{\beta}_0+\hat{\beta}_1 t_{1 j}  \\
+&amp; =0.15356+0.05245 t_{1 j}
+\end{aligned}\\
+&amp;\begin{aligned}
+\sqrt{\hat{\mu}_{90}} &amp; =\hat{\beta}_o+\hat{\beta}_I t_{1 j} +\hat{\delta}_{0,90}+\hat{\delta}_{1,90} t_{1 j} \\
+&amp; =(0.15356-0.12419)+(0.05245+0.0385) t_{1 j} \\
+&amp; =0.02937 + 0.09095 t_{1 j}
+\end{aligned}
+\end{aligned}
+\]</span></p>
+</section></section>
+<section>
+<section id="generalized-linear-mixed-model" class="title-slide slide level1 center" data-background-image="images/background_2.png" data-background-size="cover">
+<h1><span style="color:#001F3F; font-size: 70px;">Generalized Linear Mixed Model</span></h1>
+
+</section>
+<section id="glmm1" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
+<h2><span style="color:#001F3F; font-size: 55px;">GLMM(1)</span></h2>
+<ul>
+<li>Generalized linear mixed models (GLMMs) are an extension of linear mixed models to allow response variables from different distributions than the Normal</li>
+<li>Binary data</li>
+<li>Count data</li>
+<li>Survival Data</li>
+<li>Other members of the exponential family</li>
+<li>In addition, rather than modeling the responses directly, some link function is applied to the mean in order to guarantee ‘legal’ estimates of the mean</li>
+</ul>
+</section>
+<section id="linear-predictor-and-link-function" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
+<h2><span style="color:#001F3F; font-size: 55px;">Linear Predictor and Link Function</span></h2>
+<ul>
+<li>Let the linear predictor, <span class="math inline">\(\boldsymbol{\eta}\)</span>, be the combination of the fixed and random effects, excluding the residuals</li>
+</ul>
+<p><span class="math display">\[
+\boldsymbol{\eta}=\mathbf{X} \boldsymbol{\beta}+\mathbf{Z} \boldsymbol{\delta}
+\]</span></p>
+<p><span class="math display">\[
+\begin{gathered}
+g\left(~.\right)=\text { link function } \\
+h\left(~.\right)=g^{-1}\left(~.\right)=\text { inverse link function } \\
+\mathbf{g}(E(\mathbf{y}))=\boldsymbol{\eta}
+\end{gathered}
+\]</span></p>
+</section>
+<section id="forbs-example1" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
+<h2><span style="color:#001F3F; font-size: 55px;">Forbs Example(1)</span></h2>
+<div class="fragment" data-fragment-index="1" style="font-size: 0.8em;">
+<ul>
+<li>Below are the pictures of the Rocky Flats National Wildlife Refuge before the final clean‐up of the industrial facility that was once located there (lower left) and what this site looked like after the clean‐up in 2014 (it looks similar to this now).</li>
+</ul>
+</div>
+<div class="fragment" data-fragment-index="2" style="font-size: 0.8em;">
+<p align="center">
+<img src="images/forbs.png" alt="forbs" width="500px" style="border: 2px solid #000;">
+</p>
+</div>
+</section>
+<section id="forbs-example2" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
+<h2><span style="color:#001F3F; font-size: 55px;">Forbs Example(2)</span></h2>
+<div class="fragment" data-fragment-index="1" style="font-size: 0.8em;">
+<ul>
+<li>One of the management questions at the refuge concerns the relative proportion of forbs on the refuge and whether this relative proportion has changed substantially since the time period in which the site was intensely monitored (1996‐2000) and a recent monitoring effort in 2022.</li>
+</ul>
+</div>
+<div class="fragment" data-fragment-index="2" style="font-size: 0.8em;">
+<ul>
+<li>Vegetation cover is measured by laying out 2x50 meter transects and then walking the transect in two directions, stopping every 1m to shoot a laser to the ground and noting the ground cover at the laser point (bare ground, biotic material, species of plant present if a plant is located at the laser point, etc).</li>
+</ul>
+</div>
+<div class="fragment" data-fragment-index="3" style="font-size: 0.8em;">
+<ul>
+<li>The file forbs.csv provides data on forb abundance observed during the observation years for each transect. The field ‘sumcov’ denotes the total number of times that the laser pointed to native forb species and ‘totcov’ denotes the total number of laser points which landed on biotic material.</li>
+</ul>
+</div>
+<div class="fragment" data-fragment-index="4" style="font-size: 0.8em;">
+<ul>
+<li>If you take the ratio of sumcov to totcov, you will have the relative abundance of forbs within the vegetative areas of the transect. Assume that totcov is fixed and that sumcov conditioned on a transect/year combination follows a binomial distribution.</li>
+</ul>
+</div>
+<div class="fragment" data-fragment-index="5" style="font-size: 0.8em;">
+<ul>
+<li>A spatially balanced sampling design was utilized to select the transects for the study and the same transects were walked in each of the years of the study.</li>
+</ul>
+</div>
+<div class="fragment" data-fragment-index="6" style="font-size: 0.8em;">
+<ul>
+<li>we will first treat ‘YEAR’ as a categorical variable and assume a logit link for relating the relative abundance of forbs to ‘YEAR’ as well as ‘Transect’. We will also scale year such that 1996 is the baseline year.</li>
+</ul>
+</div>
+</section>
+<section id="glmm2" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
+<h2><span style="color:#001F3F; font-size: 55px;">GLMM(2)</span></h2>
+<div class="fragment" data-fragment-index="1" style="font-size: 0.8em;">
+<p><span class="math display">\[
+\begin{gathered}
+Y_i \sim \operatorname{Bin}\left(n_i, \pi_i\right) \\
+\operatorname{logit}\left(\pi_i\right)=\mathbf{X}_i \underline{\beta}+\mathbf{Z}_i \delta_i
+\end{gathered}
+\]</span></p>
+<p><span class="math display">\[
+\underline{\beta} =
+\begin{bmatrix}
+\beta_0 \\
+\beta_1 \\
+\beta_2 \\
+\beta_3 \\
+\beta_4 \\
+\beta_5 \\
+\end{bmatrix}
+\]</span></p>
+</div>
+<div class="fragment" data-fragment-index="2" style="font-size: 0.7em;">
+<ul>
+<li><span class="math inline">\(\underline{\beta}\)</span> is the vector of fixed effects (<span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> through to <span class="math inline">\(\beta_5\)</span>)</li>
+<li><span class="math inline">\(\beta_0\)</span> is the population relative abundance of forbs at year 0 over all transects</li>
+<li><span class="math inline">\(\beta_1\)</span> through to <span class="math inline">\(\beta_5\)</span> is the change in the log odds from the reference category (year 0) for every other year (year 1 through year 5) for the relative abundance of forbs.</li>
+<li><span class="math inline">\(\boldsymbol{\delta}\)</span> is the vector of random effects (the mean relative abundance of forbs for each transect).</li>
+<li><span class="math inline">\(\mathbf{X}\)</span> is the fixed effects design matrix which comes from our predictors</li>
+<li><span class="math inline">\(\mathbf{Z}\)</span> is the random effects incidence matrix.</li>
+</ul>
+</div>
+</section>
+<section id="forbs-glmm-code" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
+<h2><span style="color:#001F3F; font-size: 55px;">Forbs GLMM Code</span></h2>
+<div class="fragment" data-fragment-index="1" style="font-size: 0.7em;">
+<p>Interpreting the coefficients from GLMM with a proportion as the response and assuming a binomial distribution makes the coefficients difficult. So we will focus on how to fit the models in code, perform model selection, and plot the bootstrapped conditional predictions.</p>
+</div>
+<div class="fragment" data-fragment-index="2">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="fu">library</span>(lme4)</span>
+<span id="cb10-2"><a href=""></a>forbs <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"forbs.csv"</span>)</span>
+<span id="cb10-3"><a href=""></a>forbs<span class="sc">$</span>sc_year <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(forbs<span class="sc">$</span>sc_year)</span>
+<span id="cb10-4"><a href=""></a><span class="fu">levels</span>(forbs<span class="sc">$</span>sc_year) <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb10-5"><a href=""></a>R.abnd.forb <span class="ot">&lt;-</span> <span class="fu">with</span>(forbs,<span class="fu">cbind</span>(sumcov, totcov <span class="sc">-</span> sumcov))</span>
+<span id="cb10-6"><a href=""></a>forbs<span class="sc">$</span>R.abnd.forb <span class="ot">&lt;-</span> R.abnd.forb</span>
+<span id="cb10-7"><a href=""></a></span>
+<span id="cb10-8"><a href=""></a><span class="co"># ci.cs (logistic regression)</span></span>
+<span id="cb10-9"><a href=""></a>m0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(R.abnd.forb <span class="sc">~</span> sc_year, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>),</span>
+<span id="cb10-10"><a href=""></a>           <span class="at">data=</span>forbs)</span>
+<span id="cb10-11"><a href=""></a><span class="co"># ri.cs</span></span>
+<span id="cb10-12"><a href=""></a>m1 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(R.abnd.forb <span class="sc">~</span> sc_year <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>TRANSECT), <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>),</span>
+<span id="cb10-13"><a href=""></a>           <span class="at">data=</span>forbs)</span>
+<span id="cb10-14"><a href=""></a><span class="co"># ri.rs(ind)</span></span>
+<span id="cb10-15"><a href=""></a>m2 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(R.abnd.forb <span class="sc">~</span> sc_year <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>TRANSECT)<span class="sc">+</span>(<span class="dv">0</span><span class="sc">+</span>sc_year<span class="sc">|</span>TRANSECT), </span>
+<span id="cb10-16"><a href=""></a>            <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>),<span class="at">data=</span>forbs)</span>
+<span id="cb10-17"><a href=""></a><span class="co"># ci.rs</span></span>
+<span id="cb10-18"><a href=""></a>m3 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(R.abnd.forb <span class="sc">~</span> sc_year <span class="sc">+</span> (<span class="dv">0</span><span class="sc">+</span>sc_year<span class="sc">|</span>TRANSECT), </span>
+<span id="cb10-19"><a href=""></a>            <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>),<span class="at">data=</span>forbs)</span>
+<span id="cb10-20"><a href=""></a><span class="co"># ri.rs(cor)</span></span>
+<span id="cb10-21"><a href=""></a>m4 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(R.abnd.forb <span class="sc">~</span> sc_year <span class="sc">+</span> (<span class="dv">1</span><span class="sc">+</span>sc_year<span class="sc">|</span>TRANSECT), </span>
+<span id="cb10-22"><a href=""></a>            <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>),<span class="at">data=</span>forbs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="model-selection" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
+<h2><span style="color:#001F3F; font-size: 55px;">Model Selection</span></h2>
+<div class="fragment" data-fragment-index="1">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>mods <span class="ot">&lt;-</span> <span class="fu">list</span>(m0,m1,m2,m3,m4)</span>
+<span id="cb11-2"><a href=""></a>mods.AIC <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">lapply</span>(mods, AIC))</span>
+<span id="cb11-3"><a href=""></a><span class="fu">names</span>(mods.AIC) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"ci.cs"</span>, <span class="st">"ri.cs"</span>, <span class="st">"ri.rs(ind)"</span>, <span class="st">"ci.rs"</span>, <span class="st">"ri.rs(cor)"</span>)</span>
+<span id="cb11-4"><a href=""></a>(mods.AIC <span class="ot">&lt;-</span> <span class="fu">sort</span>(mods.AIC))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     ci.rs ri.rs(cor) ri.rs(ind)      ri.cs      ci.cs 
+    767.48     767.48     769.48     858.06    1011.47 </code></pre>
+</div>
+</div>
+</div>
+<div class="fragment" data-fragment-index="2">
+<p><strong>Chi squared test for comparing correlated and Uncorrelated Slopes</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="fu">anova</span>(m2,m4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Data: forbs
+Models:
+m4: R.abnd.forb ~ sc_year + (1 + sc_year | TRANSECT)
+m2: R.abnd.forb ~ sc_year + (1 | TRANSECT) + (0 + sc_year | TRANSECT)
+   npar AIC BIC logLik deviance Chisq Df Pr(&gt;Chisq)
+m4   27 767 845   -357      713                    
+m2   28 769 850   -357      713     0  1          1</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment" data-fragment-index="3" style="font-size: 0.7em;">
+<p><span class="math display">\[
+\begin{aligned}
+H_0 &amp;: \text{The full Model is not different than the reduced model} \\
+H_A &amp;: \text{The reduced Model is different than the reduced model}
+\end{aligned}
+\]</span></p>
+</div>
+<div class="fragment" data-fragment-index="4" style="font-size: 0.7em;">
+<p>From AIC we see that correlated random intercepts and random slopes is the preferred model as well as being supported by our test between <code>m2</code> (independent random intercepts and random slopes) and <code>m4</code> (correlated random intercepts and random slopes) with a p-value small than our <span class="math inline">\(\alpha\)</span> of 0.05.</p>
+</div>
+</section>
+<section id="bootstrapped-predictions" class="slide level2" data-background-image="images/background_1.png" data-background-size="cover">
+<h2><span style="color:#001F3F; font-size: 55px;">Bootstrapped Predictions</span></h2>
+<p>Now, considering ’YEAR’s as categorical, we will find the 95% boot‐strapped confidence intervals for the relative proportion of forbs in each year on the refuge.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">library</span>(tictoc)</span>
+<span id="cb15-2"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb15-3"><a href=""></a></span>
+<span id="cb15-4"><a href=""></a>toPropMarg <span class="ot">&lt;-</span> <span class="cf">function</span>(mod){</span>
+<span id="cb15-5"><a href=""></a>  X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(mod); X <span class="ot">&lt;-</span> X[,<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(X)]</span>
+<span id="cb15-6"><a href=""></a>  beta <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">fixef</span>(mod))</span>
+<span id="cb15-7"><a href=""></a>(<span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(<span class="sc">-</span>X  <span class="sc">%*%</span> beta)))[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>] <span class="co"># marginals </span></span>
+<span id="cb15-8"><a href=""></a>}</span>
+<span id="cb15-9"><a href=""></a></span>
+<span id="cb15-10"><a href=""></a>forbs<span class="sc">$</span>sc_year <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(forbs<span class="sc">$</span>sc_year)</span>
+<span id="cb15-11"><a href=""></a><span class="fu">levels</span>(forbs<span class="sc">$</span>sc_year) <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb15-12"><a href=""></a></span>
+<span id="cb15-13"><a href=""></a><span class="co"># ri.cs</span></span>
+<span id="cb15-14"><a href=""></a>m1 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(R.abnd.forb <span class="sc">~</span> sc_year <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>TRANSECT), <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>),</span>
+<span id="cb15-15"><a href=""></a>           <span class="at">data=</span>forbs)</span>
+<span id="cb15-16"><a href=""></a></span>
+<span id="cb15-17"><a href=""></a><span class="fu">tic</span>() <span class="co"># timing run time </span></span>
+<span id="cb15-18"><a href=""></a>bb <span class="ot">&lt;-</span> <span class="fu">bootMer</span>(m1, <span class="at">FUN=</span>toPropMarg, <span class="at">nsim =</span> <span class="dv">200</span>,</span>
+<span id="cb15-19"><a href=""></a>              <span class="at">ncpus =</span> parallel<span class="sc">::</span><span class="fu">detectCores</span>() <span class="sc">-</span> <span class="dv">1</span>, <span class="at">parallel =</span> <span class="st">"multicore"</span>)</span>
+<span id="cb15-20"><a href=""></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>4.466 sec elapsed</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a>lci <span class="ot">&lt;-</span> <span class="fu">apply</span>(bb<span class="sc">$</span>t, <span class="dv">2</span>, quantile, <span class="fl">0.025</span>)   </span>
+<span id="cb17-2"><a href=""></a>uci <span class="ot">&lt;-</span> <span class="fu">apply</span>(bb<span class="sc">$</span>t, <span class="dv">2</span>, quantile, <span class="fl">0.975</span>)   </span>
+<span id="cb17-3"><a href=""></a>med <span class="ot">&lt;-</span> <span class="fu">apply</span>(bb<span class="sc">$</span>t, <span class="dv">2</span>, quantile, <span class="fl">0.5</span>)   </span>
+<span id="cb17-4"><a href=""></a>sdev <span class="ot">&lt;-</span> <span class="fu">apply</span>(bb<span class="sc">$</span>t, <span class="dv">2</span>, sd)   </span>
+<span id="cb17-5"><a href=""></a></span>
+<span id="cb17-6"><a href=""></a>ci_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb17-7"><a href=""></a>  <span class="at">Year =</span> <span class="fu">as.character</span>(<span class="fu">unique</span>(forbs<span class="sc">$</span>YEAR)),</span>
+<span id="cb17-8"><a href=""></a>  <span class="at">est =</span> med, <span class="at">sd =</span> sdev, <span class="at">Lower =</span> lci,<span class="at">Upper =</span> uci)</span>
+<span id="cb17-9"><a href=""></a></span>
+<span id="cb17-10"><a href=""></a><span class="fu">ggplot</span>(ci_df, <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">ymin =</span> Lower, <span class="at">ymax =</span> Upper)) <span class="sc">+</span></span>
+<span id="cb17-11"><a href=""></a>  <span class="fu">geom_errorbar</span>(<span class="at">width =</span> <span class="fl">0.2</span>) <span class="sc">+</span>  <span class="co"># Adjust the width as needed</span></span>
+<span id="cb17-12"><a href=""></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb17-13"><a href=""></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"95% Conditional Bootstrapped Confidence Intervals for Each Year"</span>,</span>
+<span id="cb17-14"><a href=""></a>       <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb17-15"><a href=""></a>       <span class="at">y =</span> <span class="st">"Proportion of Forbs"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="index_files/figure-revealjs/boostrap-1.png" width="960" class="r-stretch"></section></section>
+<section id="thank-you" class="title-slide slide level1 center" data-background-color="#447099">
+<h1>Thank you!!</h1>
 <p><svg aria-hidden="true" role="img" viewbox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg> <a href="https://www.linkedin.com/in/daniel-hintz-rstat/" class="custom-link">daniel-hintz</a></p>
 <p><svg aria-hidden="true" role="img" viewbox="0 0 496 512" style="height:1em;width:0.97em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg> <a href="https://github.com/DHintz137" class="custom-link">DHintz137</a></p>
 <p><svg aria-hidden="true" role="img" viewbox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M352 256c0 22.2-1.2 43.6-3.3 64H163.3c-2.2-20.4-3.3-41.8-3.3-64s1.2-43.6 3.3-64H348.7c2.2 20.4 3.3 41.8 3.3 64zm28.8-64H503.9c5.3 20.5 8.1 41.9 8.1 64s-2.8 43.5-8.1 64H380.8c2.1-20.6 3.2-42 3.2-64s-1.1-43.4-3.2-64zm112.6-32H376.7c-10-63.9-29.8-117.4-55.3-151.6c78.3 20.7 142 77.5 171.9 151.6zm-149.1 0H167.7c6.1-36.4 15.5-68.6 27-94.7c10.5-23.6 22.2-40.7 33.5-51.5C239.4 3.2 248.7 0 256 0s16.6 3.2 27.8 13.8c11.3 10.8 23 27.9 33.5 51.5c11.6 26 20.9 58.2 27 94.7zm-209 0H18.6C48.6 85.9 112.2 29.1 190.6 8.4C165.1 42.6 145.3 96.1 135.3 160zM8.1 192H131.2c-2.1 20.6-3.2 42-3.2 64s1.1 43.4 3.2 64H8.1C2.8 299.5 0 278.1 0 256s2.8-43.5 8.1-64zM194.7 446.6c-11.6-26-20.9-58.2-27-94.6H344.3c-6.1 36.4-15.5 68.6-27 94.6c-10.5 23.6-22.2 40.7-33.5 51.5C272.6 508.8 263.3 512 256 512s-16.6-3.2-27.8-13.8c-11.3-10.8-23-27.9-33.5-51.5zM135.3 352c10 63.9 29.8 117.4 55.3 151.6C112.2 482.9 48.6 426.1 18.6 352H135.3zm358.1 0c-30 74.1-93.6 130.9-171.9 151.6c25.5-34.2 45.2-87.7 55.3-151.6H493.4z"></path></svg> <a href="https://dhintz137.github.io/quartz/" class="custom-link">dhintz137.github.io</a></p>
 <p><svg aria-hidden="true" role="img" viewbox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M64 112c-8.8 0-16 7.2-16 16v22.1L220.5 291.7c20.7 17 50.4 17 71.1 0L464 150.1V128c0-8.8-7.2-16-16-16H64zM48 212.2V384c0 8.8 7.2 16 16 16H448c8.8 0 16-7.2 16-16V212.2L322 328.8c-38.4 31.5-93.7 31.5-132 0L48 212.2zM0 128C0 92.7 28.7 64 64 64H448c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z"></path></svg> <a href="dhintz1@uwyo.edu" class="custom-link">dhintz1@uwyo.edu</a></p>
-</div><div class="column" style="width:50%;">
-<p align="center">
-<img src="images/Seth.png" alt="Cover Image" height="250px">
-</p>
-<p><svg aria-hidden="true" role="img" viewbox="0 0 496 512" style="height:1em;width:0.97em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg> <a href="https://github.com/STRankins" class="custom-link">STRankins</a></p>
-<p><svg aria-hidden="true" role="img" viewbox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M352 256c0 22.2-1.2 43.6-3.3 64H163.3c-2.2-20.4-3.3-41.8-3.3-64s1.2-43.6 3.3-64H348.7c2.2 20.4 3.3 41.8 3.3 64zm28.8-64H503.9c5.3 20.5 8.1 41.9 8.1 64s-2.8 43.5-8.1 64H380.8c2.1-20.6 3.2-42 3.2-64s-1.1-43.4-3.2-64zm112.6-32H376.7c-10-63.9-29.8-117.4-55.3-151.6c78.3 20.7 142 77.5 171.9 151.6zm-149.1 0H167.7c6.1-36.4 15.5-68.6 27-94.7c10.5-23.6 22.2-40.7 33.5-51.5C239.4 3.2 248.7 0 256 0s16.6 3.2 27.8 13.8c11.3 10.8 23 27.9 33.5 51.5c11.6 26 20.9 58.2 27 94.7zm-209 0H18.6C48.6 85.9 112.2 29.1 190.6 8.4C165.1 42.6 145.3 96.1 135.3 160zM8.1 192H131.2c-2.1 20.6-3.2 42-3.2 64s1.1 43.4 3.2 64H8.1C2.8 299.5 0 278.1 0 256s2.8-43.5 8.1-64zM194.7 446.6c-11.6-26-20.9-58.2-27-94.6H344.3c-6.1 36.4-15.5 68.6-27 94.6c-10.5 23.6-22.2 40.7-33.5 51.5C272.6 508.8 263.3 512 256 512s-16.6-3.2-27.8-13.8c-11.3-10.8-23-27.9-33.5-51.5zM135.3 352c10 63.9 29.8 117.4 55.3 151.6C112.2 482.9 48.6 426.1 18.6 352H135.3zm358.1 0c-30 74.1-93.6 130.9-171.9 151.6c25.5-34.2 45.2-87.7 55.3-151.6H493.4z"></path></svg> <a href="https://wyocoopunit.org/people/seth-rankins/" class="custom-link">wyocoopunit.org</a></p>
-<p><svg aria-hidden="true" role="img" viewbox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M64 112c-8.8 0-16 7.2-16 16v22.1L220.5 291.7c20.7 17 50.4 17 71.1 0L464 150.1V128c0-8.8-7.2-16-16-16H64zM48 212.2V384c0 8.8 7.2 16 16 16H448c8.8 0 16-7.2 16-16V212.2L322 328.8c-38.4 31.5-93.7 31.5-132 0L48 212.2zM0 128C0 92.7 28.7 64 64 64H448c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z"></path></svg> <a href="srankins@uwyo.edu" class="custom-link">srankins@uwyo.edu</a></p>
-</div>
-</div>
-</section>
-
-<section id="thank-you" class="title-slide slide level1 center" data-background-color="#447099">
-<h1>Thank you!!</h1>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
 </div>
 </div>
 </section>
-
-
     </div>
   </div>
 
