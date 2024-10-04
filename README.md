@@ -1,3 +1,3 @@
 # An Introduction to Linear Models
 
-README in preogress 🚧 
+README in progress 🚧 
